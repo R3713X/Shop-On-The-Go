@@ -10,16 +10,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private static final LatLng MuirsHolden = new LatLng(-33.880037, 151.131253);
-    private static final LatLng McDonalds = new LatLng(-33.874381, 151.126948);
-    private static final LatLng Motorhub = new LatLng(-33.882494, 151.133984);
-    private static final LatLng MilanoFurniture=new LatLng(-33.885611, 151.136831);
-    private static final LatLng BP = new LatLng(-33.873966, 151.126889);
+    String[] names={"MuirsHolden","McDonalds","Motorhub","MilanoFurniture","BP"};
+    Double[] lat={-33.880037,-33.874381,-33.882494,-33.885611,-33.873966};
+    Double[] lon={151.131253,151.126948,151.133984,151.136831,151.126889};
+
+    private ArrayList<MapLocation> getShops()
+    {
+        ArrayList<MapLocation> shops= new ArrayList<>();
+        MapLocation m;
+        for(int i=0;i<names.length;i++)
+        {
+            m=new MapLocation(names[i], lat[i], lon[i]);
+            shops.add(m);
+        }
+        return shops;
+    }
 
 
     @Override
