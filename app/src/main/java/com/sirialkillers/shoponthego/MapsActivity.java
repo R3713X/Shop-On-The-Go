@@ -10,9 +10,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private static final LatLng MuirsHolden = new LatLng(-33.880037, 151.131253);
+    private static final LatLng McDonalds = new LatLng(-33.874381, 151.126948);
+    private static final LatLng Motorhub = new LatLng(-33.882494, 151.133984);
+    private static final LatLng MilanoFurniture=new LatLng(-33.885611, 151.136831);
+    private static final LatLng BP = new LatLng(-33.873966, 151.126889);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
