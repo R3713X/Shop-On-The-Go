@@ -1,5 +1,6 @@
 package com.sirialkillers.shoponthego;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -7,8 +8,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 
 import java.util.ArrayList;
@@ -17,6 +23,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    List<Marker> shopMarkers = new ArrayList<>();
     String[] names={"MuirsHolden","McDonalds","Motorhub","MilanoFurniture","BP"};
     Double[] lat={-33.880037,-33.874381,-33.882494,-33.885611,-33.873966};
     Double[] lon={151.131253,151.126948,151.133984,151.136831,151.126889};
@@ -42,6 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        List<MapLocation> shops=getShops();
     }
 
 
@@ -62,5 +70,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void setShopMarkers() {
+
+        shopMarkers.clear();
+        for (MapLocation m : shops){
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(m.getLat(), m.getLon()))
+                    .title(m.getName())
+                    .visible(false));
+
+            shopMarkers.add(marker);
+        }
+
+
+    Circle circle = mMap.addCircle(new CircleOptions()
+            .center(mylatLng)
+            .radius(400)
+            .strokeColor(Color.rgb(0, 136, 255))
+            .fillColor(Color.argb(20, 0, 136, 255)));
+
+
+
+
+    for (Marker marker : shopMarkers) {
+        if (SphericalUtil.computeDistanceBetween(mylatLng, marker.getPosition()) < 400) {
+            marker.setVisible(true);
+        }
     }
 }
