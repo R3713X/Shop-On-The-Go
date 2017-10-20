@@ -49,7 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        List<MapLocation> shops=getShops();
+
+
     }
 
 
@@ -68,13 +69,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
+        List<MapLocation> shops=getShops();
+        setShopMarkers(shops);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
-    public void setShopMarkers() {
+    public void setShopMarkers(List<MapLocation> shops) {
 
         shopMarkers.clear();
+
         for (MapLocation m : shops){
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(m.getLat(), m.getLon()))
