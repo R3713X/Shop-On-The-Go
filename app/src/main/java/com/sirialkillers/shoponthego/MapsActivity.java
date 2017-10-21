@@ -26,6 +26,8 @@ import java.util.List;
 import org.w3c.dom.Text;
 
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -106,12 +108,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+ ViewShops#2
+        // Add a marker for every shop that is contained in list shops.
+        // and move the map's camera to the same location.
+        ArrayList<MapLocation> shops = new ArrayList<>();
+        shops = getShops();
+      
+        for (int i = 0; i<names.length; i++){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())).title(shops.get(i).getName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())));
+
+        }
+
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         List<MapLocation> shops=getShops();
         setShopMarkers(shops);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+ development
     }
 
     public void setShopMarkers(List<MapLocation> shops) {
