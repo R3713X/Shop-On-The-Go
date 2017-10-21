@@ -25,17 +25,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     List<Marker> shopMarkers = new ArrayList<>();
-    String[] names={"MuirsHolden","McDonalds","Motorhub","MilanoFurniture","BP"};
-    Double[] lat={-33.880037,-33.874381,-33.882494,-33.885611,-33.873966};
-    Double[] lon={151.131253,151.126948,151.133984,151.136831,151.126889};
+    String[] names = {"MuirsHolden", "McDonalds", "Motorhub", "MilanoFurniture", "BP"};
+    Double[] lat = {-33.880037, -33.874381, -33.882494, -33.885611, -33.873966};
+    Double[] lon = {151.131253, 151.126948, 151.133984, 151.136831, 151.126889};
 
-    private ArrayList<MapLocation> getShops()
-    {
-        ArrayList<MapLocation> shops= new ArrayList<>();
+    private ArrayList<MapLocation> getShops() {
+        ArrayList<MapLocation> shops = new ArrayList<>();
         MapLocation m;
-        for(int i=0;i<names.length;i++)
-        {
-            m=new MapLocation(names[i], lat[i], lon[i]);
+        for (int i = 0; i < names.length; i++) {
+            m = new MapLocation(names[i], lat[i], lon[i]);
             shops.add(m);
         }
         return shops;
@@ -54,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters.
         SeekBar rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
-        final TextView radiusDisplayTextView =(TextView) findViewById(R.id.radiusTextView);
+        final TextView radiusDisplayTextView = (TextView) findViewById(R.id.radiusTextView);
         //Setting the maxumum range of the radius to 1500 meters and the (starting) current progress to 750 meters.
         rangeControlSeekBar.setMax(1400);
         rangeControlSeekBar.setProgress(650);
@@ -69,9 +67,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //We use realProgress to make the minmum ammount of meters to 100;
                 //We should also use realProgress to count the meters of the radius as well.
                 int realProgress;
-                realProgress=progress+100;
+                realProgress = progress + 100;
                 Log.i("Seekbar", Integer.toString(progress));
-                radiusDisplayTextView.setText("Your current radius is: "+Integer.toString(realProgress)+" meters.");
+                radiusDisplayTextView.setText("Your current radius is: " + Integer.toString(realProgress) + " meters.");
 
             }
 
@@ -104,7 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker for every shop that is contained in list shops.
         // and move the map's camera to the same location.
 
-        List<MapLocation> shops=getShops();
+        List<MapLocation> shops = getShops();
       
         /*for (int i = 0; i<names.length; i++){
             mMap.addMarker(new MarkerOptions().position(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())).title(shops.get(i).getName()));
@@ -118,7 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         shopMarkers.clear();
 
-        for (MapLocation m : shops){
+        for (MapLocation m : shops) {
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(m.getLat(), m.getLon()))
                     .title(m.getName())
@@ -128,18 +126,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
-    Circle circle = mMap.addCircle(new CircleOptions()
-            .center(mylatLng)
-            .radius(400)
-            .strokeColor(Color.rgb(0, 136, 255))
-            .fillColor(Color.argb(20, 0, 136, 255)));
+        Circle circle = mMap.addCircle(new CircleOptions()
+                .center(mylatLng)
+                .radius(400)
+                .strokeColor(Color.rgb(0, 136, 255))
+                .fillColor(Color.argb(20, 0, 136, 255)));
 
 
-
-
-    for (Marker marker : shopMarkers) {
-        if (SphericalUtil.computeDistanceBetween(mylatLng, marker.getPosition()) < 400) {
-            marker.setVisible(true);
+        for (Marker marker : shopMarkers) {
+            if (SphericalUtil.computeDistanceBetween(mylatLng, marker.getPosition()) < 400) {
+                marker.setVisible(true);
+            }
         }
     }
 }
