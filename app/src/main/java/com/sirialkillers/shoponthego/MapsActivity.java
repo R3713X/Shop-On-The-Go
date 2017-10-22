@@ -127,6 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        final List<MapLocation> shops = getShops();
         if (broadcastReceiver==null){
             broadcastReceiver=new BroadcastReceiver() {
                 
@@ -136,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                    setShopMarkers(shops,userLocation);
 
 
                 }
@@ -146,14 +148,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker for every shop that is contained in list shops.
         // and move the map's camera to the same location.
 
-        List<MapLocation> shops = getShops();
+
 
         /*for (int i = 0; i<names.length; i++){
             mMap.addMarker(new MarkerOptions().position(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())).title(shops.get(i).getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())));
 
         }*/
-        setShopMarkers(shops);
+
 
 
     }
@@ -164,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    public void setShopMarkers(List<MapLocation> shops) {
+    public void setShopMarkers(List<MapLocation> shops ,LatLng userLocation) {
 
         shopMarkers.clear();
 
@@ -179,14 +181,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         Circle circle = mMap.addCircle(new CircleOptions()
-                .center(mylatLng)
+                .center(userLocation)
                 .radius(400)
                 .strokeColor(Color.rgb(0, 136, 255))
                 .fillColor(Color.argb(20, 0, 136, 255)));
 
 
         for (Marker marker : shopMarkers) {
-            if (SphericalUtil.computeDistanceBetween(mylatLng, marker.getPosition()) < 400) {
+            if (SphericalUtil.computeDistanceBetween(userLocation, marker.getPosition()) < 400) {
                 marker.setVisible(true);
             }
 
