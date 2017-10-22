@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //Used for Hockey App
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "ecc657ddeee74655925287c817cd7d1e"]
     }
     buildTypes {
         release {
@@ -28,4 +30,14 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.maps.android:android-maps-utils:0.5+'
     testCompile 'junit:junit:4.12'
+
+    //Used for Hockey App
+    compile 'net.hockeyapp.android:HockeySDK:5.0.2'
+}
+
+//Used for Hockey App
+allprojects {
+    repositories {
+        jcenter()
+    }
 }

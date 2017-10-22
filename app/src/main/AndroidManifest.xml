@@ -35,6 +35,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+          <meta-data 
+            android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">

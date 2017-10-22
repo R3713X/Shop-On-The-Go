@@ -1,6 +1,5 @@
 package com.sirialkillers.shoponthego;
 
-
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -35,6 +34,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
+
+import net.hockeyapp.android.CrashManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,10 +111,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
-
+        checkForUpdates(); //Used for HockeyApp
     }
 
+    //CrashReporting and Beta-Distribution for HockeyApp.
+  @Override
+  public void onResume() {
+    super.onResume();
+    // ... your own onResume implementation
+    checkForCrashes();
+  }
+  //CrashReporting and Beta-Distribution for HockeyApp.
+  @Override
+  public void onPause() {
+    super.onPause();
+    unregisterManagers();
+  }
+  //CrashReporting and Beta-Distribution for HockeyApp.
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    unregisterManagers();
+  }
+  //CrashReporting and Beta-Distribution for HockeyApp.
+  private void checkForCrashes() {
+    CrashManager.register(this);
+  }
+  //CrashReporting and Beta-Distribution for HockeyApp.
+  private void checkForUpdates() {
+    // Remove this for store builds!
+    UpdateManager.register(this);
+  }
+  //CrashReporting and Beta-Distribution for HockeyApp.
+  private void unregisterManagers() {
+    UpdateManager.unregister();
+  }
 
     /**
      * Manipulates the map once available.
@@ -155,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())));
 
         }*/
-
 
 
     }
