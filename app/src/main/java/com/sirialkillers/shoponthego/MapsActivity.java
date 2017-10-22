@@ -60,6 +60,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return shops;
     }
 
+    CircleOptions circle = new CircleOptions()
+            .center(userLocation)
+            .radius(400)
+            .strokeColor(Color.rgb(0, 136, 255))
+            .fillColor(Color.argb(20, 0, 136, 255));
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +144,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
                     setShopMarkers(shops,userLocation);
+                    mMap.addCircle(circle);
 
 
                 }
@@ -176,15 +183,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(m.getName())
                     .visible(false));
 
+            circle.center(userLocation);
+
             shopMarkers.add(marker);
         }
 
 
-        Circle circle = mMap.addCircle(new CircleOptions()
-                .center(userLocation)
-                .radius(400)
-                .strokeColor(Color.rgb(0, 136, 255))
-                .fillColor(Color.argb(20, 0, 136, 255)));
+
 
 
         for (Marker marker : shopMarkers) {
