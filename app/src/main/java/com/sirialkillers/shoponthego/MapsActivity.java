@@ -46,10 +46,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng userLocation;
 
     List<Marker> shopMarkers = new ArrayList<>();
+    //arrays to initialize markers, to be removed when database is connected
     String[] names = {"MuirsHolden", "McDonalds", "Motorhub", "MilanoFurniture", "BP"};
     Double[] lat = {-33.880037, -33.874381, -33.882494, -33.885611, -33.873966};
     Double[] lon = {151.131253, 151.126948, 151.133984, 151.136831, 151.126889};
 
+    //generates arraylist of shop information
     private ArrayList<MapLocation> getShops() {
         ArrayList<MapLocation> shops = new ArrayList<>();
         MapLocation m;
@@ -60,6 +62,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return shops;
     }
 
+    //Creates circle around user's location to show chosen radius on map
+    //change radius to realProgress when ready
     CircleOptions circle = new CircleOptions()
             .center(userLocation)
             .radius(400)
@@ -172,7 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+    //sets the markers for all the shops on the map
     public void setShopMarkers(List<MapLocation> shops ,LatLng userLocation) {
 
         shopMarkers.clear();
@@ -184,6 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .visible(false));
 
             circle.center(userLocation);
+            //add circle.radius(realProgress) when ready
 
             shopMarkers.add(marker);
         }
@@ -191,8 +196,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+    //used to show the user only the markers inside chosen radius
         for (Marker marker : shopMarkers) {
+            //change marker.getPosition()) < 400 to marker.getPosition()) < realProgress when ready
             if (SphericalUtil.computeDistanceBetween(userLocation, marker.getPosition()) < 400) {
                 marker.setVisible(true);
             }
