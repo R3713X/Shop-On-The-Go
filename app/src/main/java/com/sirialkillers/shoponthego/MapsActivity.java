@@ -26,7 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-import com.google.android.gms.maps.model.Circle;
+
 import com.google.android.gms.maps.model.CircleOptions;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -44,8 +44,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
     LatLng userLocation;
+    //This will be the radius of the circle in which we can see the shops of the map
+    int realProgress=750;
 
     List<Marker> shopMarkers = new ArrayList<>();
+    //creating a circle that would signify the viewing range on the map
+    private CircleOptions circle = new CircleOptions()
+            .strokeColor(Color.rgb(0, 136, 255))
+            .fillColor(Color.argb(50, 0, 136, 255))
+            .radius(realProgress);
     //arrays to initialize markers, to be removed when database is connected
     String[] names = {"MuirsHolden", "McDonalds", "Motorhub", "MilanoFurniture", "BP"};
     Double[] lat = {-33.880037, -33.874381, -33.882494, -33.885611, -33.873966};
@@ -62,13 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return shops;
     }
 
-    //Creates circle around user's location to show chosen radius on map
-    //change radius to realProgress when ready
-    CircleOptions circle = new CircleOptions()
-            .center(userLocation)
-            .radius(400)
-            .strokeColor(Color.rgb(0, 136, 255))
-            .fillColor(Color.argb(20, 0, 136, 255));
+
 
 
     @Override
@@ -86,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
+
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters.
         SeekBar rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
         final TextView radiusDisplayTextView = (TextView) findViewById(R.id.radiusTextView);
@@ -100,22 +102,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //Updating the Textview for the radius as the seekbar progress changes
-                //We use realProgress to make the minmum ammount of meters to 100;
-                //We should also use realProgress to count the meters of the radius as well.
-                int realProgress;
+                //We use realProgress to make the minimum ammount of meters to 100;
+                //Changing the circles color while it changes attributes
+                circle
+                        .center(userLocation)
+                        .radius(realProgress)
+                        .strokeColor(Color.rgb(127,255,0))
+                        .fillColor(Color.argb(50, 127,255,0));
+
+
                 realProgress = progress + 100;
                 Log.i("Seekbar", Integer.toString(progress));
                 radiusDisplayTextView.setText("Your current radius is: " + Integer.toString(realProgress) + " meters.");
 
+                SeekMap(mMap);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                circle
+                        .strokeColor(Color.rgb(127,255,0))
+                        .fillColor(Color.argb(50, 127,255,0));
 
+                SeekMap(mMap);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                circle
+                        .strokeColor(Color.rgb(0, 136, 255))
+                        .fillColor(Color.argb(50, 0, 136, 255));
+
+                SeekMap(mMap);
 
             }
         });
@@ -140,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final List<MapLocation> shops = getShops();
         if (broadcastReceiver==null){
             broadcastReceiver=new BroadcastReceiver() {
-                
+
                 public void onReceive(Context context, Intent intent) {
 
                     userLocation=new LatLng(intent.getExtras().getDouble("Lat"),intent.getExtras().getDouble("Long"));
@@ -148,13 +166,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
                     setShopMarkers(shops,userLocation);
+                    circle.center(userLocation);
                     mMap.addCircle(circle);
-
+                    ShowShopMarkers();
 
                 }
             };
             registerReceiver(broadcastReceiver,new IntentFilter("location update"));
         }
+
+
 
         // Add a marker for every shop that is contained in list shops.
         // and move the map's camera to the same location.
@@ -170,13 +191,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+    //This redraws the map elements whenever we interact with the SeekBar
+    public void SeekMap(GoogleMap mMap){
+        final List<MapLocation> shops = getShops();
+
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
+        setShopMarkers(shops,userLocation);
+        mMap.addCircle(circle);
+        ShowShopMarkers();
+    }
 
 
 
 
-
-
-    //sets the markers for all the shops on the map
+    //Sets the shop markers for all the shops on the map.
     public void setShopMarkers(List<MapLocation> shops ,LatLng userLocation) {
 
         shopMarkers.clear();
@@ -187,20 +216,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(m.getName())
                     .visible(false));
 
-            circle.center(userLocation);
-            //add circle.radius(realProgress) when ready
 
             shopMarkers.add(marker);
         }
+    }
+         //Shows the shop markers inside chosen radius
+        public void  ShowShopMarkers(){
 
-
-
-
-    //used to show the user only the markers inside chosen radius
         for (Marker marker : shopMarkers) {
-            //change marker.getPosition()) < 400 to marker.getPosition()) < realProgress when ready
-            if (SphericalUtil.computeDistanceBetween(userLocation, marker.getPosition()) < 400) {
+            if (SphericalUtil.computeDistanceBetween(userLocation, marker.getPosition()) < realProgress) {
                 marker.setVisible(true);
+            }else{
+                marker.setVisible(false);
             }
 
         }
