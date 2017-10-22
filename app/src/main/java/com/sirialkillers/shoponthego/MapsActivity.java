@@ -42,6 +42,8 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private BroadcastReceiver broadcastReceiver;
+    LatLng userLocation;
 
     List<Marker> shopMarkers = new ArrayList<>();
     String[] names = {"MuirsHolden", "McDonalds", "Motorhub", "MilanoFurniture", "BP"};
@@ -58,11 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return shops;
     }
 
-    private BroadcastReceiver broadcastReceiver;
-    LatLng userLocation;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +69,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if(!runtime_perimissions()){
+            Intent intent=new Intent(getApplicationContext(),GPS_Service.class);
+            startService(intent);
+
+        }
 
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters.
         SeekBar rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
@@ -107,11 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        if(!runtime_perimissions()){
-            Intent intent=new Intent(getApplicationContext(),GPS_Service.class);
-            startService(intent);
 
-        }
 
     }
 
@@ -144,45 +143,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             registerReceiver(broadcastReceiver,new IntentFilter("location update"));
         }
 
-    }
-
-
-    private boolean runtime_perimissions() {
-        if(Build.VERSION.SDK_INT>=23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-
-            requestPermissions(new  String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},100);
-            return true;
-
-        }
-        return false;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==100){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent=new Intent(getApplicationContext(),GPS_Service.class);
-                startService(intent);
-            }
-            else {
-                runtime_perimissions();
-            }
-
-
         // Add a marker for every shop that is contained in list shops.
         // and move the map's camera to the same location.
 
         List<MapLocation> shops = getShops();
-      
+
         /*for (int i = 0; i<names.length; i++){
             mMap.addMarker(new MarkerOptions().position(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())).title(shops.get(i).getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(shops.get(i).getLat(), shops.get(i).getLat())));
 
         }*/
         setShopMarkers(shops);
+
+
     }
+
+
+
+
+
+
 
     public void setShopMarkers(List<MapLocation> shops) {
 
@@ -208,6 +188,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Marker marker : shopMarkers) {
             if (SphericalUtil.computeDistanceBetween(mylatLng, marker.getPosition()) < 400) {
                 marker.setVisible(true);
+            }
+
+        }
+    }
+
+
+
+
+    private boolean runtime_perimissions() {
+        if(Build.VERSION.SDK_INT>=23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(new  String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},100);
+            return true;
+
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
+                startService(intent);
+            } else {
+                runtime_perimissions();
             }
 
         }
