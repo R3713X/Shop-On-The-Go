@@ -1,35 +1,28 @@
 package com.sirialkillers.shoponthego;
 
-import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.SeekBar;
-import android.widget.TextView;
-
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-
+import android.util.Log;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
-
-import com.google.android.gms.maps.model.CircleOptions;
-
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,6 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng userLocation;
     //This will be the radius of the circle in which we can see the shops of the map
     int realProgress=750;
+    MapLocation mp=new MapLocation();
 
     List<Marker> shopMarkers = new ArrayList<>();
     //creating a circle that would signify the viewing range on the map
@@ -56,20 +50,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             .fillColor(Color.argb(50, 0, 136, 255))
             .radius(realProgress);
     //arrays to initialize markers, to be removed when database is connected
-    String[] names = {"MuirsHolden", "McDonalds", "Motorhub", "MilanoFurniture", "BP"};
-    Double[] lat = {-33.880037, -33.874381, -33.882494, -33.885611, -33.873966};
-    Double[] lon = {151.131253, 151.126948, 151.133984, 151.136831, 151.126889};
+    Circle myCircle;
+    
 
-    //generates arraylist of shop information
-    private ArrayList<MapLocation> getShops() {
-        ArrayList<MapLocation> shops = new ArrayList<>();
-        MapLocation m;
-        for (int i = 0; i < names.length; i++) {
-            m = new MapLocation(names[i], lat[i], lon[i]);
-            shops.add(m);
-        }
-        return shops;
-    }
 
 
 
@@ -83,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if(!runtime_perimissions()){
+        if(!runtime_permissions()){
             Intent intent=new Intent(getApplicationContext(),GPS_Service.class);
             startService(intent);
 
@@ -188,7 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        final List<MapLocation> shops = getShops();
+        final List<MapLocation> shops = mp.getShops();
         if (broadcastReceiver==null){
             broadcastReceiver=new BroadcastReceiver() {
 
@@ -198,9 +181,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                    setShopMarkers(shops,userLocation);
+                    setShopMarkers(shops);
                     circle.center(userLocation);
-                    mMap.addCircle(circle);
+                    myCircle = mMap.addCircle(circle);
                     ShowShopMarkers();
 
                 }
@@ -225,12 +208,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     //This redraws the map elements whenever we interact with the SeekBar
     public void SeekMap(GoogleMap mMap){
-        final List<MapLocation> shops = getShops();
+        final List<MapLocation> shops = mp.getShops();
 
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
-        setShopMarkers(shops,userLocation);
-        mMap.addCircle(circle);
+        setShopMarkers(shops);
+        myCircle=mMap.addCircle(circle);
         ShowShopMarkers();
     }
 
@@ -238,7 +221,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     //Sets the shop markers for all the shops on the map.
-    public void setShopMarkers(List<MapLocation> shops ,LatLng userLocation) {
+    public void setShopMarkers(List<MapLocation> shops) {
 
         shopMarkers.clear();
 
@@ -268,7 +251,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    private boolean runtime_perimissions() {
+    private boolean runtime_permissions() {
         if(Build.VERSION.SDK_INT>=23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
 
@@ -287,7 +270,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
                 startService(intent);
             } else {
-                runtime_perimissions();
+                runtime_permissions();
             }
 
         }

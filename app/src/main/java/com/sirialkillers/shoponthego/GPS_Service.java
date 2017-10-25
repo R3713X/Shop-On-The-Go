@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
  * Created by Xristos Aslamagidis on 22/10/2017.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class GPS_Service extends Service {
 
     LocationListener locationListener;
