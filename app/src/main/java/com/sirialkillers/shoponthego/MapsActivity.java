@@ -178,13 +178,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onReceive(Context context, Intent intent) {
 
                     userLocation=new LatLng(intent.getExtras().getDouble("Lat"),intent.getExtras().getDouble("Long"));
-                    mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
+                    DrawOnMap(shops, userLocation);
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                    setShopMarkers(shops);
-                    circle.center(userLocation);
-                    myCircle = mMap.addCircle(circle);
-                    ShowShopMarkers();
 
                 }
             };
@@ -210,10 +205,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void SeekMap(GoogleMap mMap){
         final List<MapLocation> shops = mp.getShops();
 
+        DrawOnMap(shops, userLocation);
+    }
+
+    public void DrawOnMap(List<MapLocation> shops, LatLng userLocation){
+        shops=shops;
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.iconbluedot)));
         setShopMarkers(shops);
-        myCircle=mMap.addCircle(circle);
+        circle.center(userLocation);
+        myCircle = mMap.addCircle(circle);
         ShowShopMarkers();
     }
 
