@@ -32,13 +32,20 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.maps.android:android-maps-utils:0.5+'
     testCompile 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1 '
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
     //Used for Hockey App
     compile 'net.hockeyapp.android:HockeySDK:5.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
 }
 
 //Used for Hockey App
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
