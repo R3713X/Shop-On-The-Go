@@ -1,10 +1,13 @@
 package com.sirialkillers.shoponthego;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -41,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
@@ -58,19 +61,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         if (!runtime_perimissions()) {
             Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
             startService(intent);
         }
 
-        //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters.
+        //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
         rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
         radiusDisplayTextView = (TextView) findViewById(R.id.radiusTextView);
+        final ProgressBar progressBar =(ProgressBar)findViewById(R.id.progressBar);
+        final ProgressBar progressBarSmall = (ProgressBar)findViewById(R.id.progressBarSmall);
         this.configureRangeControlSeekBar();
         this.onChangeRangeControlSeekBar();
         listOfShops = new ListOfShops();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBarSmall.setVisibility(View.INVISIBLE);
+                radiusDisplayTextView.setVisibility(View.VISIBLE);
+                rangeControlSeekBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+
+            }
+        },Loadtime);
 
         checkForUpdates(); //Used for HockeyApp
     }
