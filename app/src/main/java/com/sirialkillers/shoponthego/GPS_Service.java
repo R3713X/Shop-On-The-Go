@@ -1,5 +1,6 @@
 package com.sirialkillers.shoponthego;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class GPS_Service extends Service {
         return null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onCreate() {
         locationListener=new LocationListener() {
