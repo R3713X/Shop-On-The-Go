@@ -9,16 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Ioakeim James Theologou on 31/10/2017.
- * This class is based on Spring Framework and is
- * used as a controller to receive data from the
- * server.
+ * @author Ioakeim James Theologou
+ * @version 31/10/2017
+ *
  */
 
 public class ShopController {
     /**
-     * Get data as mapped object
-     * @returns a list of shops.
+     * Returns a list of shops that are accessible for further use.
+     * @return the list of shops
      */
     public ArrayList<ShopModel> getShops(){
         final String url = "http://localhost:8080/shops";
@@ -29,9 +28,9 @@ public class ShopController {
     }
 
     /**
-     * Searches for a shop that matches @shopId.
-     * @shopId is used to match the shop.
-     * @returns a shop that matches the id.
+     * Returns a shop that matches the shopId.
+     * @param shopId The id of the shop
+     * @return the shop
      */
     public ShopModel getShopById(Integer shopId){
         final String url = "http://localhost:8080/shops/{id}";
@@ -44,9 +43,9 @@ public class ShopController {
 
     /**
      * Creates a new shop.
-     * @id is used to set the id of the new shop.
-     * @name is used to set the name of the new shop.
-     * @returns the new shop that was created.
+     * @param id the id of the shop
+     * @param name the name of the shop
+     * @return the shop that was created
      */
     public ShopModel createShop(int id, String name){
         final String url = "http://localhost:8080/shops";
@@ -57,9 +56,9 @@ public class ShopController {
 
 
     /**
-     * Updates a shop.
-     * @param shopId is used to set the id of the new shop.
-     * @param name is used to set the name of the new shop.
+     * Updates a already existing shop.
+     * @param shopId the id of the shop that will get updated
+     * @param name the name that will replace the old name of the shop
      */
     public void updateShop(int shopId, String name){
         final String url = "http://localhost:8080/shops/{id}";
@@ -71,9 +70,8 @@ public class ShopController {
     }
 
     /**
-     * Deletes a shop.
-     * @param shopId is used to set the id
-     * of the shop that will get deleted.
+     * Deletes a shop that exists.
+     * @param shopId the id of the shop that will get deleted
      */
     public void deleteShop(int shopId){
         final String url = "http://localhost:8080/shops/{id}";
