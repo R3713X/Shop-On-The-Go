@@ -39,9 +39,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
