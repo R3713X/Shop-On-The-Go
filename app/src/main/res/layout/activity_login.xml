@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
     tools:context="com.frt.shop2910.LoginActivity">
 
     <ProgressBar
@@ -15,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/loginActivityConstrainLayout"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="488dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -41,17 +42,18 @@
             android:id="@+id/passwordTextView"
             android:layout_width="wrap_content"
             android:layout_height="21dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Password"
-            android:textColor="@android:color/holo_blue_light"
-            app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
+            android:textColor="@color/hockeyapp_text_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.027"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailEditText"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.325" />
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -64,7 +66,7 @@
             android:hint="Enter your Password"
             android:inputType="textPassword"
             android:textAllCaps="false"
-            android:textColorHint="@android:color/holo_blue_dark"
+            android:textColorHint="@color/hockeyapp_text_light"
             app:layout_constraintBottom_toTopOf="@+id/gridLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -78,13 +80,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Email"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@color/hockeyapp_text_white"
             app:layout_constraintBottom_toTopOf="@+id/passwordTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.762" />
+            app:layout_constraintVertical_bias="0.735" />
 
         <EditText
             android:id="@+id/emailEditText"
@@ -97,8 +99,8 @@
             android:ems="10"
             android:hint="Enter your Email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textColorHint="@android:color/holo_blue_dark"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/hockeyapp_text_light"
             app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.533"
@@ -110,26 +112,29 @@
             android:id="@+id/signUpTextView"
             android:layout_width="91dp"
             android:layout_height="18dp"
+            android:layout_marginBottom="8dp"
+
+
             android:layout_marginEnd="8dp"
+
             android:layout_marginStart="7dp"
-
-
-            android:layout_marginTop="468dp"
-
+            android:layout_marginTop="452dp"
             android:contentDescription="@android:string/untitled"
             android:text="Sign Up"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/hockeyapp_text_white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
 
         <GridLayout
             android:id="@+id/gridLayout"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
@@ -144,17 +149,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.866">
 
-            <ImageButton
-                android:id="@+id/manualLoginButton"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                android:layout_margin="8dp"
-                android:layout_row="0"
-                android:adjustViewBounds="false"
-                android:contentDescription="@android:string/untitled"
-                android:src="@drawable/loginbutton" />
 
             <ImageButton
                 android:id="@+id/facebookLoginButton"
@@ -181,6 +175,21 @@
                 android:paddingEnd="18dp"
                 android:paddingStart="18dp"
                 android:src="@drawable/googlelogin" />
+
+            <Button
+                android:id="@+id/manualLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_column="0"
+                android:layout_columnSpan="2"
+                android:layout_margin="8dp"
+                android:layout_row="0"
+                android:adjustViewBounds="false"
+                android:background="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/untitled"
+                android:elevation="16dp"
+                android:text="LOGIN" />
         </GridLayout>
     </android.support.constraint.ConstraintLayout>
 

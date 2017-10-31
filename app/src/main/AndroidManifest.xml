@@ -40,7 +40,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-
         <service android:name=".GPS_Service" />
 
         <activity android:name=".LoginActivity">

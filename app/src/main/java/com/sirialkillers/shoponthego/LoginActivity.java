@@ -1,31 +1,32 @@
 package com.sirialkillers.shoponthego;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    int loadtime=2000; // 2 seconds
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login); // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.emailEditText);
 
+        TextView signUpTextView = (TextView) findViewById(R.id.signUpTextView);
 
         mPasswordView = (EditText) findViewById(R.id.passwordEditText);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -60,14 +62,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton manualLoginButton = (ImageButton) findViewById(R.id.manualLoginButton);
+        Button manualLoginButton = (Button) findViewById(R.id.manualLoginButton);
         manualLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
-
+        signUpTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSignUpActivity();
+            }
+        });
         mLoginFormView = findViewById(R.id.loginActivityConstrainLayout);
         mProgressView = findViewById(R.id.progressBar);
     }
@@ -111,11 +118,10 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            startActivity(intent);
+            Loading();
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
@@ -145,40 +151,22 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int longtAnimTime = 4000;
+    private void Loading() {
+        mLoginFormView.setVisibility(View.INVISIBLE);
+        mProgressView.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent  intent = new Intent(getApplicationContext(),MapsActivity.class);
+                startActivity(intent);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(longtAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(longtAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+
+            }
+        },loadtime);
     }
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous login task used to authenticate
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -201,23 +189,14 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
+            //TODO: validate with database here
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+
 
             if (success) {
                 finish();
@@ -230,8 +209,13 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
         }
+    }
+
+    public void goToSignUpActivity(){
+        Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+        startActivity(intent);
+
     }
 
 }
