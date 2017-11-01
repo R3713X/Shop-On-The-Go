@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ListOfShops {
 
-    private ArrayList<Shop> shops = new ArrayList<Shop>();
+    private ArrayList<Shop> shops = new ArrayList<>();
     private ArrayList<LatLng> shopsLocation =new ArrayList<LatLng>();
     private ArrayList<Marker>markers =new ArrayList<Marker>();
 
@@ -24,6 +24,10 @@ public class ListOfShops {
         shops.add(new Shop("porkys", 40.663449,22.9475822));
         shops.add(new Shop("seven", 40.6595399,22.9445063));
 
+    }
+
+    public ArrayList<Shop> getShop(){
+        return shops;
     }
 
 
