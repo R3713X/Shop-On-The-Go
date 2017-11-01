@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SignUpActivity extends AppCompatActivity {
-
+    SignUpValidation user;
     private UserRegisterTask mAuthTask = null;
     private ConstraintLayout mRegisterForm;
     private EditText username;
@@ -82,52 +82,65 @@ public class SignUpActivity extends AppCompatActivity {
         String susername = username.getText().toString();
         String spassword = password.getText().toString();
         String sverify = verifyPassword.getText().toString();
+        user = new SignUpValidation(susername, semail, spassword, sverify);
+
         boolean cancel = false;
         View focusView = null;
+
         // Check for a valid username, if the user entered one.
-        if(TextUtils.isEmpty(susername)){
+
+        if (!user.isUsernameNotEmpty()) {
             username.setError("Please enter a username");
             focusView = username;
             cancel = true;
-        }
-        else if (!isUsernameValid(susername)) {
+        } else if (!user.UsernameContainsOnlyNumbersAndLetters()) {
             username.setError("Your username should only contain letters and numbers");
             focusView = username;
             cancel = true;
-        }
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(spassword) && !isPasswordValid(spassword)) {
-            password.setError("Your password is invalid!");
-            focusView = password;
+        } else if (!user.isUsernameLengthEnough()) {
+            username.setError("Your username should be more than 5 characters.");
+            focusView = username;
             cancel = true;
-        }
-        // Check if passwords are not empty and if they match
-        if(TextUtils.isEmpty(spassword)){
-            password.setError("Please enter a password");
-            focusView = password;
-            cancel = true;
-        }else if(TextUtils.isEmpty(sverify)){
-            verifyPassword.setError("Please verify your password");
-            focusView = verifyPassword;
-            cancel = true;
-        }
-        else if (!sverify.equals(spassword)) {
-            password.setError("Your passwords do not match.");
-            verifyPassword.setError("Your passwords do not match.");
-            focusView = verifyPassword;
+        } else if (!user.isUsernameLengthLessThanAmount()) {
+            username.setError("Your username should be less than 25 characters.");
+            focusView = username;
             cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(semail)) {
+
+        if (!user.isEmailNotEmpty()) {
             email.setError("This field is required");
             focusView = email;
             cancel = true;
-        } else if (isEmailNotValid(semail)) {
-            email.setError("Invalid email");
+        } else if (!user.isEmailValid()) {
+            email.setError("Please enter a valid email.");
             focusView = email;
             cancel = true;
         }
+
+        // Check for a valid password, if the user entered one.
+        if(!user.isPasswordNotEmpty()){
+            password.setError("This field is required");
+            focusView = password;
+            cancel = true;}
+        else if (!user.isPasswordLengthEnough()) {
+            password.setError("Your password should be at least 6 characters");
+            focusView = password;
+            cancel = true;
+        }
+
+        // Check if passwords are not empty and if they match
+        if (!user.isVerifyNotEmpty()) {
+            verifyPassword.setError("This field is required");
+            focusView = verifyPassword;
+            cancel = true;
+        } else if (!user.isVerifyPasswordValid()) {
+            verifyPassword.setError("Your passwords do not match");
+            focusView = verifyPassword;
+            cancel = true;
+        }
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -142,32 +155,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isUsernameValid(String username) {
-        if (username.matches("[a-zA-Z0-9]*")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isEmailNotValid(String email) {
-        if (email.contains("@")) {
-            return false;
-        }
-        if (email.length() > 7) {
-            return false;
-        }
-        if (email.contains(".")) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
 
     private void goToLoginActivity() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -224,6 +211,7 @@ public class SignUpActivity extends AppCompatActivity {
             // TODO: register the new account here.
             return true;
         }
+
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;

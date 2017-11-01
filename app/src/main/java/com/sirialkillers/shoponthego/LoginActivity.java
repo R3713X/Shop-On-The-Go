@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class LoginActivity extends AppCompatActivity {
 
     int loadtime=2000; // 2 seconds
-
+    LoginValidation user;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -91,27 +91,36 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-
+        user = new LoginValidation(email,password);
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError("Your password is invalid!");
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+
+        if (!user.isEmailNotEmpty()) {
             mEmailView.setError("This field is required");
             focusView = mEmailView;
             cancel = true;
-        } else if (isEmailNotValid(email)) {
-            mEmailView.setError("Invalid email");
+        } else if (!user.isEmailValid()) {
+            mEmailView.setError("Please enter a valid email.");
             focusView = mEmailView;
             cancel = true;
         }
+
+        // Check for a valid password, if the user entered one.
+
+
+        // Check for a valid password, if the user entered one.
+        if(!user.isPasswordNotEmpty()){
+            mPasswordView.setError("This field is required");
+            focusView = mPasswordView;
+            cancel = true;}
+        else if (!user.isPasswordLengthEnough()) {
+            mPasswordView.setError("Your password should be at least 6 characters");
+            focusView = mPasswordView;
+            cancel = true;
+        }
+        //TODO check with database if the user is alright
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -129,24 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isEmailNotValid(String email) {
-        if(email.contains("@")){
-            return false;
-        }
-        if(email.length()>7){
-            return false;
-        }
-        if(email.contains(".")){
-            return false;
-        }
 
-        return true;
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
