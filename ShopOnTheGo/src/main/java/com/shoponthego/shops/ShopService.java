@@ -47,7 +47,7 @@ public class ShopService {
 		for (int i=0; i<shops.size(); i++) {
 			Shop shop = shops.get(i);
 			if(shop.getId().equalsIgnoreCase(id)) {
-				shops.remove(i);
+				shops.remove(shop);
 				return;
 			}
 		}
