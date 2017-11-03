@@ -55,6 +55,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ShopsListView"
+            android:label="Shop On The Go">
+            android:windowSoftInputMode="adjustNothing"
+
+        </activity>
+
         <service android:name=".GPS_Service" />
 
     </application>
