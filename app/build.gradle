@@ -26,12 +26,17 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    //Android Testing Support Library's runner and rules
+    androidTestCompile "com.android.support.test:runner:0.5"
+    androidTestCompile "com.android.support.test:rules:0.5"
+    //Espresso
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.maps.android:android-maps-utils:0.5+'
+
     testCompile 'junit:junit:4.12'
     //Used for Hockey App
     compile 'net.hockeyapp.android:HockeySDK:5.0.2'

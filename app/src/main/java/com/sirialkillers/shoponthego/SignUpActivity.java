@@ -128,19 +128,19 @@ public class SignUpActivity extends AppCompatActivity {
             password.setError("Your password should be at least 6 characters");
             focusView = password;
             cancel = true;
-        }
+        } else {
 
-        // Check if passwords are not empty and if they match
-        if (!user.isVerifyNotEmpty()) {
-            verifyPassword.setError("This field is required");
-            focusView = verifyPassword;
-            cancel = true;
-        } else if (!user.isVerifyPasswordValid()) {
-            verifyPassword.setError("Your passwords do not match");
-            focusView = verifyPassword;
-            cancel = true;
+            // Check if passwords are not empty and if they match
+            if (!user.isVerifyNotEmpty()) {
+                verifyPassword.setError("This field is required");
+                focusView = verifyPassword;
+                cancel = true;
+            } else if (!user.isVerifyPasswordValid()) {
+                verifyPassword.setError("Your passwords do not match");
+                focusView = verifyPassword;
+                cancel = true;
+            }
         }
-
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -216,7 +216,7 @@ public class SignUpActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
 
-
+            finish();
             if (success) {
                 finish();
             }
