@@ -9,7 +9,8 @@ import com.google.maps.android.SphericalUtil;
 import java.util.ArrayList;
 
 /**
- * Created by Xristos Aslamagidis on 28/10/2017.
+
+ * Created by Xristos Aslamagidis on 29/10/2017.
  */
 
 public class ListOfShops {
@@ -19,11 +20,18 @@ public class ListOfShops {
     private ArrayList<Marker>markers =new ArrayList<Marker>();
 
     public void addShop() {
+
+        //polixnh
         shops.add(new Shop("rafaele", 40.6657785, 22.9468865));
         shops.add(new Shop("mavidis", 40.6666259,22.9455427));
         shops.add(new Shop("porkys", 40.663449,22.9475822));
         shops.add(new Shop("seven", 40.6595399,22.9445063));
+        shops.add(new Shop("mad gym",40.6566813,22.9328894));
 
+        //serres
+        shops.add(new Shop("Driving School",41.078405,23.5492328));
+        shops.add(new Shop("Alldayserres",41.0799818,23.5429958));
+        shops.add(new Shop("Ktel",41.0778696,23.5463639));
     }
 
     public ArrayList<Shop> getShop(){

@@ -1,6 +1,5 @@
 package com.sirialkillers.shoponthego;
 
-
 public class Shop {
 
     private String name;
