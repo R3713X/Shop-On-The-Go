@@ -1,5 +1,7 @@
 package com.sirialkillers.shoponthego.Models;
 
+import com.sirialkillers.shoponthego.Position;
+
 import java.util.ArrayList;
 
 /**
@@ -9,20 +11,25 @@ import java.util.ArrayList;
  */
 
 public class ShopModel extends ArrayList{
-    private int id;
+    private String id;
     private String name;
-    //TODO: Create a structure for the position
+    private Position position;
 
-    public ShopModel(int id, String name) {
+    public ShopModel(String id, String name, Position position) {
         this.id = id;
         this.name = name;
+        this.position = position;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

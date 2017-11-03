@@ -1,7 +1,8 @@
 package com.sirialkillers.shoponthego.Controllers;
-
 import com.sirialkillers.shoponthego.Models.ShopModel;
+import com.sirialkillers.shoponthego.Position;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -10,21 +11,29 @@ import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 31/10/2017
+ * @version 03/10/2017
  *
  */
-
 public class ShopController {
+    /* Rest Template is a template that is given by Spring Framework */
+    private RestTemplate restTemplate = new RestTemplate();
+    /* params is a Hash Map used to set the parameters that are going to be used
+     in the Rest Template */
+    private Map<String, String> params = new HashMap<>();
+
+    public ShopController() {
+        restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        params = new HashMap<>();
+    }
+
     /**
      * Returns a list of shops that are accessible for further use.
      * @return the list of shops
      */
     public ArrayList<ShopModel> getShops(){
         final String url = "http://localhost:8080/shops";
-        RestTemplate restTemplate = new RestTemplate();
-        ArrayList<ShopModel> shops = new ArrayList<>();
-        shops = restTemplate.getForObject(url, ShopModel.class);
-        return shops;
+        return restTemplate.getForObject(url, ShopModel.class);
     }
 
     /**
@@ -32,13 +41,11 @@ public class ShopController {
      * @param shopId The id of the shop
      * @return the shop
      */
-    public ShopModel getShopById(Integer shopId){
+    public ShopModel getShopById(String shopId){
         final String url = "http://localhost:8080/shops/{id}";
-        Map<String, Integer> params = new HashMap<>();
+        params.clear();
         params.put("id", shopId);
-        RestTemplate restTemplate = new RestTemplate();
-        ShopModel shop = restTemplate.getForObject(url, ShopModel.class, params);
-        return shop;
+        return restTemplate.getForObject(url, ShopModel.class, params);
     }
 
     /**
@@ -47,10 +54,9 @@ public class ShopController {
      * @param name the name of the shop
      * @return the shop that was created
      */
-    public ShopModel createShop(int id, String name){
+    public ShopModel createShop(String id, String name, Position position){
         final String url = "http://localhost:8080/shops";
-        ShopModel newShop = new ShopModel(id, name);
-        RestTemplate restTemplate = new RestTemplate();
+        ShopModel newShop = new ShopModel(id, name, position);
         return restTemplate.postForObject(url, newShop, ShopModel.class);
     }
 
@@ -60,12 +66,11 @@ public class ShopController {
      * @param shopId the id of the shop that will get updated
      * @param name the name that will replace the old name of the shop
      */
-    public void updateShop(int shopId, String name){
+    public void updateShop(String shopId, String name, Position position){
         final String url = "http://localhost:8080/shops/{id}";
-        Map<String, Integer> params = new HashMap<>();
+        params.clear();
         params.put("id", shopId);
-        ShopModel updatedShop = new ShopModel(shopId, name);
-        RestTemplate restTemplate = new RestTemplate();
+        ShopModel updatedShop = new ShopModel(shopId, name, position);
         restTemplate.put(url, updatedShop, params);
     }
 
@@ -73,11 +78,10 @@ public class ShopController {
      * Deletes a shop that exists.
      * @param shopId the id of the shop that will get deleted
      */
-    public void deleteShop(int shopId){
+    public void deleteShop(String shopId){
         final String url = "http://localhost:8080/shops/{id}";
-        Map<String, Integer> params = new HashMap<>();
+        params.clear();
         params.put("id", shopId);
-        RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(url, params);
     }
 }
