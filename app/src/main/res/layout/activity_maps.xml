@@ -52,4 +52,14 @@
         android:layout_below="@+id/map"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/viewingRangeControlBar"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/holo_blue_dark"
+        android:text="menu"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
 </RelativeLayout>

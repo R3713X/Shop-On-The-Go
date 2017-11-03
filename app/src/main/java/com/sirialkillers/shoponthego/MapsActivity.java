@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
+        Button menu = (Button) findViewById(R.id.menuButton);
         if (!runtime_perimissions()) {
             Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
             startService(intent);
@@ -63,7 +64,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
         rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
         radiusDisplayTextView = (TextView) findViewById(R.id.radiusTextView);
-
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMenu();
+            }
+        });
         this.configureRangeControlSeekBar();
         this.onChangeRangeControlSeekBar();
         listOfShops = new ListOfShops();
@@ -211,6 +217,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+    }
+    public void goToMenu(){
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
     }
 
     private boolean runtime_perimissions() {
