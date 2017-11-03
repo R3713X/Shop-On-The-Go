@@ -18,7 +18,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
     private ArrayList<Shop> shops;
     private CustomFilter filter;
     private ArrayList<Shop> filterList;
-    public ListAdapter(Context ctx,ArrayList<Shop> shops) {
+    ListAdapter(Context ctx, ArrayList<Shop> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
         this.shops=shops;
@@ -45,7 +45,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
         LayoutInflater inflater=(LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView==null)
         {
-            convertView=inflater.inflate(R.layout.adapter_layout, null);
+            convertView=inflater.inflate(R.layout.adapter_layout, parent, false);
         }
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTextView);
         //SET DATA TO THEM
