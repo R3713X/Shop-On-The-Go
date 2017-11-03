@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -13,14 +14,12 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 
 /**
- * Created by Xristos Aslamagidis on 22/10/2017.
+ * Created by Xristos Aslamagidis on 28/10/2017.
  */
 
 public class GPS_Service extends Service {
-
     LocationListener locationListener;
     LocationManager locationManager;
-
 
     @Nullable
     @Override
@@ -31,12 +30,12 @@ public class GPS_Service extends Service {
     @SuppressLint("MissingPermission")
     @Override
     public void onCreate() {
-        locationListener=new LocationListener() {
+        locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Intent intent=new Intent("location update");
+                Intent intent = new Intent("location update");
                 intent.putExtra("Lat", location.getLatitude());
-                intent.putExtra("Long",location.getLongitude());
+                intent.putExtra("Long", location.getLongitude());
                 sendBroadcast(intent);
             }
 
@@ -52,15 +51,15 @@ public class GPS_Service extends Service {
 
             @Override
             public void onProviderDisabled(String provider) {
-                Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 
             }
         };
 
-        locationManager=(LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         //noinspection MissingPermission
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 }

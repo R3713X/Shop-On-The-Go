@@ -9,15 +9,15 @@ import com.google.maps.android.SphericalUtil;
 import java.util.ArrayList;
 
 /**
+
  * Created by Xristos Aslamagidis on 29/10/2017.
  */
 
 public class ListOfShops {
 
-    private ArrayList<Shop> shops = new ArrayList<Shop>();
+    private ArrayList<Shop> shops = new ArrayList<>();
     private ArrayList<LatLng> shopsLocation =new ArrayList<LatLng>();
     private ArrayList<Marker>markers =new ArrayList<Marker>();
-
 
     public void addShop() {
 
@@ -32,7 +32,10 @@ public class ListOfShops {
         shops.add(new Shop("Driving School",41.078405,23.5492328));
         shops.add(new Shop("Alldayserres",41.0799818,23.5429958));
         shops.add(new Shop("Ktel",41.0778696,23.5463639));
+    }
 
+    public ArrayList<Shop> getShop(){
+        return shops;
     }
 
 

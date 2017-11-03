@@ -1,9 +1,5 @@
 package com.sirialkillers.shoponthego;
 
-/**
- * Created by User on 19-Oct-17.
- */
-
 public class Shop {
 
     private String name;
@@ -25,5 +21,4 @@ public class Shop {
     public Double getLongtitude() {
         return longtitude;
     }
-
 }
