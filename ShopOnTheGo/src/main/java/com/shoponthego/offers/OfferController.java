@@ -32,7 +32,7 @@ public class OfferController {
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/offers/{id}")
 	public void updateOffer(@RequestBody Offer offer, @PathVariable String id) {
-		offerService.updateShop(id, offer);
+		offerService.updateOffer(id, offer);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/offers/{id}")

@@ -7,7 +7,6 @@ public class OfferService {
 
 	private List<Offer> offers = new ArrayList<>();
 	
-	
 	public List<Offer> getAllOffers() {
 		return offers;
 	}
@@ -23,10 +22,9 @@ public class OfferService {
 
 	public void addOffer(Offer offer) {
 		offers.add(offer);
-		
 	}
 
-	public void updateShop(String id, Offer newOffer) {
+	public void updateOffer(String id, Offer newOffer) {
 		for(int i=0; i<offers.size(); i++) {
 			Offer offer = offers.get(i);
 			if(offer.getId().equalsIgnoreCase(id)) {
