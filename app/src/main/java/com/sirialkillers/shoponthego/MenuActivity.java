@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonMap;
+    private Button buttonList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,8 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_menu);
         buttonMap = (Button) findViewById(R.id.buttonMap);
         buttonMap.setOnClickListener(this);
+        buttonList = (Button) findViewById(R.id.buttonList);
+        buttonList.setOnClickListener(this);
 
     }
 
@@ -25,6 +28,9 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
                 Intent intentStartNextActivity = new Intent(this, MapsActivity.class);
                 startActivity(intentStartNextActivity);
                 break;
+            case R.id.buttonList:
+                Intent intentStartListActivity = new Intent(this, ShopsListView.class);
+                startActivity(intentStartListActivity);
             default:
                 break;
         }
