@@ -37,15 +37,29 @@
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
-
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:name=".MenuActivity"
+            android:label="Shop On The Go">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+
+        </activity>
+
+        <activity
+            android:name=".ShopsListView"
+            android:label="Shop On The Go">
+            android:windowSoftInputMode="adjustNothing"
+
         </activity>
 
         <service android:name=".GPS_Service" />
