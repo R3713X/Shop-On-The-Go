@@ -1,10 +1,13 @@
 package com.sirialkillers.shoponthego;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -25,23 +28,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 
-import com.google.android.gms.maps.model.CircleOptions;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.SphericalUtil;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
@@ -58,19 +54,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         if (!runtime_perimissions()) {
             Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
             startService(intent);
         }
 
-        //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters.
+        //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
         rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
         radiusDisplayTextView = (TextView) findViewById(R.id.radiusTextView);
+
         this.configureRangeControlSeekBar();
         this.onChangeRangeControlSeekBar();
         listOfShops = new ListOfShops();
+
+        this.Loading();
 
         checkForUpdates(); //Used for HockeyApp
     }
@@ -96,6 +94,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         checkForCrashes();
     }
 
+    // Simulates the loading of the maps
+    public void Loading(){
+        final ProgressBar progressBar =(ProgressBar)findViewById(R.id.progressBar);
+        final ProgressBar progressBarSmall = (ProgressBar)findViewById(R.id.progressBarSmall);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBarSmall.setVisibility(View.INVISIBLE);
+                radiusDisplayTextView.setVisibility(View.VISIBLE);
+                rangeControlSeekBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+
+            }
+        },Loadtime);
+
+    }
     //CrashReporting and Beta-Distribution for HockeyApp.
     @Override
     public void onPause() {
@@ -139,10 +153,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void configureRangeControlSeekBar() {
         //Setting the maxumum range of the radius to 1500 meters and the (starting) current progress to 750 meters.
         rangeControlSeekBar.setMax(1400);
-        rangeControlSeekBar.setProgress(650);
+        rangeControlSeekBar.setProgress(700);
 
         //need API level 26 to implement the minimum Range of 100 meters
-        //If we had it, it would be like this: rangeControlSeekBar.setMin(100); but now we use the realProgress int in the seekBarListener to do the same thing.
+        //If we had it, it would be like this: rangeControlSeekBar.setMin(100);
+        //but now we use the realProgress int in the seekBarListener to do the same thing.
 
     }
 
