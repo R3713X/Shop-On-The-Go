@@ -16,7 +16,9 @@ public class Shop {
         return name;
     }
 
-    public Double getLatitude() {return latitude;}
+    public Double getLatitude() {
+        return latitude;
+    }
 
     public Double getLongtitude() {
         return longtitude;
