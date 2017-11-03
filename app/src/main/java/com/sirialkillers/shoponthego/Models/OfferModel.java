@@ -1,6 +1,7 @@
 package com.sirialkillers.shoponthego.Models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Ioakeim James Theologou
@@ -9,30 +10,36 @@ import java.util.ArrayList;
  */
 
 public class OfferModel extends ArrayList {
-    private int id;
-    private String name;
+    private String id;
+    private String title;
     private String state;
+    private Date date;
 
-    public OfferModel(int id, String name, String state) {
+    public OfferModel(String id, String title, String state, Date date) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.state = state;
+        this.date = date;
     }
 
-    public OfferModel(int id, String name) {
+    public OfferModel(String id, String title) {
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getState() {
         return state;
+    }
+
+    public Date getDate(){
+        return date;
     }
 }

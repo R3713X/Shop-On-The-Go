@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import com.sirialkillers.shoponthego.Models.OfferModel;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -14,16 +15,25 @@ import java.util.Map;
  *
  */
 public class OfferController {
+    /* Rest Template is a template that is given by Spring Framework */
+    private RestTemplate restTemplate;
+    /* params is a Hash Map used to set the parameters that are going to be used
+     in the Rest Template */
+    private Map<String, String> params;
+
+    public OfferController() {
+        restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        params = new HashMap<>();
+    }
+
     /**
      * Returns a list of offers that are accessible for further use.
      * @return the list of offers
      */
     public ArrayList<OfferModel> getOffers(){
         final String url = "http://localhost:8080/offers";
-        RestTemplate restTemplate = new RestTemplate();
-        ArrayList<OfferModel> offers;
-        offers = restTemplate.getForObject(url, OfferModel.class);
-        return offers;
+        return restTemplate.getForObject(url, OfferModel.class);
     }
 
     /**
@@ -31,24 +41,22 @@ public class OfferController {
      * @param offerId The id of the offer
      * @return the offer
      */
-    public OfferModel getOfferById(Integer offerId){
+    public OfferModel getOfferById(String offerId){
         final String url = "http://localhost:8080/offers/{id}";
-        Map<String, Integer> params = new HashMap<>();
+        params.clear();
         params.put("id", offerId);
-        RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, OfferModel.class, params);
     }
 
     /**
      * Creates a new offer.
      * @param id the id of the offer
-     * @param name the name of the offer
+     * @param title the name of the offer
      * @return the offer that was created
      */
-    public OfferModel createOffer(int id, String name){
+    public OfferModel createOffer(String id, String title){
         final String url = "http://localhost:8080/offers";
-        OfferModel newOffer = new OfferModel(id, name);
-        RestTemplate restTemplate = new RestTemplate();
+        OfferModel newOffer = new OfferModel(id, title);
         return restTemplate.postForObject(url, newOffer, OfferModel.class);
     }
 
@@ -57,24 +65,21 @@ public class OfferController {
      * @param offerId the id of the offer that will get updated
      * @param name the name that will replace the old name of the offer
      */
-    public void updateOffer(int offerId, String name){
+    public void updateOffer(String offerId, String name){
         final String url = "http://localhost:8080/offers/{id}";
-        Map<String, Integer> params = new HashMap<>();
+        params.clear();
         params.put("id", offerId);
         OfferModel updatedOffer = new OfferModel(offerId, name);
-        RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(url, updatedOffer, params);
     }
 
     /**
-     * Deletes a offer that exists.
+     * Deletes a offer that already exists.
      * @param offerId the id of the offer that will get deleted
      */
-    public void deleteOffer(int offerId){
+    public void deleteOffer(String offerId){
         final String url = "http://localhost:8080/offers/{id}";
-        Map<String, Integer> params = new HashMap<>();
         params.put("id", offerId);
-        RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(url, params);
     }
 }
