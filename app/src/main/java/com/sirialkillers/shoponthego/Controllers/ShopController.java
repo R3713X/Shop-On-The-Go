@@ -1,4 +1,6 @@
 package com.sirialkillers.shoponthego.Controllers;
+import android.util.Log;
+
 import com.sirialkillers.shoponthego.Models.ShopModel;
 import com.sirialkillers.shoponthego.Position;
 
@@ -21,6 +23,11 @@ public class ShopController {
      in the Rest Template */
     private Map<String, String> params = new HashMap<>();
 
+    /**
+     * Initializes the Rest template and add a
+     * Jackson message converter so it can parse
+     * a JSON file.
+     */
     public ShopController() {
         restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -32,8 +39,13 @@ public class ShopController {
      * @return the list of shops
      */
     public ArrayList<ShopModel> getShops(){
-        final String url = "http://localhost:8080/shops";
-        return restTemplate.getForObject(url, ShopModel.class);
+        try {
+            final String url = "http://localhost:8080/shops";
+            return restTemplate.getForObject(url, ShopModel.class);
+        }catch (Exception e){
+            Log.e("getShops", e.getMessage(),e);
+        }
+        return null;
     }
 
     /**
@@ -42,36 +54,52 @@ public class ShopController {
      * @return the shop
      */
     public ShopModel getShopById(String shopId){
-        final String url = "http://localhost:8080/shops/{id}";
-        params.clear();
-        params.put("id", shopId);
-        return restTemplate.getForObject(url, ShopModel.class, params);
+        try {
+            final String url = "http://localhost:8080/shops/{id}";
+            params.clear();
+            params.put("id", shopId);
+            return restTemplate.getForObject(url, ShopModel.class, params);
+        }catch (Exception e){
+            Log.e("getShopById", e.getMessage(),e);
+        }
+        return null;
     }
 
     /**
      * Creates a new shop.
      * @param id the id of the shop
      * @param name the name of the shop
+     * @param position the longitude and latitude of the shop.
      * @return the shop that was created
      */
     public ShopModel createShop(String id, String name, Position position){
-        final String url = "http://localhost:8080/shops";
-        ShopModel newShop = new ShopModel(id, name, position);
-        return restTemplate.postForObject(url, newShop, ShopModel.class);
+        try {
+            final String url = "http://localhost:8080/shops";
+            ShopModel newShop = new ShopModel(id, name, position);
+            return restTemplate.postForObject(url, newShop, ShopModel.class);
+        }catch (Exception e){
+            Log.e("createShop", e.getMessage(),e);
+        }
+        return null;
     }
 
 
     /**
-     * Updates a already existing shop.
+     * Updates an already existing shop.
      * @param shopId the id of the shop that will get updated
      * @param name the name that will replace the old name of the shop
+     * @param position the new latitude and longitude of the shop.
      */
     public void updateShop(String shopId, String name, Position position){
-        final String url = "http://localhost:8080/shops/{id}";
-        params.clear();
-        params.put("id", shopId);
-        ShopModel updatedShop = new ShopModel(shopId, name, position);
-        restTemplate.put(url, updatedShop, params);
+        try {
+            final String url = "http://localhost:8080/shops/{id}";
+            params.clear();
+            params.put("id", shopId);
+            ShopModel updatedShop = new ShopModel(shopId, name, position);
+            restTemplate.put(url, updatedShop, params);
+        }catch (Exception e) {
+            Log.e("updateShop", e.getMessage(), e);
+        }
     }
 
     /**
@@ -79,9 +107,13 @@ public class ShopController {
      * @param shopId the id of the shop that will get deleted
      */
     public void deleteShop(String shopId){
-        final String url = "http://localhost:8080/shops/{id}";
-        params.clear();
-        params.put("id", shopId);
-        restTemplate.delete(url, params);
+        try {
+            final String url = "http://localhost:8080/shops/{id}";
+            params.clear();
+            params.put("id", shopId);
+            restTemplate.delete(url, params);
+        }catch (Exception e){
+            Log.e("getOffers", e.getMessage(),e);
+        }
     }
 }

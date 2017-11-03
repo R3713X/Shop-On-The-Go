@@ -1,5 +1,7 @@
 package com.sirialkillers.shoponthego.Controllers;
 
+import android.util.Log;
+
 import com.sirialkillers.shoponthego.Models.OfferModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -21,6 +23,11 @@ public class OfferController {
      in the Rest Template */
     private Map<String, String> params;
 
+    /**
+     * Initializes the Rest template and add a
+     * Jackson message converter so it can parse
+     * a JSON file.
+     */
     public OfferController() {
         restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -32,8 +39,13 @@ public class OfferController {
      * @return the list of offers
      */
     public ArrayList<OfferModel> getOffers(){
-        final String url = "http://localhost:8080/offers";
-        return restTemplate.getForObject(url, OfferModel.class);
+        try {
+            final String url = "http://localhost:8080/offers";
+            return restTemplate.getForObject(url, OfferModel.class);
+        }catch (Exception e){
+            Log.e("getOffers", e.getMessage(),e);
+        }
+        return null;
     }
 
     /**
@@ -42,10 +54,15 @@ public class OfferController {
      * @return the offer
      */
     public OfferModel getOfferById(String offerId){
-        final String url = "http://localhost:8080/offers/{id}";
-        params.clear();
-        params.put("id", offerId);
-        return restTemplate.getForObject(url, OfferModel.class, params);
+        try {
+            final String url = "http://localhost:8080/offers/{id}";
+            params.clear();
+            params.put("id", offerId);
+            return restTemplate.getForObject(url, OfferModel.class, params);
+        }catch (Exception e){
+            Log.e("getOfferById", e.getMessage(),e);
+        }
+        return null;
     }
 
     /**
@@ -55,9 +72,14 @@ public class OfferController {
      * @return the offer that was created
      */
     public OfferModel createOffer(String id, String title){
-        final String url = "http://localhost:8080/offers";
-        OfferModel newOffer = new OfferModel(id, title);
-        return restTemplate.postForObject(url, newOffer, OfferModel.class);
+        try {
+            final String url = "http://localhost:8080/offers";
+            OfferModel newOffer = new OfferModel(id, title);
+            return restTemplate.postForObject(url, newOffer, OfferModel.class);
+        }catch (Exception e){
+            Log.e("CreateOffer", e.getMessage(),e);
+        }
+        return null;
     }
 
     /**
@@ -66,11 +88,15 @@ public class OfferController {
      * @param name the name that will replace the old name of the offer
      */
     public void updateOffer(String offerId, String name){
-        final String url = "http://localhost:8080/offers/{id}";
-        params.clear();
-        params.put("id", offerId);
-        OfferModel updatedOffer = new OfferModel(offerId, name);
-        restTemplate.put(url, updatedOffer, params);
+        try {
+            final String url = "http://localhost:8080/offers/{id}";
+            params.clear();
+            params.put("id", offerId);
+            OfferModel updatedOffer = new OfferModel(offerId, name);
+            restTemplate.put(url, updatedOffer, params);
+        }catch (Exception e){
+            Log.e("updateOffer", e.getMessage(),e);
+        }
     }
 
     /**
@@ -78,8 +104,12 @@ public class OfferController {
      * @param offerId the id of the offer that will get deleted
      */
     public void deleteOffer(String offerId){
-        final String url = "http://localhost:8080/offers/{id}";
-        params.put("id", offerId);
-        restTemplate.delete(url, params);
+        try {
+            final String url = "http://localhost:8080/offers/{id}";
+            params.put("id", offerId);
+            restTemplate.delete(url, params);
+        }catch (Exception e){
+            Log.e("deleteOffer", e.getMessage(),e);
+        }
     }
 }

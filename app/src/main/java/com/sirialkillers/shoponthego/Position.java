@@ -3,7 +3,7 @@ package com.sirialkillers.shoponthego;
 /**
  * @author Ioakeim James Theologou
  * @version 03/10/2017
- *
+ * TODO: Create a test class for this class.
  */
 
 public class Position {
@@ -23,9 +23,7 @@ public class Position {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
-        return longitude;
-    }
+    public double getLongitude() { return longitude; }
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;

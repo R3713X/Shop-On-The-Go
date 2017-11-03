@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * @author Ioakeim James Theologou
  * @version 31/10/2017
+ * TODO: Create a test class for this model.
  *
  */
 
