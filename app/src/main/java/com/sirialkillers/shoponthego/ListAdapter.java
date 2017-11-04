@@ -18,6 +18,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
     private ArrayList<Shop> shops;
     private CustomFilter filter;
     private ArrayList<Shop> filterList;
+
     ListAdapter(Context ctx, ArrayList<Shop> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
