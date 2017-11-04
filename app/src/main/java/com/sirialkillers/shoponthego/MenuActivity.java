@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonMap;
     private Button buttonList;
+    private Button buttonPhotography;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,9 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
         buttonMap.setOnClickListener(this);
         buttonList = (Button) findViewById(R.id.buttonList);
         buttonList.setOnClickListener(this);
+        buttonPhotography=(Button)findViewById(R.id.buttonPhotography);
+        buttonPhotography.setOnClickListener(this);
+
 
     }
 
@@ -31,6 +35,11 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
             case R.id.buttonList:
                 Intent intentStartListActivity = new Intent(this, ShopsListView.class);
                 startActivity(intentStartListActivity);
+                break;
+            case R.id.buttonPhotography:
+                Intent intentStartPhotographyActivity = new Intent(this, ProductPhotoActivity.class);
+                startActivity(intentStartPhotographyActivity);
+                break;
             default:
                 break;
         }

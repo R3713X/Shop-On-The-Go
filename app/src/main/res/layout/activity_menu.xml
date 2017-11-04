@@ -34,4 +34,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonMap" />
+
+    <Button
+        android:id="@+id/buttonPhotography"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Product Photo"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="206dp" />
 </android.support.constraint.ConstraintLayout>

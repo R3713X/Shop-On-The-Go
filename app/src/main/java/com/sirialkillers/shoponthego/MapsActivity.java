@@ -74,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.onChangeRangeControlSeekBar();
         listOfShops = new ListOfShops();
 
-        this.Loading();
+       this.Loading();
 
         checkForUpdates(); //Used for HockeyApp
     }
