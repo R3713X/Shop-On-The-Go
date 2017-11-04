@@ -55,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         Button menu = (Button) findViewById(R.id.menuButton);
         if (!runtime_perimissions()) {
             Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
