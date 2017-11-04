@@ -6,38 +6,89 @@ import com.sirialkillers.shoponthego.Position;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author Ioakeim James Theologou
- * @version 02/10/2017
+ * @version 04/10/2017
  *
  */
 public class ShopControllerTest {
     private ArrayList<ShopModel> shops;
-    private ArrayList<ShopModel> actualShops;
     private ShopController shopController;
-    private ShopModel shop;
     private Position position;
+    private MockMvc mock;
+
+    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+            MediaType.APPLICATION_JSON.getSubtype(),
+            Charset.forName("utf8"));
 
     @Before
     public void setUp() throws Exception {
-        position.setLatitude(40.6657785);
-        position.setLongitude(22.9468865);
+        position = new Position(40.6657785,22.9468865);
+        shopController = new ShopController();
         shops = shopController.getShops();
-        shop = new ShopModel("1", "Tesco", position);
-        actualShops.add(new ShopModel("1", "Tesco", position));
 
+    }
+
+    @Test
+    public void readShop() throws Exception{
+        mock.perform(get("/shops"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.id", is(this.shops.get(0).getId())))
+                .andExpect(jsonPath("$.name", is(this.shops.get(0).getName())))
+                .andExpect(jsonPath("$.position", is(this.shops.get(0).getPosition())));
+
+    }
+
+    @Test
+    public void readShops() throws Exception{
+        mock.perform(get("/shops"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$[0].id", is(this.shops.get(0).getId())))
+                .andExpect(jsonPath("$[0].name", is(this.shops.get(0).getName())))
+                .andExpect(jsonPath("$[0].position", is(this.shops.get(0).getPosition())))
+                .andExpect(jsonPath("$[0].id", is(this.shops.get(1).getId())))
+                .andExpect(jsonPath("$[0].name", is(this.shops.get(1).getName())))
+                .andExpect(jsonPath("$.position", is(this.shops.get(1).getPosition())));
+    }
+
+    @Test
+    public void createShop() throws Exception {
+        ShopModel shop = shopController.createShop("5", "Pizza Della Mamma", position);
+        assertEquals(shop.getId(), "5");
+        assertEquals(shop.getName(), "Pizza Della Mamma");
+        assertEquals(shop.getPosition(), position);
+
+        this.mock.perform(post("/shops")
+                .contentType(contentType)
+                .content((shop.toString())))
+                .andExpect(status().isCreated());
     }
 
     @Test
     public void getShops() throws Exception {
         //TODO create a mock object
-        assertEquals(shops, actualShops);
+        assertNotNull(shops);
     }
 
     @Test
@@ -47,18 +98,9 @@ public class ShopControllerTest {
     }
 
     @Test
-    public void createShop() throws Exception  {
-       ShopModel shop = shopController.createShop("5", "Pizza Della Mamma", position);
-       assertEquals(shop.getId(), "5");
-       assertEquals(shop.getName(), "Pizza Della Mamma");
-       assertEquals(shop.getPosition(), position);
-    }
-
-    @Test
     public void updateShop() throws Exception {
-        String name;
         ShopModel shop = shopController.getShopById("2");
-        name = shop.getName();
+        String name = shop.getName();
         shopController.updateShop("2", "Booyah!", position);
         shop = shopController.getShopById("2");
         assertNotEquals(name, shop.getName());
@@ -67,7 +109,7 @@ public class ShopControllerTest {
     @Test
     public void deleteShop() throws Exception {
         shopController.deleteShop("2");
-        assertEquals(shopController.getShopById("2"), null);
+        assertNull(shopController.getShopById("2"));
     }
 
     @After
