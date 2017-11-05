@@ -18,6 +18,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
     private ArrayList<Shop> shops;
     private CustomFilter filter;
     private ArrayList<Shop> filterList;
+
     ListAdapter(Context ctx, ArrayList<Shop> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
@@ -70,7 +71,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
             FilterResults results=new FilterResults();
             if(constraint != null && constraint.length()>0)
             {
-                //CONSTARINT TO UPPER
+                //CONSTRAINT TO UPPER
                 constraint=constraint.toString().toUpperCase();
                 ArrayList<Shop> filters= new ArrayList<>();
                 //get specific items

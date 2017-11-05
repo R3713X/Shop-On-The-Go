@@ -1,7 +1,8 @@
-<RelativeLayout android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -10,24 +11,55 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="50dp"
+        android:layout_above="@+id/viewingRangeControlBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         tools:context="com.sirialkillers.shoponthego.MapsActivity" />
 
     <SeekBar
         android:id="@+id/viewingRangeControlBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_below="@+id/map"
-        android:layout_alignParentStart="true" />
+        android:layout_height="20dp"
+        android:layout_above="@+id/radiusTextView"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/radiusTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:text="Your current radius is: 750 meters."
         android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSmall"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/map"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/viewingRangeControlBar"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp" />
+        android:background="@android:color/holo_blue_dark"
+        android:text="menu"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
 </RelativeLayout>
