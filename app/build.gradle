@@ -50,6 +50,10 @@ dependencies {
     // required if you want to use Mockito for Android tests
     androidTestCompile 'org.mockito:mockito-android:2.7.22'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    // required if you want to use Mockito for Android tests
+    androidTestCompile 'org.mockito:mockito-android:2.7.22'
+
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2')
     compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
@@ -61,11 +65,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.1 '
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+
     // https://mvnrepository.com/artifact/com.jayway.restassured/spring-mock-mvc
     testCompile group: 'com.jayway.restassured', name: 'spring-mock-mvc', version: '2.9.0'
+
     //Used for Hockey App
     compile 'net.hockeyapp.android:HockeySDK:5.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 
 }
 
