@@ -89,6 +89,30 @@ public class Shop implements IShop {
 		this.discounts = discounts;
 	}
 
+	@Override
+	public List<IProduct> getAllProducts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IProduct getProduct(String productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IDiscount> getAllDiscounts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IDiscount getDiscount(String discountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/*
 	@Override
 	public String getEmail() {

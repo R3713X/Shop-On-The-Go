@@ -3,6 +3,8 @@ package com.shoponthego.shops;
 import java.util.List;
 
 import com.shoponthego.offers.IOffer;
+import com.shoponthego.products.IProduct;
+import com.shoponthego.shops.discounts.IDiscount;
 
 public interface IShop {
 
@@ -19,6 +21,10 @@ public interface IShop {
 	String getPostcode();
 	*/
 	List<IOffer> getOffers();
-	IOffer getOffer(String id);
+	IOffer getOffer(String offerId);
+	List<IProduct> getAllProducts();
+	IProduct getProduct(String productId);
+	List<IDiscount> getAllDiscounts();
+	IDiscount getDiscount(String discountId);
 
 }
