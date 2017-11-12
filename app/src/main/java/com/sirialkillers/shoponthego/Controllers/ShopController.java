@@ -1,8 +1,8 @@
 package com.sirialkillers.shoponthego.Controllers;
+
 import android.util.Log;
 
 import com.sirialkillers.shoponthego.Models.ShopModel;
-import com.sirialkillers.shoponthego.Position;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -16,15 +16,16 @@ import java.util.Map;
  * @version 03/10/2017
  *
  */
-public class ShopController {
+public class ShopController implements IController<ShopModel, String>{
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate = new RestTemplate();
+
     /* params is a Hash Map used to set the parameters that are going to be used
      in the Rest Template */
     private Map<String, String> params = new HashMap<>();
 
     /**
-     * Initializes the Rest template and add a
+     * Initializes the Rest template and adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */
@@ -38,7 +39,8 @@ public class ShopController {
      * Returns a list of shops that are accessible for further use.
      * @return the list of shops
      */
-    public ArrayList<ShopModel> getShops(){
+    @Override
+    public ArrayList<ShopModel> get(){
         try {
             final String url = "http://localhost:8080/shops";
             return restTemplate.getForObject(url, ShopModel.class);
@@ -53,7 +55,8 @@ public class ShopController {
      * @param shopId The id of the shop
      * @return the shop
      */
-    public ShopModel getShopById(String shopId){
+    @Override
+    public ShopModel getById(String shopId){
         try {
             final String url = "http://localhost:8080/shops/{id}";
             params.clear();
@@ -67,16 +70,14 @@ public class ShopController {
 
     /**
      * Creates a new shop.
-     * @param id the id of the shop
-     * @param name the name of the shop
-     * @param position the longitude and latitude of the shop.
+     * @shop is the shop that will be created
      * @return the shop that was created
      */
-    public ShopModel createShop(String id, String name, Position position){
+    @Override
+    public ShopModel create(ShopModel shop){
         try {
             final String url = "http://localhost:8080/shops";
-            ShopModel newShop = new ShopModel(id, name, position);
-            return restTemplate.postForObject(url, newShop, ShopModel.class);
+            return restTemplate.postForObject(url, shop, ShopModel.class);
         }catch (Exception e){
             Log.e("createShop", e.getMessage(),e);
         }
@@ -86,17 +87,15 @@ public class ShopController {
 
     /**
      * Updates an already existing shop.
-     * @param shopId the id of the shop that will get updated
-     * @param name the name that will replace the old name of the shop
-     * @param position the new latitude and longitude of the shop.
+     * @param shop is the shop that will get updated
      */
-    public void updateShop(String shopId, String name, Position position){
+    @Override
+    public void update(ShopModel shop){
         try {
             final String url = "http://localhost:8080/shops/{id}";
             params.clear();
-            params.put("id", shopId);
-            ShopModel updatedShop = new ShopModel(shopId, name, position);
-            restTemplate.put(url, updatedShop, params);
+            params.put("id", shop.getId());
+            restTemplate.put(url, shop, params);
         }catch (Exception e) {
             Log.e("updateShop", e.getMessage(), e);
         }
@@ -106,7 +105,8 @@ public class ShopController {
      * Deletes a shop that exists.
      * @param shopId the id of the shop that will get deleted
      */
-    public void deleteShop(String shopId){
+    @Override
+    public void delete(String shopId){
         try {
             final String url = "http://localhost:8080/shops/{id}";
             params.clear();

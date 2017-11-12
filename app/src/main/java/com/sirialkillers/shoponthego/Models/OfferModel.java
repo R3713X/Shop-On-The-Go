@@ -11,36 +11,34 @@ import java.util.Date;
  */
 
 public class OfferModel extends ArrayList {
-    private String id;
-    private String title;
-    private String state;
-    private Date date;
+    String offerId;
+    String title;
+    String description;
+    Date expirationDate;
 
-    public OfferModel(String id, String title, String state, Date date) {
-        this.id = id;
-        this.title = title;
-        this.state = state;
-        this.date = date;
+    OfferModel offer = new OfferModel();
+
+    public OfferModel(){
+
     }
 
-    public OfferModel(String id, String title) {
-        this.id = id;
+    public OfferModel(OfferModel offer) {
+
+        this.offer = offer;
+    }
+
+    public OfferModel(String title) {
+
         this.title = title;
     }
 
-    public String getId() {
-        return id;
+    public String getOfferId() {
+
+        return offerId;
     }
 
     public String getTitle() {
+
         return title;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public Date getDate(){
-        return date;
     }
 }
