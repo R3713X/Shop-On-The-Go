@@ -5,18 +5,29 @@ import java.util.Date;
 public class Offer {
 
 	private String id;
-	//TODO we can change the string state in order to make it an enumaration
+	private String title;
+	private String description;
 	private String state;
-	//TODO we can change the format date later
 	private Date date;
 	
 	public Offer() {
 		
 	}
 	
-	public Offer(String givenState) {
+	public Offer(String givenId, String givenTitle, String givenDescription, String givenState) {
+		title = givenTitle;
+		description = givenDescription;
+		id = givenId;
 		state = givenState;
 		date = new Date();
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public String getState() {

@@ -1,11 +1,16 @@
 package com.shoponthego.offers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class OfferService {
 
-	private List<Offer> offers = new ArrayList<>();
+	private List<Offer> offers = new ArrayList<>(Arrays.asList(
+			new Offer("212", "Nike","Bla","Bka")));
 	
 	public List<Offer> getAllOffers() {
 		return offers;
