@@ -17,7 +17,6 @@ import java.util.Map;
  *
  */
 public class OfferController implements IController<OfferModel, String>{
-
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate;
 

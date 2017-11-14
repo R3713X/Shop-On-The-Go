@@ -7,8 +7,8 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +40,7 @@ public class ShopController implements IController<ShopModel, String>{
      * @return the list of shops
      */
     @Override
-    public ArrayList<ShopModel> get(){
+    public List<ShopModel> get(){
         try {
             final String url = "http://localhost:8080/shops";
             return restTemplate.getForObject(url, ShopModel.class);

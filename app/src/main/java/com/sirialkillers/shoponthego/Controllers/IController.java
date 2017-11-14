@@ -8,12 +8,8 @@ import java.util.List;
  */
 public interface IController<T, U> {
     List<T>  get();
-
     T getById(U objectId);
-
     T create(T objectToBeCreated);
-
     void update(T object);
-
     void delete(U objectId);
 }
