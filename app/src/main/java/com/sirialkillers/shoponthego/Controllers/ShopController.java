@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 03/10/2017
+ * @version 15/11/2017
  *
  */
 public class ShopController implements IController<ShopModel, String>{
@@ -44,6 +45,7 @@ public class ShopController implements IController<ShopModel, String>{
         try {
             final String url = "http://localhost:8080/shops";
             return restTemplate.getForObject(url, ShopModel.class);
+
         }catch (Exception e){
             Log.e("getShops", e.getMessage(),e);
         }
@@ -58,10 +60,11 @@ public class ShopController implements IController<ShopModel, String>{
     @Override
     public ShopModel getById(String shopId){
         try {
-            final String url = "http://localhost:8080/shops/{id}";
+            final String url = "http://localhost:8080/shops/{shopId}";
             params.clear();
-            params.put("id", shopId);
+            params.put("shopId", shopId);
             return restTemplate.getForObject(url, ShopModel.class, params);
+
         }catch (Exception e){
             Log.e("getShopById", e.getMessage(),e);
         }
@@ -78,6 +81,7 @@ public class ShopController implements IController<ShopModel, String>{
         try {
             final String url = "http://localhost:8080/shops";
             return restTemplate.postForObject(url, shop, ShopModel.class);
+
         }catch (Exception e){
             Log.e("createShop", e.getMessage(),e);
         }
@@ -90,12 +94,13 @@ public class ShopController implements IController<ShopModel, String>{
      * @param shop is the shop that will get updated
      */
     @Override
-    public void update(ShopModel shop){
+    public void update(String targetShop, ShopModel shop){
         try {
-            final String url = "http://localhost:8080/shops/{id}";
+            final String url = "http://localhost:8080/shops/{targetShop}";
             params.clear();
-            params.put("id", shop.getId());
+            params.put("targetShop", targetShop);
             restTemplate.put(url, shop, params);
+
         }catch (Exception e) {
             Log.e("updateShop", e.getMessage(), e);
         }
@@ -108,12 +113,106 @@ public class ShopController implements IController<ShopModel, String>{
     @Override
     public void delete(String shopId){
         try {
-            final String url = "http://localhost:8080/shops/{id}";
+            final String url = "http://localhost:8080/shops/{shopId}";
             params.clear();
-            params.put("id", shopId);
+            params.put("shopId", shopId);
             restTemplate.delete(url, params);
+
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * returns a list of offers that are available
+     * from that certain shop that matches the shopId.
+     * @param shopId the shop that will return its offers.
+     * @return a list of offers
+     */
+    public List<OfferModel> getShopOffers(String shopId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            params.clear();
+            params.put("shopId",shopId);
+            return restTemplate.getForObject(url, OfferModel.class, params);
+
+        }catch (Exception e){
+            Log.e("getShopOffers", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * returns a offer that matches the shop and offer ID.
+     * @param shopId the shop to match.
+     * @param offerId the offer to match.
+     * @return a offer.
+     */
+    public OfferModel getShopOffer(String shopId, String offerId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            params.clear();
+            params.put("shopId",shopId);
+            params.put("offerId", offerId);
+            return restTemplate.getForObject(url, OfferModel.class, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("getShopOffer", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * creates a new offer and adds it to the shop that matches the shopId.
+     * @param shopId the shop that will add the offer.
+     * @param offer the offer that will be added.
+     */
+    public void addShopOffer(String shopId, OfferModel offer){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            params.clear();
+            params.put("shopId", shopId);
+            restTemplate.postForObject(url, offer, OfferModel.class, params);
+
+        }catch (Exception e){
+            Log.e("addShopOffer", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * updates an already existing offer from a shop.
+     * @param shopId the shop that has the offer.
+     * @param offerId the offer that will get updated.
+     * @param offer the offer that will replace the old offer.
+     */
+    public void updateShopOffer(String shopId, String offerId,  OfferModel offer){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("offerId", offerId);
+            restTemplate.put(url, offer, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("updateShopOffer", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * deletes a offer from a shop.
+     * @param shopId the shop that has the offer.
+     * @param offerId the offer that will get deleted.
+     */
+    public void deleteShopOffer(String shopId, String offerId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("offerId", offerId);
+            restTemplate.delete(url, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("deleteShopOffer", e.getMessage(),e);
         }
     }
 }

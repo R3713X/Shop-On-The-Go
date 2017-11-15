@@ -90,11 +90,11 @@ public class OfferController implements IController<OfferModel, String>{
      * @param offer is the offer that will get updated.
      */
     @Override
-    public void update(OfferModel offer){
+    public void update(String targetOffer, OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://localhost:8080/offers/{targetOffer}";
             params.clear();
-            params.put("id", offer.getOfferId());
+            params.put("targetOffer", targetOffer);
             OfferModel updatedOffer = new OfferModel(offer);
             restTemplate.put(url, updatedOffer, params);
         }catch (Exception e){
