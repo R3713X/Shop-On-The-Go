@@ -2,5 +2,8 @@ package com.shoponthego.shops.categories;
 
 public interface ICategory {
 
-	public void setCategory(String category);
+	public int getCategoryId();
+	public String getCategoryName();
+	public String getCategoryDescription();
+
 }
