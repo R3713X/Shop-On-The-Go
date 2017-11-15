@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
@@ -213,6 +214,99 @@ public class ShopController implements IController<ShopModel, String>{
 
         }catch (Exception e){
             Log.e("deleteShopOffer", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * returns a list of discounts that are available
+     * from that certain shop that matches the shopId.
+     * @param shopId the shop that will return its discounts.
+     * @return a list of discounts.
+     */
+    public List<DiscountModel> getShopDiscounts(String shopId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            params.clear();
+            params.put("shopId",shopId);
+            return restTemplate.getForObject(url, DiscountModel.class, params);
+
+        }catch (Exception e){
+            Log.e("getShopDiscounts", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * returns a discount that matches the shop and discount ID.
+     * @param shopId the shop to match.
+     * @param discountId the discount to return.
+     * @return a discount.
+     */
+    public DiscountModel getShopDiscount(String shopId, String discountId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            params.clear();
+            params.put("shopId",shopId);
+            params.put("discountId", discountId);
+            return restTemplate.getForObject(url, DiscountModel.class, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("getShopDiscount", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * creates a new discount and adds it to the shop that matches the shopId.
+     * @param shopId the shop that will add the discount.
+     * @param discount the discount that will be added.
+     */
+    public void addShopDiscount(String shopId, DiscountModel discount){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            params.clear();
+            params.put("shopId", shopId);
+            restTemplate.postForObject(url, discount, DiscountModel.class, params);
+
+        }catch (Exception e){
+            Log.e("addShopDiscount", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * updates an already existing discount from a shop.
+     * @param shopId the shop that has the offer.
+     * @param discountId the discount that will get updated.
+     * @param discount the discount that will replace the old discount.
+     */
+    public void updateShopDiscount(String shopId, String discountId,  DiscountModel discount){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("discountId", discountId);
+            restTemplate.put(url, discount, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("updateShopDiscount", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * deletes a discount from a shop.
+     * @param shopId the shop that has the discount.
+     * @param discountId the discount that will get deleted.
+     */
+    public void deleteShopDiscount(String shopId, String discountId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("discountId", discountId);
+            restTemplate.delete(url, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("deleteShopDiscount", e.getMessage(),e);
         }
     }
 }
