@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class OfferService {
 
-	private List<Offer> offers = new ArrayList<>(Arrays.asList(
-			new Offer("212", "Nike","Bla","Bka")));
+	private List<IOffer> offers;
 	
-	public List<Offer> getAllOffers() {
+	public List<IOffer> getAllOffers() {
 		return offers;
 	}
 
-	public Offer getOfferById(String id) {
-		for (Offer offer : offers) {
+	public IOffer getOfferById(String id) {
+		for (IOffer offer : offers) {
 			if(offer.getId().equalsIgnoreCase(id)) {
 				return offer;
 			}
@@ -25,13 +24,13 @@ public class OfferService {
 		return null;
 	}
 
-	public void addOffer(Offer offer) {
+	public void addOffer(IOffer offer) {
 		offers.add(offer);
 	}
 
-	public void updateOffer(String id, Offer newOffer) {
+	public void updateOffer(String id, IOffer newOffer) {
 		for(int i=0; i<offers.size(); i++) {
-			Offer offer = offers.get(i);
+			IOffer offer = offers.get(i);
 			if(offer.getId().equalsIgnoreCase(id)) {
 				offers.set(i, newOffer);
 				return;
@@ -41,7 +40,7 @@ public class OfferService {
 
 	public void deleteOffer(String id) {
 		for(int i=0; i<offers.size(); i++) {
-			Offer offer = offers.get(i);
+			IOffer offer = offers.get(i);
 			if(offer.getId().equalsIgnoreCase(id)) {
 				offers.remove(offer);
 				return;

@@ -4,4 +4,6 @@ public interface IOffer {
 	
 	public IOffer createOffer();
 
+	public String getId();
+
 }
