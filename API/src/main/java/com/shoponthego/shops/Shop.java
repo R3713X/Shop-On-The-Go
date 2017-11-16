@@ -37,6 +37,7 @@ public class Shop implements IShop {
 	}
 	
 	public Shop(String givenId, String givenName, Location shopLocation) {
+		discounts = new ArrayList<>();
 		products = new ArrayList<>();
 		offers = new ArrayList<>();
 		categories = new ArrayList<>();
@@ -82,14 +83,6 @@ public class Shop implements IShop {
 		return null;
 	}
 
-	public List<IDiscount> getDiscounts() {
-		return discounts;
-	}
-
-	public void setDiscounts(List<IDiscount> discounts) {
-		this.discounts = discounts;
-	}
-
 	@Override
 	public List<IProduct> getAllProducts() {
 		// TODO Auto-generated method stub
@@ -103,9 +96,8 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public List<IDiscount> getAllDiscounts() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<IDiscount> getDiscounts() {
+		return discounts;
 	}
 
 	@Override

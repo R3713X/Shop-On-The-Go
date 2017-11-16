@@ -145,8 +145,11 @@ public class ShopService implements IShopService {
 
 	@Override
 	public List<IDiscount> getDiscounts(String shopId) {
-		// TODO Auto-generated method stub
-		return null;
+		IShop shop = getShop(shopId);
+		if(shop == null) {
+			return null;
+		}
+		return shop.getDiscounts();
 	}
 
 	@Override
