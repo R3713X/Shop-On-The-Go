@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoponthego.offers.IOffer;
+import com.shoponthego.shops.discounts.IDiscount;
 
 @RestController
 public class ShopController {
@@ -66,5 +67,28 @@ public class ShopController {
 	public void deleteOffer(@PathVariable String shopId, @PathVariable String offerId) {
 		shopService.deleteOffer(shopId, offerId);
 	}
-
+	@RequestMapping(method=RequestMethod.GET ,value="/shops/{shopId}/discounts")
+	public List<IDiscount> getDiscountsForShop(@PathVariable String shopId) {
+		return shopService.getDiscounts(shopId);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET , value="/shops/{shopId}/discounts/{discountId}")
+	public IOffer getDiscountForShop(@PathVariable String shopId, @PathVariable String discountId) {
+		return shopService.getDiscount(shopId, discountId);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/shops/{shopId}/discounts")
+	public void addDiscount(@PathVariable String shopId, @RequestBody IDiscount discount) {
+		shopService.addDiscount(shopId, discount);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/shops/{shopId}/discounts/{discountId}")
+	public void updateDiscount(@PathVariable String shopId, @PathVariable String discountId, @RequestBody IDiscount discount) {
+		shopService.updateDiscount(shopId, discountId, discount);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/shops/{shopId}/discounts/{discountId}")
+	public void deleteDiscount(@PathVariable String shopId, @PathVariable String discountId) {
+		shopService.deleteDiscount(shopId, discountId);
+	}
 }

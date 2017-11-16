@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.shoponthego.offers.IOffer;
 import com.shoponthego.products.IProduct;
+import com.shoponthego.shops.discounts.IDiscount;
 
 @Service
 public interface IShopService {
@@ -30,5 +31,11 @@ public interface IShopService {
 	public void addOffers(IShop shop, List<IOffer> offers);
 	public void updateOffer(String shopId, String offerId, IOffer newOffer);
 	public void deleteOffer(String shopId, String offerId);
+	
+	public List<IDiscount> getDiscounts(String shopId);
+	public IOffer getDiscount(String shopId, String discountId);
+	public void addDiscount(String shopId, IDiscount discount);
+	public void updateDiscount(String shopId, String discountId, IDiscount discount);
+	public void deleteDiscount(String shopId, String discountId);
 	
 }

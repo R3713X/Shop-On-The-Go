@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.shoponthego.locations.Location;
 import com.shoponthego.offers.IOffer;
 import com.shoponthego.products.IProduct;
+import com.shoponthego.shops.discounts.IDiscount;
 
 @Service
 public class ShopService implements IShopService {
@@ -140,5 +141,35 @@ public class ShopService implements IShopService {
 	public IOffer getOffer(String shopId, String offerId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<IDiscount> getDiscounts(String shopId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IOffer getDiscount(String shopId, String discountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addDiscount(String shopId, IDiscount discount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateDiscount(String shopId, String discountId, IDiscount discount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteDiscount(String shopId, String discountId) {
+		// TODO Auto-generated method stub
+		
 	}
 }
