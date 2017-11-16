@@ -59,7 +59,7 @@ public class ShopModel extends ArrayList implements IShop {
     @Override
     public List<IOffer> getOffers() {
 
-        return null;
+        return offers;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ShopModel extends ArrayList implements IShop {
     @Override
     public List<IProduct> getAllProducts() {
 
-        return null;
+        return products;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ShopModel extends ArrayList implements IShop {
     @Override
     public List<IDiscount> getAllDiscounts() {
 
-        return null;
+        return discounts;
     }
 
     @Override

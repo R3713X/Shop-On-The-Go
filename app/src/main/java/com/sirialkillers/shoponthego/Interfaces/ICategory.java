@@ -2,8 +2,11 @@ package com.sirialkillers.shoponthego.Interfaces;
 
 /**
  * @author Ioakeim James Theologou
- * @version 14/11/2017
+ * @version 16/11/2017
  *
  */
 public interface ICategory {
+    public int getCategoryId();
+    public String getCategoryName();
+    public String getCategoryDescription();
 }
