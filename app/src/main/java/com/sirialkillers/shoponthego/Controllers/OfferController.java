@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @version 12/11/2017
  *
  */
-public class OfferController implements IController<OfferModel, String>{
+public class OfferController implements IController<OfferModel, String> {
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate;
 

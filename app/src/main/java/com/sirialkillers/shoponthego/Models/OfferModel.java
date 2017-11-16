@@ -9,12 +9,11 @@ import java.util.Date;
  * TODO: Create a test class for this model.
  *
  */
-
 public class OfferModel extends ArrayList {
-    String offerId;
-    String title;
-    String description;
-    Date expirationDate;
+    private String offerId;
+    private String title;
+    private String description;
+    private Date expirationDate;
 
     OfferModel offer = new OfferModel();
 

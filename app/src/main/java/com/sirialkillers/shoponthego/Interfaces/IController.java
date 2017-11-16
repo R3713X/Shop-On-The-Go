@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego.Controllers;
+package com.sirialkillers.shoponthego.Interfaces;
 import java.util.List;
 
 /**

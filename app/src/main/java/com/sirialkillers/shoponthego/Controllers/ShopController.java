@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
@@ -18,7 +19,7 @@ import java.util.Map;
  * @version 15/11/2017
  *
  */
-public class ShopController implements IController<ShopModel, String>{
+public class ShopController implements IController<ShopModel, String> {
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -74,7 +75,7 @@ public class ShopController implements IController<ShopModel, String>{
 
     /**
      * Creates a new shop.
-     * @shop is the shop that will be created
+     * @param shop is the shop that will be created
      * @return the shop that was created
      */
     @Override
@@ -293,7 +294,7 @@ public class ShopController implements IController<ShopModel, String>{
     }
 
     /**
-     * deletes a discount from a shop.
+     * deletes a discount from the shop that matches its id.
      * @param shopId the shop that has the discount.
      * @param discountId the discount that will get deleted.
      */
