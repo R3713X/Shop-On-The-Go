@@ -1,7 +1,6 @@
 package com.sirialkillers.shoponthego;
 
 public class Shop {
-
     private String name;
     private Double latitude;
     private Double longtitude;

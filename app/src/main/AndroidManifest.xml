@@ -59,12 +59,6 @@
         </activity>
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
-
-        <activity
             android:name=".ShopsListView"
             android:label="Shop On The Go">
             android:windowSoftInputMode="adjustNothing"

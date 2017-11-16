@@ -6,6 +6,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+import com.sirialkillers.shoponthego.Models.ShopModel;
+
 import java.util.ArrayList;
 
 public class ShopsListView extends AppCompatActivity{
@@ -20,10 +22,10 @@ public class ShopsListView extends AppCompatActivity{
         LoS.addShop();
         lv= (ListView) findViewById(R.id.shopsListView);
         sv= (SearchView) findViewById(R.id.shopsSearchView);
-        ArrayList<Shop> shopsList;
+        ArrayList<ShopModel> shopsList;
         shopsList=LoS.getShop();
         //ADAPTER
-        final ListAdapter adapter=new ListAdapter(this, shopsList);
+        final ShopListAdapter adapter=new ShopListAdapter(this, shopsList);
         lv.setAdapter(adapter);
         sv.setOnQueryTextListener(new OnQueryTextListener() {
             @Override

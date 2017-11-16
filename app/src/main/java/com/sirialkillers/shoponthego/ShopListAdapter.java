@@ -13,13 +13,16 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 import android.view.View;
-public class ListAdapter extends BaseAdapter implements Filterable{
-    private Context c;
-    private ArrayList<Shop> shops;
-    private CustomFilter filter;
-    private ArrayList<Shop> filterList;
 
-    ListAdapter(Context ctx, ArrayList<Shop> shops) {
+import com.sirialkillers.shoponthego.Models.ShopModel;
+
+public class ShopListAdapter extends BaseAdapter implements Filterable{
+    private Context c;
+    private ArrayList<ShopModel> shops;
+    private CustomFilter filter;
+    private ArrayList<ShopModel> filterList;
+
+    ShopListAdapter(Context ctx, ArrayList<ShopModel> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
         this.shops=shops;
@@ -79,7 +82,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
                 {
                     if(filterList.get(i).getName().toUpperCase().contains(constraint))
                     {
-                        Shop s=new Shop(filterList.get(i).getName(), filterList.get(i).getLatitude(),filterList.get(i).getLongtitude());
+                        Shop s=new Shop(filterList.get(i).getName(), filterList.get(i).getPosition().getLatitude(),filterList.get(i).getPosition().getLongitude());
                         filters.add(s);
                     }
                 }
@@ -95,7 +98,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             // TODO Auto-generated method stub
-            shops=(ArrayList<Shop>) results.values;
+            shops=(ArrayList<ShopModel>) results.values;
             notifyDataSetChanged();
         }
     }
