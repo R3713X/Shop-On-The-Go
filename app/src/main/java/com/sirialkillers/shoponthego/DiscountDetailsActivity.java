@@ -14,7 +14,7 @@ import java.util.Date;
  * Created by User on 16-Nov-17.
  */
 
-class DiscountDetailsActivity extends AppCompatActivity{
+public class DiscountDetailsActivity extends AppCompatActivity{
     int position;
     TextView title;
     TextView description;
