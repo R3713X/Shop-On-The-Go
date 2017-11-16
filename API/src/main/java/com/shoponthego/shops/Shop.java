@@ -15,6 +15,7 @@ public class Shop implements IShop {
 	private String name;
 	
 	private Location location;
+	
 	/*
 	private String email;
 	private String phone;

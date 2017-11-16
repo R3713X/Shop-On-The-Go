@@ -2,29 +2,31 @@ package com.shoponthego.shops;
 
 import java.util.List;
 
+import com.shoponthego.locations.Location;
 import com.shoponthego.offers.IOffer;
 import com.shoponthego.products.IProduct;
 import com.shoponthego.shops.discounts.IDiscount;
 
 public interface IShop {
 
-	String getId();
-	String getName();
+	public String getId();
+	public String getName();
+	public Location getLocation();
 	
 	/*
-	String getEmail();
-	String getPhoneNumber();
-	String getCountry();
-	String getRegion();
-	String getCity();
-	String getAddress();
-	String getPostcode();
+	public String getEmail();
+	public String getPhoneNumber();
+	public String getCountry();
+	public String getRegion();
+	public String getCity();
+	public String getAddress();
+	public 	String getPostcode();
 	*/
-	List<IOffer> getOffers();
-	IOffer getOffer(String offerId);
-	List<IProduct> getAllProducts();
-	IProduct getProduct(String productId);
-	List<IDiscount> getAllDiscounts();
-	IDiscount getDiscount(String discountId);
+	public List<IOffer> getOffers();
+	public IOffer getOffer(String offerId);
+	public List<IProduct> getAllProducts();
+	public IProduct getProduct(String productId);
+	public List<IDiscount> getAllDiscounts();
+	public IDiscount getDiscount(String discountId);
 
 }
