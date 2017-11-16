@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Ioakeim James Theologou
- * @version 14/10/2017
+ * @version 16/10/2017
  * TODO: Create a test class for this model.
  *
  */

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
+import com.sirialkillers.shoponthego.Models.ProductModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 15/11/2017
+ * @version 16/11/2017
  *
  */
 public class ShopController implements IController<ShopModel, String> {
@@ -310,4 +311,99 @@ public class ShopController implements IController<ShopModel, String> {
             Log.e("deleteShopDiscount", e.getMessage(),e);
         }
     }
+
+    /**
+     * returns a list of products that are available
+     * by the shop that matches the shopId.
+     * @param shopId the shop that will return its products.
+     * @return a list of products.
+     */
+    public List<ProductModel> getShopProducts(String shopId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/products";
+            params.clear();
+            params.put("shopId",shopId);
+            return restTemplate.getForObject(url, ProductModel.class, params);
+
+        }catch (Exception e){
+            Log.e("getShopProducts", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * returns a product that matches the shop and the product ID.
+     * @param shopId the shop to match.
+     * @param productId the product to return.
+     * @return a product.
+     */
+    public ProductModel getShopProduct(String shopId, String productId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            params.clear();
+            params.put("shopId",shopId);
+            params.put("productId", productId);
+            return restTemplate.getForObject(url, ProductModel.class, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("getShopProduct", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * creates a new product and adds it to the shop that matches the shopId.
+     * @param shopId the shop that will add the product.
+     * @param product the product that will be added.
+     */
+    public void addShopProduct(String shopId, ProductModel product){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/products";
+            params.clear();
+            params.put("shopId", shopId);
+            restTemplate.postForObject(url, product, ProductModel.class, params);
+
+        }catch (Exception e){
+            Log.e("addShopProduct", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * updates an already existing product from a shop.
+     * @param shopId the shop that has the product.
+     * @param productId the product that will get updated.
+     * @param product the product that will replace the old one.
+     */
+    public void updateShopProduct(String shopId, String productId,  ProductModel product){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("productId", productId);
+            restTemplate.put(url, product, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("updateShopProduct", e.getMessage(),e);
+        }
+    }
+
+    /**
+     * deletes a product from the shop that matches the shopId.
+     * @param shopId the shop that has the product.
+     * @param productId the product that will get deleted.
+     */
+    public void deleteShopProduct(String shopId, String productId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            params.clear();
+            params.put("shopId", shopId);
+            params.put("productId", productId);
+            restTemplate.delete(url, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("deleteShopProduct", e.getMessage(),e);
+        }
+    }
+
+
 }
