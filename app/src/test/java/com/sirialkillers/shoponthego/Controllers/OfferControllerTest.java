@@ -25,15 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * @author Ioakeim James Theologou
- * @version 04/10/2017
+ * @version 16/10/2017
  */
 public class OfferControllerTest {
     private OfferController offerController;
-
     private List<OfferModel> offers;
-
     private OfferModel offer;
-
     private MockMvc mock;
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
@@ -43,7 +40,7 @@ public class OfferControllerTest {
     @Before
     public void setUp() throws Exception {
         offerController = new OfferController();
-        offers = offerController.getOffers();
+        offers = offerController.get();
     }
 
     @Test
@@ -51,7 +48,7 @@ public class OfferControllerTest {
         mock.perform(get("/offers"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(this.offers.get(0).getId())))
+                .andExpect(jsonPath("$.id", is(this.offers.get(0).getOfferId())))
                 .andExpect(jsonPath("$.title", is(this.offers.get(0).getTitle())));
     }
 
@@ -61,17 +58,18 @@ public class OfferControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$[0].id", is(this.offers.get(0).getId())))
+                .andExpect(jsonPath("$[0].id", is(this.offers.get(0).getOfferId())))
                 .andExpect(jsonPath("$[0].title", is(this.offers.get(0).getTitle())))
-                .andExpect(jsonPath("$[0].id", is(this.offers.get(1).getId())))
+                .andExpect(jsonPath("$[0].id", is(this.offers.get(1).getOfferId())))
                 .andExpect(jsonPath("$[0].title", is(this.offers.get(1).getTitle())));
     }
 
     @Test
     public void createOffer() throws Exception {
-        OfferModel offer = (new OfferModel("1", "Just keep it up"));
-        assertEquals(offer.getId(), "1");
+        OfferModel offer = (new OfferModel("1", "1", "Just keep it up", ""));
+        assertEquals(offer.getOfferId(), "1");
         assertEquals(offer.getTitle(), "Just keep it up");
+        assertEquals(offer.getDescription(), "");
 
         this.mock.perform(post("/offers")
                 .contentType(contentType)
@@ -87,23 +85,23 @@ public class OfferControllerTest {
 
     @Test
     public void getOfferById() throws Exception {
-        OfferModel offer = offerController.getOfferById("2");
-        assertEquals(offer.getId(), "2");
+        OfferModel offer = offerController.getById("2");
+        assertEquals(offer.getOfferId(), "2");
     }
 
     @Test
     public void updateOffer() throws Exception {
-        offer = offerController.getOfferById("2");
+        offer = offerController.getById("2");
         String title = offer.getTitle();
-        offerController.updateOffer("2", "This content just changed.");
-        offer = offerController.getOfferById("2");
+        offerController.update("2", offer);
+        offer = offerController.getById("2");
         assertNotEquals(title, offer.getTitle());
     }
 
     @Test
     public void deleteOffer() throws Exception {
-        offerController.deleteOffer("2");
-        assertNull(offerController.getOfferById("2"));
+        offerController.delete("2");
+        assertNull(offerController.getById("2"));
     }
 
     @After

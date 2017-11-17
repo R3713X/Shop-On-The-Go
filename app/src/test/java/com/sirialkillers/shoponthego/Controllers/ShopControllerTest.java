@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -26,11 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * @author Ioakeim James Theologou
- * @version 04/10/2017
+ * @version 17/10/2017
  *
  */
 public class ShopControllerTest {
-    private ArrayList<ShopModel> shops;
+    private List<ShopModel> shops;
     private ShopController shopController;
     private Position position;
     private MockMvc mock;
@@ -43,7 +43,7 @@ public class ShopControllerTest {
     public void setUp() throws Exception {
         position = new Position(40.6657785,22.9468865);
         shopController = new ShopController();
-        shops = shopController.getShops();
+        shops = shopController.get();
 
     }
 
@@ -74,10 +74,11 @@ public class ShopControllerTest {
 
     @Test
     public void createShop() throws Exception {
-        ShopModel shop = shopController.createShop("5", "Pizza Della Mamma", position);
-        assertEquals(shop.getId(), "5");
-        assertEquals(shop.getName(), "Pizza Della Mamma");
-        assertEquals(shop.getPosition(), position);
+        ShopModel shop = new ShopModel("5", "Pizza Della Mamma", position);
+        ShopModel shopThatIsCreated = shopController.create(shop);
+        assertEquals(shopThatIsCreated.getId(), "5");
+        assertEquals(shopThatIsCreated.getName(), "Pizza Della Mamma");
+        assertEquals(shopThatIsCreated.getPosition(), position);
 
         this.mock.perform(post("/shops")
                 .contentType(contentType)
@@ -93,23 +94,23 @@ public class ShopControllerTest {
 
     @Test
     public void getShopById() throws Exception {
-        ShopModel shop = shopController.getShopById("2");
+        ShopModel shop = shopController.getById("2");
         assertEquals(shop.getId(), "2");
     }
 
     @Test
     public void updateShop() throws Exception {
-        ShopModel shop = shopController.getShopById("2");
+        ShopModel shop = shopController.getById("2");
         String name = shop.getName();
-        shopController.updateShop("2", "Booyah!", position);
-        shop = shopController.getShopById("2");
+        shopController.update("2", shop);
+        shop = shopController.getById("2");
         assertNotEquals(name, shop.getName());
     }
 
     @Test
     public void deleteShop() throws Exception {
-        shopController.deleteShop("2");
-        assertNull(shopController.getShopById("2"));
+        shopController.delete("2");
+        assertNull(shopController.getById("2"));
     }
 
     @After

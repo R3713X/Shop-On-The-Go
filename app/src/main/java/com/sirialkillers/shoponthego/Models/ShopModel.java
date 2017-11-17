@@ -26,6 +26,13 @@ public class ShopModel extends ArrayList implements IShop {
     private List<IProduct> products;
     private List <ICategory> categories;
 
+    public ShopModel(String id, String name, Position position){
+        this.id = id;
+        this.name = name;
+        this.position = position;
+
+    }
+
     public String getId() {
 
         return id;

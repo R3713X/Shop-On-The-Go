@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author Ioakeim James Theologou
- * @version 31/10/2017
+ * @version 16/10/2017
  * TODO: Create a test class for this model.
  *
  */
@@ -22,6 +22,13 @@ public class OfferModel extends ArrayList implements IOffer{
     private List<IProduct> products;
 
 
+    public OfferModel(String shopId, String offerId, String title, String description){
+        this.shopId = shopId;
+        this.offerId = offerId;
+        this.title = title;
+        this.description = description;
+
+    }
     @Override
     public String getShopId() {
 
