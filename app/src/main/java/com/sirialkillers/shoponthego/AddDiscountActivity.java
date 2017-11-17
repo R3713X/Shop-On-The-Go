@@ -4,99 +4,82 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 
 public class AddDiscountActivity extends AppCompatActivity {
+
+    private ConstraintLayout dConstraintLayout;
+
     private EditText dTitleEditText;
-    private DiscountRegisterTask discountRegisterTask = null;
     private EditText dDescriptionEditText;
-    private NumberPicker numberPicker;
-    private TextView dcatergoriesTextView;
-    private String date;
+    private DiscountRegisterTask discountRegisterTask = null;
+
+    private TextView dCategoriesTextView;
     private TextView dExpDateTextView;
+    private TextView loadingTextView;
+
+    private ProgressBar progressBar;
+
+    private NumberPicker numberPicker;
+
+    private String date;
     private int DIALOG_ID = 0;
-    private int dyear, dmonth, dday;
+    private int dYear, dMonth, dDay;
     private Calendar calendar = Calendar.getInstance();
-    String scategories;
+
+
+    String sCategories;
     String[] categories;
-
     boolean[] checkedCategories;
-
     ArrayList<Integer> mUserCategories = new ArrayList<>();
 
 
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            dyear = year;
-            dmonth = month;
-            int realmonth = month + 1;
-            dday = dayOfMonth;
 
-            if (dyear > calendar.get(Calendar.YEAR) ||
-                    dyear == calendar.get(Calendar.YEAR) && dmonth > calendar.get(Calendar.MONTH) ||
-                    dyear == calendar.get(Calendar.YEAR) && dmonth == calendar.get(Calendar.MONTH) && dday >= calendar.get(Calendar.DAY_OF_MONTH)) {
-                date = Integer.toString(dday) + "/" + Integer.toString(realmonth)
-                        + "/" + Integer.toString(year);
-                dExpDateTextView.setError(null);
-                dExpDateTextView.setText(date);
-
-            } else {
-
-                date = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        "/" + Integer.toString(calendar.get(Calendar.MONTH) + 1) +
-                        "/" + Integer.toString(calendar.get(Calendar.YEAR));
-                dExpDateTextView.setText(date);
-                dExpDateTextView.setError("Please select a future date.");
-                Toast toast = Toast.makeText(AddDiscountActivity.this,
-                        "The day you selected is a past one. Please select a future date.",
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_discount);
 
+        dConstraintLayout = (ConstraintLayout) findViewById(R.id.addDiscountConstraintLayout);
+
         dTitleEditText = (EditText) findViewById(R.id.titleDiscountEditText);
-        numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(99);
-        numberPicker.setMinValue(1);
-        numberPicker.setValue(20);
-
-
         dDescriptionEditText = (EditText) findViewById(R.id.descriptionDiscountEditText);
-        dcatergoriesTextView = (TextView) findViewById(R.id.categoriesTextView);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        setNumberPicker();
+        setCalendar();
+
+        loadingTextView = (TextView) findViewById(R.id.loadingTextView);
         dExpDateTextView = (TextView) findViewById(R.id.expirationDateTextView);
-
+        dCategoriesTextView = (TextView) findViewById(R.id.categoriesTextView);
+        dCategoriesTextView.setMovementMethod(new ScrollingMovementMethod());
 
         categories = getResources().getStringArray(R.array.productCategories);
         checkedCategories = new boolean[categories.length];
-        dcatergoriesTextView.setMovementMethod(new ScrollingMovementMethod());
+
+
         TextView selectExpDateTextView = (TextView) findViewById(R.id.selectExpirationDateTextView);
         selectExpDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +87,6 @@ public class AddDiscountActivity extends AppCompatActivity {
                 selectExpDate();
             }
         });
-        setCalendar();
 
         TextView selectCategoriesTextView = (TextView) findViewById(R.id.selectCategoriesTextView);
         selectCategoriesTextView.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +105,59 @@ public class AddDiscountActivity extends AppCompatActivity {
         });
     }
 
+    //Setting Discount to be from 1 to 99% and default value at 20%
+    public void setNumberPicker(){
+        numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+        numberPicker.setMaxValue(99);
+        numberPicker.setMinValue(1);
+        numberPicker.setValue(20);
+    }
 
+    /**
+     * Setting the DateSetListener so you can pick only a future day.
+     */
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            dYear = year;
+            dMonth = month;
+
+            //Months are from 0 to 11 but we need to look from 1 to 12 like IRL
+            int realMonth = month + 1;
+            dDay = dayOfMonth;
+
+            //if you chose a valid date display that date
+            if (dYear > calendar.get(Calendar.YEAR) ||
+                    dYear == calendar.get(Calendar.YEAR) && dMonth > calendar.get(Calendar.MONTH) ||
+                    dYear == calendar.get(Calendar.YEAR) && dMonth == calendar.get(Calendar.MONTH) && dDay >= calendar.get(Calendar.DAY_OF_MONTH)) {
+                date = Integer.toString(dDay) + "/" + Integer.toString(realMonth)
+                        + "/" + Integer.toString(year);
+                dExpDateTextView.setError(null);
+                dExpDateTextView.setText(date);
+
+            //else you chose a past date display an error and set the date to today's date
+            } else {
+
+                date = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) +
+                        "/" + Integer.toString(calendar.get(Calendar.MONTH) + 1) +
+                        "/" + Integer.toString(calendar.get(Calendar.YEAR));
+                dExpDateTextView.setText(date);
+                dExpDateTextView.setError("Please select a future date.");
+                Toast toast = Toast.makeText(AddDiscountActivity.this,
+                        "The day you selected is a past one. Please select a future date.",
+                        Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    };
+
+    /**
+     * Setting the Multiple Category choices, you can pick one or many categories
+     */
     private void selectCategories() {
         AlertDialog.Builder categoryMBuilder = new AlertDialog.Builder(AddDiscountActivity.this);
         categoryMBuilder.setTitle(R.string.title);
+
         categoryMBuilder.setMultiChoiceItems(categories, checkedCategories, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position, boolean isChecked) {
@@ -139,22 +170,23 @@ public class AddDiscountActivity extends AppCompatActivity {
                 }
             }
         });
+
         categoryMBuilder.setCancelable(false);
 
         categoryMBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String categoriesString = "";
-                scategories = "";
+                sCategories = "";
                 for (int i = 0; i < mUserCategories.size(); i++) {
                     categoriesString = categoriesString + categories[mUserCategories.get(i)];
-                    scategories = categoriesString + categories[mUserCategories.get(i)];
+                    sCategories = categoriesString + categories[mUserCategories.get(i)];
                     if (i != mUserCategories.size() - 1) {
                         categoriesString = categoriesString + ", ";
-                        scategories = scategories + " ";
+                        sCategories = sCategories + " ";
                     }
                 }
-                dcatergoriesTextView.setText(categoriesString);
+                dCategoriesTextView.setText(categoriesString);
             }
         });
 
@@ -171,7 +203,7 @@ public class AddDiscountActivity extends AppCompatActivity {
                 for (int i = 0; i < checkedCategories.length; i++) {
                     checkedCategories[i] = false;
                     mUserCategories.clear();
-                    dcatergoriesTextView.setText("");
+                    dCategoriesTextView.setText("");
                 }
             }
         });
@@ -180,88 +212,112 @@ public class AddDiscountActivity extends AppCompatActivity {
         mDialog.show();
     }
 
+    //Loading
+    private void Loading() {
+        dConstraintLayout.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        loadingTextView.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                startActivity(intent);
+            }
+        },2000);
+    }
+
     private void selectExpDate() {
         showDialog(DIALOG_ID);
     }
 
     private void setCalendar() {
 
-        dyear = calendar.get(Calendar.YEAR);
-        dmonth = calendar.get(Calendar.MONTH);
-        dday = calendar.get(Calendar.DAY_OF_MONTH);
+        dYear = calendar.get(Calendar.YEAR);
+        dMonth = calendar.get(Calendar.MONTH);
+        dDay = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {
-            return new DatePickerDialog(AddDiscountActivity.this, datePickerListener, dyear, dmonth, dday);
+            return new DatePickerDialog(AddDiscountActivity.this, datePickerListener, dYear, dMonth, dDay);
         }
         return null;
     }
 
+    /**
+     * Setting the Submit Discount to work if every choice is valid
+     */
     private void attemptSubmitDiscount() {
 
-        /*if (discountRegisterTask != null) {
+        if (discountRegisterTask != null) {
             return;
-        }*/
+        }
+
         boolean cancel = false;
         View focusView = dTitleEditText;
-        Log.i("A","1");
+
+
         dTitleEditText.setError(null);
         dDescriptionEditText.setError(null);
-        dcatergoriesTextView.setError(null);
-        Log.i("A","1");
+        dCategoriesTextView.setError(null);
+
 
         if (dTitleEditText.getText().toString().isEmpty()) {
             dTitleEditText.setError("Please enter a title ");
             focusView = dTitleEditText;
             cancel = true;
-            Log.i("A","1");
         }
+
         if (dTitleEditText.getText().toString().length() > 70) {
             dTitleEditText.setError("Please enter a title shorter than 70 characters");
             focusView = dTitleEditText;
             cancel = true;
-            Log.i("A","1");
         }
-
 
         if (dDescriptionEditText.getText().toString().length() > 500) {
             dDescriptionEditText.setError("Please enter a Description shorter than 500 characters");
             focusView = dDescriptionEditText;
             cancel = true;
         }
-        if (dcatergoriesTextView.getText().toString().isEmpty()) {
-            Toast toast = Toast.makeText(AddDiscountActivity.this,
+
+        if (dCategoriesTextView.getText().toString().isEmpty()) {
+            Toast categoryToast = Toast.makeText(AddDiscountActivity.this,
                     "Please select the Product Categories", Toast.LENGTH_LONG);
-            dcatergoriesTextView.setError("Please fill");
+            dCategoriesTextView.setError("Please fill");
             cancel = true;
+            categoryToast.show();
         }
+
         if (dExpDateTextView.getText().toString().isEmpty()) {
-            Toast toast = Toast.makeText(AddDiscountActivity.this,
+            Toast expDateToast = Toast.makeText(AddDiscountActivity.this,
                     "Please select a expiration date.", Toast.LENGTH_LONG);
             dExpDateTextView.setError("Please fill");
             cancel = true;
-
+            expDateToast.show();
         }
-        Log.i("B","1");
+        //We need to create the shop UI. for now we just create a random ID whenever you create a Discount.
+        UUID shopId = UUID.randomUUID();
 
         if (cancel) {
             // There was an error; don't to register the discount and show
             // form field with an error.
             focusView.requestFocus();
-            Log.i("B","1");
         } else {
             String dTitle = dTitleEditText.getText().toString();
-            Date dExpDate = new Date(dyear, dmonth, dday);
+            Date dExpDate = new Date(dYear, dMonth, dDay);
             String dDescription = dDescriptionEditText.getText().toString();
             // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //Loading();
-            Log.i("C","1");
-            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, numberPicker.getValue(), scategories, dDescription);
+            // perform the discount register attempt
+            Loading();
+
+            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, numberPicker.getValue(), sCategories, dDescription,shopId);
         }
     }
+
+    /**
+     * Setting the discount register task for sending the discount to the REST
+     */
 
     public class DiscountRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -270,13 +326,15 @@ public class AddDiscountActivity extends AppCompatActivity {
         private int discountValue;
         private String discountCategories;
         private String discountDescription = "default_empty";
+        private UUID shopID;
 
-        DiscountRegisterTask(String discountTitle, Date discountExpDate, int discountValue, String discountCategories, String discountDescription) {
+        DiscountRegisterTask(String discountTitle, Date discountExpDate, int discountValue, String discountCategories, String discountDescription,UUID shopID) {
             this.discountTitle = discountTitle;
             this.discountExpDate = discountExpDate;
             this.discountValue = discountValue;
             this.discountCategories = discountCategories;
             this.discountDescription = discountDescription;
+            this.shopID = shopID;
         }
 
         @Override
@@ -291,7 +349,7 @@ public class AddDiscountActivity extends AppCompatActivity {
             }
 
 
-            // TODO: register the new account here.
+            // TODO: register the new Discount here.
             return true;
         }
 
@@ -308,7 +366,6 @@ public class AddDiscountActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             discountRegisterTask = null;
-            //Loading();
         }
     }
 }
