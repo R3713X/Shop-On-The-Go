@@ -9,12 +9,12 @@ import com.sirialkillers.shoponthego.Interfaces.ICategory;
  *
  */
 public class CategoryModel implements ICategory{
-    int categoryId;
+    String categoryId;
     String categoryName;
     String description;
 
     @Override
-    public int getCategoryId() {
+    public String getCategoryId() {
 
         return categoryId;
     }

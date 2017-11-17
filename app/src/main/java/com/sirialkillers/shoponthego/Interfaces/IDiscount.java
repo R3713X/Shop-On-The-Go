@@ -8,8 +8,8 @@ import java.util.Date;
  *
  */
 public interface IDiscount {
-    public int getShopId();
-    public int getDiscountId();
+    public String getShopId();
+    public String getDiscountId();
     public double getPercentage();
     public String getTitle();
     public String getDescription();

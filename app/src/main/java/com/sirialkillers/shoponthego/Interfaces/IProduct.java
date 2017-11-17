@@ -7,7 +7,7 @@ package com.sirialkillers.shoponthego.Interfaces;
  */
 public interface IProduct {
     public String getProductName();
-    public int getProductId();
+    public String getProductId();
     public int getQuantityPerUnit();
     public long getUnitPrice();
 }

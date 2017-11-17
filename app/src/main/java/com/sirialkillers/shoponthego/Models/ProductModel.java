@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class ProductModel extends ArrayList implements IProduct {
     private String productName;
-    private int productId;
+    private String productId;
     private int quantityPerUnit;
     private long unitPrice;
 
@@ -23,7 +23,7 @@ public class ProductModel extends ArrayList implements IProduct {
     }
 
     @Override
-    public int getProductId() {
+    public String getProductId() {
 
         return productId;
     }

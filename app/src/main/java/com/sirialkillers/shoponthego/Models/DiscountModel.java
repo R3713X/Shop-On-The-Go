@@ -12,34 +12,34 @@ import java.util.Date;
  *
  */
 public class DiscountModel extends ArrayList implements IDiscount{
-    int shopId;
-    int discountId;
+    String shopId;
+    String discountId;
     double percentage;
     String title;
     String description;
     Date expirationDate;
 
     @Override
-    public int getShopId() {
+    public String getShopId() {
 
         return shopId;
     }
 
     @Override
-    public int getDiscountId() {
+    public String getDiscountId() {
 
         return discountId;
     }
 
     @Override
-    public double getPercentage()
-    {
+    public double getPercentage() {
+
         return percentage;
     }
 
     @Override
-    public String getTitle()
-    {
+    public String getTitle() {
+
         return title;
     }
 

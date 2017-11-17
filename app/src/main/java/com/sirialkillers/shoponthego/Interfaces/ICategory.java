@@ -6,7 +6,7 @@ package com.sirialkillers.shoponthego.Interfaces;
  *
  */
 public interface ICategory {
-    public int getCategoryId();
+    public String getCategoryId();
     public String getCategoryName();
     public String getCategoryDescription();
 }
