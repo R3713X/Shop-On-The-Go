@@ -31,6 +31,7 @@ public class ListOfShops {
     }
 
     public ArrayList<ShopModel> getShop(){
+
         return shops;
     }
 
@@ -44,7 +45,7 @@ public class ListOfShops {
         }
     }
 
-    //Used to find the correct shopName from the shopId
+    //Used to find the correct shopName from the shopId(currently not implemented)
     public String getShopName(String shopId){
         String id=shopId;
         String name=null;
@@ -60,7 +61,7 @@ public class ListOfShops {
 
     //used to find the correct shopId from the title of marker
     // (which is always the name of a shop in the Arraylist shops)
-    public String findCorrectShop(String title){
+    public String findCorrectShop(String title,ArrayList<ShopModel> shops){
         String name=title;
         String s;
         String id=null;
@@ -69,6 +70,9 @@ public class ListOfShops {
             if(Objects.equals(name, s)){
                 id=shop.getId();
             }
+        }
+        if(id==null){
+            id="Not Found";
         }
         return id;
 

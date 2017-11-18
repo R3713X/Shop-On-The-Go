@@ -237,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(Marker marker){
         String shopName = marker.getTitle();
-        String id=listOfShops.findCorrectShop(shopName);
+        String id=listOfShops.findCorrectShop(shopName, listOfShops.getShop());
         goToDiscounts(id,shopName);
 
 

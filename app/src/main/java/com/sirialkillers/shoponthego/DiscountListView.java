@@ -10,9 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sirialkillers.shoponthego.Models.DiscountModel;
-
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,9 +30,9 @@ public class DiscountListView extends AppCompatActivity{
         Intent i = getIntent();
         shopName=i.getStringExtra("name");
         message = i.getStringExtra("message");
+        final List<DiscountModel> discountList;
         //generate discount arraylist for specific shop(recognised by it's id)
         LoD.addDiscounts(message);
-        final List<DiscountModel> discountList;
         discountList=LoD.getDiscountlist();
         //get name of shop for the textview
         tv= (TextView) findViewById(R.id.shopNameTextView);

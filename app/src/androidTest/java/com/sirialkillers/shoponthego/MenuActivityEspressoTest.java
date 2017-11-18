@@ -8,7 +8,6 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.MediumTest;
 
 import org.junit.Rule;
 import org.junit.Test;
