@@ -15,7 +15,7 @@ import java.util.Date;
  */
 
 public class DiscountDetailsActivity extends AppCompatActivity{
-    int position;
+    int discountId;
     TextView title;
     TextView description;
     TextView expirationDate;
@@ -28,13 +28,11 @@ public class DiscountDetailsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discount_details_activity);
         Intent i = getIntent();
-        Bundle extras=i.getExtras();
-        position = Integer.parseInt(extras.getString("position"));
-        selectedDiscount=LoD.getSelectedDiscount(position);
+        selectedDiscount=i.getExtras().getParcelable("discount");
         //needs implementation of DiscountModel
         title= (TextView) findViewById(R.id.discountTitle);
         title.setText(selectedDiscount.getTitle());
-        description= (TextView) findViewById(R.id.discountDescription);
+        description= (TextView) findViewById(R.id.discountDetails);
         description.setText(selectedDiscount.getDescription());
         expirationDate= (TextView) findViewById(R.id.discountExpirationDate);
         dateText=convertDateToString(selectedDiscount.getExpirationDate());

@@ -1,6 +1,7 @@
 package com.sirialkillers.shoponthego.Controllers;
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 import com.sirialkillers.shoponthego.Position;
 
@@ -9,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -115,5 +117,38 @@ public class ShopController {
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
         }
+    }
+
+    public List<DiscountModel> getShopDiscounts(String shopId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            params.clear();
+            params.put("shopId",shopId);
+            return restTemplate.getForObject(url, DiscountModel.class, params);
+
+        }catch (Exception e){
+            Log.e("getShopDiscounts", e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * returns a discount that matches the shop and discount ID.
+     * @param shopId the shop to match.
+     * @param discountId the discount to return.
+     * @return a discount.
+     */
+    public DiscountModel getShopDiscount(String shopId, String discountId){
+        try{
+            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            params.clear();
+            params.put("shopId",shopId);
+            params.put("discountId", discountId);
+            return restTemplate.getForObject(url, DiscountModel.class, params.get(0), params.get(1));
+
+        }catch (Exception e){
+            Log.e("getShopDiscount", e.getMessage(),e);
+        }
+        return null;
     }
 }

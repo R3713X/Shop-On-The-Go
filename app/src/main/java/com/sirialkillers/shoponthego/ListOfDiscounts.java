@@ -1,33 +1,51 @@
 package com.sirialkillers.shoponthego;
 
+import android.app.Application;
+
 import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Created by User on 16-Nov-17.
  */
 
-public class ListOfDiscounts {
-    ArrayList<DiscountModel> discountlist=new ArrayList<>();
+public class ListOfDiscounts extends Application{
+    List<DiscountModel> discountlist=new ArrayList<>();
     ShopController shopController;
 
     public void addDiscounts(String shopId){
-        discountlist.clear();
-        String id = shopId;
-        //Needs implementation of getShopDiscounts on ShopController
-        discountlist=shopController.getShopDiscounts(id);
+        discountlist=shopController.getShopDiscounts(shopId);
     }
 
-    public ArrayList<DiscountModel> getDiscountlist() {
+    public List<DiscountModel> getDiscountlist() {
         return discountlist;
     }
 
 
-    public DiscountModel getSelectedDiscount(int position){
-        DiscountModel discount;
-        discount =discountlist.get(position);
+    public DiscountModel getSelectedDiscountById(int discountId) {
+        DiscountModel discount = null;
+        int id=discountId;
+        int s;
+        for(DiscountModel discounts:discountlist){
+            s=discounts.getDiscountId();
+            if(Objects.equals(id,s)){
+                discount=discounts;
+            }
+        }
+        
         return discount;
     }
+
+
 }

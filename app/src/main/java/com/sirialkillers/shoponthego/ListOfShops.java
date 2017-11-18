@@ -10,6 +10,7 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
 
@@ -26,8 +27,7 @@ public class ListOfShops {
 
     public void addShop() {
 
-        shops.clear();
-        shops= shopController.getShops();
+        shops=shopController.getShops();
     }
 
     public ArrayList<ShopModel> getShop(){

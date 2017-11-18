@@ -76,13 +76,13 @@ public class ShopListAdapter extends BaseAdapter implements Filterable{
             {
                 //CONSTRAINT TO UPPER
                 constraint=constraint.toString().toUpperCase();
-                ArrayList<Shop> filters= new ArrayList<>();
+                ArrayList<ShopModel> filters= new ArrayList<>();
                 //get specific items
                 for(int i=0;i<filterList.size();i++)
                 {
                     if(filterList.get(i).getName().toUpperCase().contains(constraint))
                     {
-                        Shop s=new Shop(filterList.get(i).getName(), filterList.get(i).getPosition().getLatitude(),filterList.get(i).getPosition().getLongitude());
+                        ShopModel s=new ShopModel(filterList.get(i).getId(),filterList.get(i).getName(), filterList.get(i).getPosition());
                         filters.add(s);
                     }
                 }

@@ -3,6 +3,7 @@ package com.sirialkillers.shoponthego.Models;
 import com.sirialkillers.shoponthego.Position;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * @author Ioakeim James Theologou
@@ -21,6 +22,7 @@ public class ShopModel extends ArrayList{
         this.name = name;
         this.position = position;
     }
+
 
     public String getId() {
         return id;

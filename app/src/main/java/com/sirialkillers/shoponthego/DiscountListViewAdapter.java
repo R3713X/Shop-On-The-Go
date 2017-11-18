@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 16-Nov-17.
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 
 public class DiscountListViewAdapter extends BaseAdapter{
     private Context c;
-    private ArrayList<DiscountModel> discounts;
+    private List<DiscountModel> discounts;
 
 
-    public DiscountListViewAdapter(Context ctx, ArrayList<DiscountModel> discounts) {
+    public DiscountListViewAdapter(Context ctx, List<DiscountModel> discounts) {
         this.c = ctx;
         this.discounts = discounts;
     }
@@ -48,7 +49,7 @@ public class DiscountListViewAdapter extends BaseAdapter{
         }
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTextView);
         //Needs implementation of DiscountModel
-        nameTxt.setText(discounts.get(pos).getName());
+        nameTxt.setText(discounts.get(pos).getTitle());
         return convertView;
     }
 }

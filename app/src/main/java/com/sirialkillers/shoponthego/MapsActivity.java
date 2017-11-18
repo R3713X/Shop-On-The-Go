@@ -227,9 +227,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
-    public void goToDiscounts(String id){
+    public void goToDiscounts(String id, String shopName){
         Intent i = new Intent (getApplicationContext(), DiscountListView.class);
-
+        i.putExtra("name", shopName);
         i.putExtra("message", id);
         startActivity(i);
     }
@@ -238,7 +238,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onInfoWindowClick(Marker marker){
         String shopName = marker.getTitle();
         String id=listOfShops.findCorrectShop(shopName);
-        goToDiscounts(id);
+        goToDiscounts(id,shopName);
 
 
     }
