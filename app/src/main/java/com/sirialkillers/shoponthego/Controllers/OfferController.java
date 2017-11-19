@@ -44,7 +44,7 @@ public class OfferController implements IController<OfferModel, String> {
     public List<OfferModel> get(){
         try {
             final String url = "http://localhost:8080/offers";
-            return restTemplate.getForObject(url, OfferModel.class);
+            restTemplate.getForObject(url, OfferModel.class);
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
         }
@@ -78,8 +78,7 @@ public class OfferController implements IController<OfferModel, String> {
     public OfferModel create(OfferModel offer){
         try {
             final String url = "http://localhost:8080/offers";
-            OfferModel newOffer = new OfferModel(offer);
-            return restTemplate.postForObject(url, newOffer, OfferModel.class);
+            return restTemplate.postForObject(url, offer, OfferModel.class);
         }catch (Exception e){
             Log.e("CreateOffer", e.getMessage(),e);
         }
@@ -96,8 +95,7 @@ public class OfferController implements IController<OfferModel, String> {
             final String url = "http://localhost:8080/offers/{targetOffer}";
             params.clear();
             params.put("targetOffer", targetOffer);
-            OfferModel updatedOffer = new OfferModel(offer);
-            restTemplate.put(url, updatedOffer, params);
+            restTemplate.put(url, offer, params);
         }catch (Exception e){
             Log.e("updateOffer", e.getMessage(),e);
         }
