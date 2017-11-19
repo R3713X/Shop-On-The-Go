@@ -20,6 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sirialkillers.shoponthego.Controllers.ShopController;
+import com.sirialkillers.shoponthego.Models.DiscountModel;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -312,6 +315,7 @@ public class AddDiscountActivity extends AppCompatActivity {
             Loading();
 
             discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, numberPicker.getValue(), sCategories, dDescription,shopId);
+
         }
     }
 
@@ -319,7 +323,7 @@ public class AddDiscountActivity extends AppCompatActivity {
      * Setting the discount register task for sending the discount to the REST
      */
 
-    public class DiscountRegisterTask extends AsyncTask<Void, Void, Boolean> {
+    public class DiscountRegisterTask extends AsyncTask<Void, Boolean, Boolean> {
 
         private String discountTitle;
         private Date discountExpDate;
@@ -339,27 +343,29 @@ public class AddDiscountActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            DiscountModel discountModel= new DiscountModel(shopID.toString(),null,(double)discountValue,discountTitle,discountDescription);
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                ShopController shopController =new ShopController();
+                shopController.addShopDiscount(shopID.toString(),discountModel);
+                return true;
+
+            } catch (Exception e) {
                 return false;
             }
 
 
-            // TODO: register the new Discount here.
-            return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            discountRegisterTask = null;
+            if(success){
+                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                startActivity(intent);
 
-            finish();
-            if (success) {
-                finish();
+            }
+            else {
+                Toast.makeText(AddDiscountActivity.this, "Something went wromg!!! Try again", Toast.LENGTH_SHORT).show();
             }
         }
 
