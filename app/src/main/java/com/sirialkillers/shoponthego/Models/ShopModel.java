@@ -98,4 +98,20 @@ public class ShopModel extends ArrayList implements IShop {
 
         return null;
     }
+
+    public void setDiscounts(List<IDiscount> discounts) {
+        this.discounts = discounts;
+    }
+
+    public void setOffers(List<IOffer> offers) {
+        this.offers = offers;
+    }
+
+    public void setProducts(List<IProduct> products) {
+        this.products = products;
+    }
+
+    public void setCategories(List<ICategory> categories) {
+        this.categories = categories;
+    }
 }

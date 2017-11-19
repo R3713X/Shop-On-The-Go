@@ -64,4 +64,28 @@ public class OfferModel extends ArrayList implements IOffer{
 
         return expirationDate;
     }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public void setOfferId(String offerId) {
+        this.offerId = offerId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setProducts(List<IProduct> products) {
+        this.products = products;
+    }
 }

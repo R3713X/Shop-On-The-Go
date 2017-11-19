@@ -43,4 +43,20 @@ public class ProductModel extends ArrayList implements IProduct {
 
         return unitPrice;
     }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public void setQuantityPerUnit(int quantityPerUnit) {
+        this.quantityPerUnit = quantityPerUnit;
+    }
+
+    public void setUnitPrice(long unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 }

@@ -44,7 +44,7 @@ public class OfferController implements IController<OfferModel, String> {
     public List<OfferModel> get(){
         try {
             final String url = "http://localhost:8080/offers";
-            restTemplate.getForObject(url, OfferModel.class);
+            return restTemplate.getForObject(url, OfferModel.class);
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
         }
