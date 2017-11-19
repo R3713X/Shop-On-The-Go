@@ -33,14 +33,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+
         <service android:name=".GPS_Service" />
 
         <activity android:name=".LoginActivity">
@@ -51,26 +51,23 @@
             </intent-filter>
         </activity>
 
-          <meta-data 
-            android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
+
         <activity
             android:name=".MenuActivity"
-            android:label="Shop On The Go">
-        </activity>
-
+            android:label="Shop On The Go"></activity>
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
-
+            android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".ShopsListView"
             android:label="Shop On The Go">
             android:windowSoftInputMode="adjustNothing"
-
         </activity>
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".AddDiscountActivity"></activity>
     </application>
 
 </manifest>

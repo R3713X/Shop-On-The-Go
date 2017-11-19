@@ -19,7 +19,14 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
         buttonMap.setOnClickListener(this);
         buttonList = (Button) findViewById(R.id.buttonList);
         buttonList.setOnClickListener(this);
-
+        Button addDiscount = (Button) findViewById(R.id.addDiscountButton);
+        addDiscount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AddDiscountActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void onClick(View view) {
@@ -37,4 +44,6 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
     }
 
 }
+
+
 
