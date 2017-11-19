@@ -33,6 +33,7 @@ public class ShopModel extends ArrayList implements IShop {
 
     }
 
+
     public String getId() {
 
         return id;
