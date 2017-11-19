@@ -13,14 +13,17 @@ public class Shop {
     }
 
     public String getName() {
+
         return name;
     }
 
     public Double getLatitude() {
+
         return latitude;
     }
 
     public Double getLongtitude() {
+
         return longtitude;
     }
 }

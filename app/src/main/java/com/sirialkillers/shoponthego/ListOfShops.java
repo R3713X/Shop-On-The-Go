@@ -9,10 +9,8 @@ import com.google.maps.android.SphericalUtil;
 import java.util.ArrayList;
 
 /**
-
  * Created by Xristos Aslamagidis on 29/10/2017.
  */
-
 public class ListOfShops {
 
     private ArrayList<Shop> shops = new ArrayList<>();
