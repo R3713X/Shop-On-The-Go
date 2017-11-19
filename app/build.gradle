@@ -75,6 +75,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 
+    //Used for picasso photo handler
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
 
 //Used for Hockey App

@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonMap;
     private Button buttonList;
+    private Button buttonAddProductPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
                 startActivity(intent);
             }
         });
+        buttonAddProductPhoto=(Button)findViewById(R.id.addProductPhotoButton);
+        buttonAddProductPhoto.setOnClickListener(this);
     }
 
     public void onClick(View view) {
@@ -38,6 +41,9 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
             case R.id.buttonList:
                 Intent intentStartListActivity = new Intent(this, ShopsListView.class);
                 startActivity(intentStartListActivity);
+            case R.id.addProductPhotoButton:
+                Intent intentStartProductPhotoActivity = new Intent(this, ProductPhotoActivity.class);
+                startActivity(intentStartProductPhotoActivity);
             default:
                 break;
         }

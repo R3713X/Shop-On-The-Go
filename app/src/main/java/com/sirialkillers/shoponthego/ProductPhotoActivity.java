@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 public class ProductPhotoActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -25,8 +27,7 @@ public class ProductPhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_photo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         imageView=(ImageView) findViewById(R.id.imageView);
 
@@ -72,15 +73,14 @@ public class ProductPhotoActivity extends AppCompatActivity {
         if(resultCode== Activity.RESULT_OK){
             if (requestCode==REQUEST_CAMERA){
 
-                Bundle bundle=data.getExtras();
-                final Bitmap bmp=(Bitmap) bundle.get("data");
-                imageView.setImageBitmap(bmp);
+                Uri selectedImageUri =data.getData();
+                Picasso.with(this).load(selectedImageUri).fit().centerInside().into(imageView);
 
 
             }
             else if(requestCode==SELECT_FILE){
                 Uri selectedImageUri =data.getData();
-                imageView.setImageURI(selectedImageUri);
+                Picasso.with(this).load(selectedImageUri).fit().centerInside().into(imageView);
 
             }
         }
