@@ -5,6 +5,8 @@ package com.sirialkillers.shoponthego;
  */
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,12 +15,16 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 import android.view.View;
-public class ListAdapter extends BaseAdapter implements Filterable{
+
+import com.sirialkillers.shoponthego.Models.ShopModel;
+
+public class ShopListAdapter extends BaseAdapter implements Filterable{
     private Context c;
-    private ArrayList<Shop> shops;
+    private List<ShopModel> shops;
     private CustomFilter filter;
-    private ArrayList<Shop> filterList;
-    ListAdapter(Context ctx, ArrayList<Shop> shops) {
+    private List<ShopModel> filterList;
+
+    ShopListAdapter(Context ctx, List<ShopModel> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
         this.shops=shops;
@@ -70,15 +76,15 @@ public class ListAdapter extends BaseAdapter implements Filterable{
             FilterResults results=new FilterResults();
             if(constraint != null && constraint.length()>0)
             {
-                //CONSTARINT TO UPPER
+                //CONSTRAINT TO UPPER
                 constraint=constraint.toString().toUpperCase();
-                ArrayList<Shop> filters= new ArrayList<>();
+                ArrayList<ShopModel> filters= new ArrayList<>();
                 //get specific items
                 for(int i=0;i<filterList.size();i++)
                 {
                     if(filterList.get(i).getName().toUpperCase().contains(constraint))
                     {
-                        Shop s=new Shop(filterList.get(i).getName(), filterList.get(i).getLatitude(),filterList.get(i).getLongtitude());
+                        ShopModel s=new ShopModel(filterList.get(i).getId(),filterList.get(i).getName(), filterList.get(i).getPosition());
                         filters.add(s);
                     }
                 }
@@ -94,7 +100,7 @@ public class ListAdapter extends BaseAdapter implements Filterable{
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             // TODO Auto-generated method stub
-            shops=(ArrayList<Shop>) results.values;
+            shops=(ArrayList<ShopModel>) results.values;
             notifyDataSetChanged();
         }
     }

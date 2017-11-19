@@ -1,5 +1,44 @@
 <resources>
     <string name="app_name">Shop on the go</string>
     <string name="title_activity_maps">Shop On The Go</string>
-    <string name="title_activity_product_photo">Import Product Photography</string>
+    <string name="title">Choose your categories</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+
+    <string-array name="productCategories">
+        <item>Accessories</item>
+        <item>Car</item>
+        <item>Consumables</item>
+        <item>Clothes</item>
+        <item>Decoration</item>
+        <item>Electronics</item>
+        <item>Foods</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+        <item>Furniture</item>
+        <item>Consumables</item>
+    </string-array>
 </resources>
