@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -33,14 +37,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
         <service android:name=".GPS_Service" />
 
         <activity android:name=".LoginActivity">
@@ -51,26 +51,25 @@
             </intent-filter>
         </activity>
 
-          <meta-data 
-            android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
+
         <activity
             android:name=".MenuActivity"
-            android:label="Shop On The Go">
-        </activity>
-
+            android:label="Shop On The Go" />
         <activity
+
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
-
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".ShopsListView"
-            android:label="Shop On The Go">
-            android:windowSoftInputMode="adjustNothing"
-
-        </activity>
-        <activity android:name=".SignUpActivity"></activity>
+            android:label="Shop On The Go"/>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".DiscountListView" />
+        <activity android:name=".DiscountDetailsActivity" />
+        <activity android:name=".AddDiscountActivity" />
+        <activity android:name=".ProductPhotoActivity"/>
     </application>
 
 </manifest>

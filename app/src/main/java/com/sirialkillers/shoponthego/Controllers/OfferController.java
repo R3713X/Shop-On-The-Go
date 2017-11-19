@@ -2,29 +2,31 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
+import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 02/10/2017
+ * @version 12/11/2017
  *
  */
-public class OfferController {
+public class OfferController implements IController<OfferModel, String> {
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate;
-    /* params is a Hash Map used to set the parameters that are going to be used
+
+    /* params is a hash map used to set the parameters that are going to be used
      in the Rest Template */
     private Map<String, String> params;
 
     /**
-     * Initializes the Rest template and add a
+     * Initializes the Rest template and adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */
@@ -38,7 +40,8 @@ public class OfferController {
      * Returns a list of offers that are accessible for further use.
      * @return the list of offers
      */
-    public ArrayList<OfferModel> getOffers(){
+    @Override
+    public List<OfferModel> get(){
         try {
             final String url = "http://localhost:8080/offers";
             return restTemplate.getForObject(url, OfferModel.class);
@@ -53,7 +56,8 @@ public class OfferController {
      * @param offerId The id of the offer
      * @return the offer
      */
-    public OfferModel getOfferById(String offerId){
+    @Override
+    public OfferModel getById(String offerId){
         try {
             final String url = "http://localhost:8080/offers/{id}";
             params.clear();
@@ -67,15 +71,14 @@ public class OfferController {
 
     /**
      * Creates a new offer.
-     * @param id the id of the offer
-     * @param title the name of the offer
+     * @param offer is the offer that will be created
      * @return the offer that was created
      */
-    public OfferModel createOffer(String id, String title){
+    @Override
+    public OfferModel create(OfferModel offer){
         try {
             final String url = "http://localhost:8080/offers";
-            OfferModel newOffer = new OfferModel(id, title);
-            return restTemplate.postForObject(url, newOffer, OfferModel.class);
+            return restTemplate.postForObject(url, offer, OfferModel.class);
         }catch (Exception e){
             Log.e("CreateOffer", e.getMessage(),e);
         }
@@ -84,16 +87,15 @@ public class OfferController {
 
     /**
      * Updates a already existing offer.
-     * @param offerId the id of the offer that will get updated
-     * @param name the name that will replace the old name of the offer
+     * @param offer is the offer that will get updated.
      */
-    public void updateOffer(String offerId, String name){
+    @Override
+    public void update(String targetOffer, OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://localhost:8080/offers/{targetOffer}";
             params.clear();
-            params.put("id", offerId);
-            OfferModel updatedOffer = new OfferModel(offerId, name);
-            restTemplate.put(url, updatedOffer, params);
+            params.put("targetOffer", targetOffer);
+            restTemplate.put(url, offer, params);
         }catch (Exception e){
             Log.e("updateOffer", e.getMessage(),e);
         }
@@ -103,7 +105,8 @@ public class OfferController {
      * Deletes a offer that already exists.
      * @param offerId the id of the offer that will get deleted
      */
-    public void deleteOffer(String offerId){
+    @Override
+    public void delete(String offerId){
         try {
             final String url = "http://localhost:8080/offers/{id}";
             params.put("id", offerId);
