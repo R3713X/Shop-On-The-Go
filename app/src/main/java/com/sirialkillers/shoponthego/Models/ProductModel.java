@@ -16,6 +16,10 @@ public class ProductModel extends ArrayList implements IProduct {
     private int quantityPerUnit;
     private long unitPrice;
 
+    public ProductModel(String productId, String productName){
+        this.productId = productId;
+        this.productName = productName;
+    }
     @Override
     public String getProductName() {
 
@@ -38,5 +42,21 @@ public class ProductModel extends ArrayList implements IProduct {
     public long getUnitPrice() {
 
         return unitPrice;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public void setQuantityPerUnit(int quantityPerUnit) {
+        this.quantityPerUnit = quantityPerUnit;
+    }
+
+    public void setUnitPrice(long unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

@@ -12,12 +12,21 @@ import java.util.Date;
  *
  */
 public class DiscountModel extends ArrayList implements IDiscount{
-    String shopId;
-    String discountId;
-    double percentage;
-    String title;
-    String description;
-    Date expirationDate;
+    private String shopId;
+    private String discountId;
+    private double percentage;
+    private String title;
+    private String description;
+    private Date expirationDate;
+
+    public DiscountModel(String shopId, String discountId, double percentage,
+                         String title, String description){
+        this.shopId = shopId;
+        this.discountId = discountId;
+        this.percentage = percentage;
+        this.title = title;
+        this.description = description;
+    }
 
     @Override
     public String getShopId() {
@@ -53,5 +62,29 @@ public class DiscountModel extends ArrayList implements IDiscount{
     public Date getExpirationDate() {
 
         return expirationDate;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public void setDiscountId(String discountId) {
+        this.discountId = discountId;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

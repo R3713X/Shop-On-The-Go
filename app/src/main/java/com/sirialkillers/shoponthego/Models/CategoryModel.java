@@ -9,9 +9,9 @@ import com.sirialkillers.shoponthego.Interfaces.ICategory;
  *
  */
 public class CategoryModel implements ICategory{
-    String categoryId;
-    String categoryName;
-    String description;
+    private String categoryId;
+    private String categoryName;
+    private String description;
 
     @Override
     public String getCategoryId() {
@@ -29,5 +29,17 @@ public class CategoryModel implements ICategory{
     public String getCategoryDescription() {
 
         return description;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
