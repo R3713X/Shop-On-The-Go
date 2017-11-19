@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OfferService {
 
-	private List<IOffer> offers;
+	private List<IOffer> offers ;
 	
 	public List<IOffer> getAllOffers() {
 		return offers;

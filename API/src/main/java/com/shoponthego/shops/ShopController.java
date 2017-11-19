@@ -20,7 +20,7 @@ public class ShopController {
 	
 	@RequestMapping(method=RequestMethod.GET ,value="/shops")
 	public List<IShop> getAllShops() {
-		return shopService.getAllShops();
+		return shopService.getShops();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET ,value="/shops/{id}")

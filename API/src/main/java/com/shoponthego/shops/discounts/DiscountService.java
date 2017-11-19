@@ -1,13 +1,17 @@
 package com.shoponthego.shops.discounts;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class DiscountService {
 
-	private List<IDiscount> discounts;
+	private List<IDiscount> discounts = new ArrayList<>(Arrays.asList(
+			new Discount("Playstation 4","30% OFF","A","Active")));
 	
 	public List<IDiscount> getAllDiscounts() {
 		return discounts;

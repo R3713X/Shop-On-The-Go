@@ -24,7 +24,7 @@ public interface IShop {
 	*/
 	public List<IOffer> getOffers();
 	public IOffer getOffer(String offerId);
-	public List<IProduct> getAllProducts();
+	public List<IProduct> getProducts();
 	public IProduct getProduct(String productId);
 	public List<IDiscount> getDiscounts();
 	public IDiscount getDiscount(String discountId);

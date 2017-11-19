@@ -15,13 +15,13 @@ import com.shoponthego.shops.discounts.IDiscount;
 public class ShopService implements IShopService {
 
 	private List<IShop> shops = new ArrayList<>(Arrays.asList(
-			new Shop("1213","Adidas Store",new Location("Papandreou", 22.41243,-87.2332)),
-			new Shop("1214","Nike Store",new Location("Papandreou 11", 22.41243,-87.2332)),
-			new Shop("1215","Adidas Store",new Location("Papandreou", 22.41243,-87.2332))
+			new Shop("1213","Adidas Store",new Location("Alexandrou 22", 22.4243,-87.1332)),
+			new Shop("1214","Nike Store",new Location("Papandreou 11", 22.3123,-87.2221)),
+			new Shop("1215","Puma Store",new Location("Mixaleos 8", 22.4323,-87.2732))
 			));
 	
 	@Override
-	public List<IShop> getAllShops() {
+	public List<IShop> getShops() {
 		return shops;
 	}
 
@@ -154,7 +154,6 @@ public class ShopService implements IShopService {
 
 	@Override
 	public IOffer getDiscount(String shopId, String discountId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

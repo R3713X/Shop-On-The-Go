@@ -82,13 +82,7 @@ public class Shop implements IShop {
 	public IOffer getOffer(String id) {
 		return null;
 	}
-
-	@Override
-	public List<IProduct> getAllProducts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public IProduct getProduct(String productId) {
 		// TODO Auto-generated method stub

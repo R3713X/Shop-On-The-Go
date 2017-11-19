@@ -11,7 +11,7 @@ import com.shoponthego.shops.discounts.IDiscount;
 @Service
 public interface IShopService {
 
-	public List<IShop> getAllShops();
+	public List<IShop> getShops();
 	public IShop getShop(String shopId);
 	public void addShop(IShop shop);
 	public void addShops(List<IShop> shops);

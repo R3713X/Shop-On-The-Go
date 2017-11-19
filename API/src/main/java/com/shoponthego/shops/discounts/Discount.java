@@ -2,7 +2,7 @@ package com.shoponthego.shops.discounts;
 
 import java.util.Date;
 
-public class Discount {
+public class Discount implements IDiscount {
 
 	private String id;
 	private String title;
@@ -38,6 +38,13 @@ public class Discount {
 		return date.toString();
 	}
 
+	@Override
+	public int getProductId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
 	public String getId() {
 		return id;
 	}
