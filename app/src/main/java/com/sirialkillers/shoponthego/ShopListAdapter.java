@@ -5,6 +5,8 @@ package com.sirialkillers.shoponthego;
  */
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -18,11 +20,11 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 
 public class ShopListAdapter extends BaseAdapter implements Filterable{
     private Context c;
-    private ArrayList<ShopModel> shops;
+    private List<ShopModel> shops;
     private CustomFilter filter;
-    private ArrayList<ShopModel> filterList;
+    private List<ShopModel> filterList;
 
-    ShopListAdapter(Context ctx, ArrayList<ShopModel> shops) {
+    ShopListAdapter(Context ctx, List<ShopModel> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
         this.shops=shops;

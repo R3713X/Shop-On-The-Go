@@ -9,17 +9,16 @@ import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
-
  * Created by Xristos Aslamagidis on 29/10/2017.
  */
-
 public class ListOfShops {
 
-    private ArrayList<ShopModel> shops = new ArrayList<>();
+    private List<ShopModel> shops = new ArrayList<>();
     private ArrayList<LatLng> shopsLocation =new ArrayList<LatLng>();
     private ArrayList<Marker>markers =new ArrayList<Marker>();
     private ArrayList<MarkerInformation> markerinfo=new ArrayList<>();
@@ -27,10 +26,10 @@ public class ListOfShops {
 
     public void addShop() {
 
-        shops=shopController.getShops();
+        shops=shopController.get();
     }
 
-    public ArrayList<ShopModel> getShop(){
+    public List<ShopModel> getShop(){
 
         return shops;
     }
@@ -61,7 +60,7 @@ public class ListOfShops {
 
     //used to find the correct shopId from the title of marker
     // (which is always the name of a shop in the Arraylist shops)
-    public String findCorrectShop(String title,ArrayList<ShopModel> shops){
+    public String findCorrectShop(String title,List<ShopModel> shops){
         String name=title;
         String s;
         String id=null;
