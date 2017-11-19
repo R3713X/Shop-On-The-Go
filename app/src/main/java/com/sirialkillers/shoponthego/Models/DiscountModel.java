@@ -1,17 +1,16 @@
 package com.sirialkillers.shoponthego.Models;
 
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.sirialkillers.shoponthego.Interfaces.IDiscount;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * @author Ioakeim James Theologou
- * @version 15/11/2017
- * TODO: Create a test class for this model.
- *
- */
-public class DiscountModel extends ArrayList implements IDiscount{
+
+public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
     private String shopId;
     private String discountId;
     private double percentage;
@@ -33,7 +32,6 @@ public class DiscountModel extends ArrayList implements IDiscount{
 
         return shopId;
     }
-
     @Override
     public String getDiscountId() {
 
@@ -47,8 +45,7 @@ public class DiscountModel extends ArrayList implements IDiscount{
     }
 
     @Override
-    public String getTitle() {
-
+    public String getTitle(){
         return title;
     }
 
@@ -63,6 +60,44 @@ public class DiscountModel extends ArrayList implements IDiscount{
 
         return expirationDate;
     }
+
+    protected DiscountModel(Parcel in) {
+        shopId = in.readString();
+        discountId = in.readString();
+        percentage = in.readDouble();
+        title = in.readString();
+        description = in.readString();
+        long tmpExpirationDate = in.readLong();
+        expirationDate = tmpExpirationDate != -1 ? new Date(tmpExpirationDate) : null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(shopId);
+        dest.writeString(discountId);
+        dest.writeDouble(percentage);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeLong(expirationDate != null ? expirationDate.getTime() : -1L);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<DiscountModel> CREATOR = new Parcelable.Creator<DiscountModel>() {
+        @Override
+        public DiscountModel createFromParcel(Parcel in) {
+            return new DiscountModel(in);
+        }
+
+        @Override
+        public DiscountModel[] newArray(int size) {
+            return new DiscountModel[size];
+        }
+    };
 
     public void setShopId(String shopId) {
         this.shopId = shopId;
@@ -88,3 +123,7 @@ public class DiscountModel extends ArrayList implements IDiscount{
         this.expirationDate = expirationDate;
     }
 }
+
+
+
+
