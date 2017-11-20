@@ -35,9 +35,4 @@ public class DiscountListViewEspressoTest {
         Espresso.onView(withId(R.id.discountListView)).check(matches(notNullValue()));
     }
 
-    @Test
-    public void testThatListIsClickable(){
-        Espresso.onData(anything()).inAdapterView(withContentDescription("theLisd")).atPosition(1).perform(click());
-        intended(hasComponent(DiscountDetailsActivity.class.getName()));
-    }
 }
