@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,8 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.sirialkillers.shoponthego.Models.ShopModel;
+import com.sirialkillers.shoponthego.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class    ShopsListView extends AppCompatActivity{

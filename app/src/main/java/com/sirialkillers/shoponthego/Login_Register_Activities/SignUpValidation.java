@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Login_Register_Activities;
 
 
 import java.util.regex.Matcher;

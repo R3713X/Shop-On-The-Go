@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -25,7 +25,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.sirialkillers.shoponthego.Models.ShopModel;
+import com.sirialkillers.shoponthego.MenuActivity;
+import com.sirialkillers.shoponthego.R;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;

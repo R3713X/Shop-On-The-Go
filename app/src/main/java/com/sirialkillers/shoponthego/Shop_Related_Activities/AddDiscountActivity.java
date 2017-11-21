@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sirialkillers.shoponthego.Controllers.ShopController;
+import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
+import com.sirialkillers.shoponthego.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;

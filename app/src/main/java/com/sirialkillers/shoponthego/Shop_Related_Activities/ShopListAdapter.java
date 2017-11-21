@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 /**
  * Created by User on 01-Nov-17.
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.view.View;
 
 import com.sirialkillers.shoponthego.Models.ShopModel;
+import com.sirialkillers.shoponthego.R;
 
 public class ShopListAdapter extends BaseAdapter implements Filterable{
     private Context c;

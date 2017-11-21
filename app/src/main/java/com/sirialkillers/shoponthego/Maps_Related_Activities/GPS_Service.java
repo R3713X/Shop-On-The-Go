@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Service;

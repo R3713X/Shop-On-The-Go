@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sirialkillers.shoponthego.Models.DiscountModel;
+import com.sirialkillers.shoponthego.R;
+
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -6,12 +6,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.MarkerInformation;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Created by Xristos Aslamagidis on 29/10/2017.
