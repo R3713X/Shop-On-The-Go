@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import com.google.android.gms.maps.model.LatLng;
 

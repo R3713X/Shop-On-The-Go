@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego;
+package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 
 import com.sirialkillers.shoponthego.Controllers.ShopController;

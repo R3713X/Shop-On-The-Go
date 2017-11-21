@@ -14,7 +14,7 @@
         android:layout_above="@+id/viewingRangeControlBar"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:context="com.sirialkillers.shoponthego.MapsActivity" />
+        tools:context="com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity" />
 
     <SeekBar
         android:id="@+id/viewingRangeControlBar"

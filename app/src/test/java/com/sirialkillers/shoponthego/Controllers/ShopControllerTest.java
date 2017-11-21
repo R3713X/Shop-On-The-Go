@@ -4,7 +4,7 @@ import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ProductModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
-import com.sirialkillers.shoponthego.Position;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 
 import org.junit.After;
 import org.junit.Before;
