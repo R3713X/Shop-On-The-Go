@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MarkerInformation;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import java.util.ArrayList;
