@@ -5,6 +5,9 @@
     <string name="ok_label">OK</string>
     <string name="dismiss_label">Dismiss</string>
     <string name="clear_all_label">Clear all</string>
+    <string name="radius_text">Your current radius is: 750 meters.</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
 
     <string-array name="productCategories">
         <item>Accessories</item>

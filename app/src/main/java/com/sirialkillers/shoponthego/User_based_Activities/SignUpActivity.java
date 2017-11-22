@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego.Login_Register_Activities;
+package com.sirialkillers.shoponthego.User_based_Activities;
 
 
 import android.content.Intent;

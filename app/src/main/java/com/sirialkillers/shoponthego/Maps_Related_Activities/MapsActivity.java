@@ -10,11 +10,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -35,15 +39,17 @@ import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,OnInfoWindowClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,OnInfoWindowClickListener,NavigationView.OnNavigationItemSelectedListener {
     private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
-    ArrayList<Marker> markersofShops;
+    ArrayList<Marker> markersOfShops;
     SeekBar rangeControlSeekBar;
     TextView radiusDisplayTextView;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
 
 
     @Override
@@ -54,11 +60,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Button menu = (Button) findViewById(R.id.menuButton);
+        FloatingActionButton menu = (FloatingActionButton) findViewById(R.id.menuButton);
         if (!runtime_perimissions()) {
             Intent intent = new Intent(getApplicationContext(), GPS_Service.class);
             startService(intent);
         }
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.Open,R.string.Close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
 
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
         rangeControlSeekBar = (SeekBar) findViewById(R.id.viewingRangeControlBar);
@@ -196,7 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        markersofShops = listOfShops.creatMarkerOfShop(mMap);
+        markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
        
 
@@ -262,5 +274,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
