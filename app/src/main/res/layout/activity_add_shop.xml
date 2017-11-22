@@ -118,6 +118,32 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.207" />
 
+        <TextView
+            android:id="@+id/selectAddressTextView"
+            android:layout_width="92dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_blue_dark"
+            android:hint="Select your categories"
+            android:paddingBottom="3dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:paddingTop="3dp"
+            android:text="Select the Shops Address"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHighlight="@color/hockeyapp_button_background_pressed"
+            android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.38" />
+
         <EditText
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
@@ -150,8 +176,31 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.727"
+            app:layout_constraintVertical_bias="0.762"
             app:srcCompat="@drawable/addphoto" />
+
+        <TextView
+            android:id="@+id/addressTextView"
+            android:layout_width="220dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="8dp"
+            android:hint="Your Address will show here"
+            android:paddingBottom="3dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textColorHint="@color/hockeyapp_background_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.38" />
 
         <Button
             android:id="@+id/addPhotoButton"
@@ -186,46 +235,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/shopAddressEditText"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="textPostalAddress"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textColorHint="@color/hockeyapp_text_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.369" />
-
-        <EditText
-            android:id="@+id/postCodeEditText"
-            android:layout_width="93dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Postal"
-            android:inputType="number"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textColorHint="@color/hockeyapp_background_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.369" />
 
     </android.support.constraint.ConstraintLayout>
 

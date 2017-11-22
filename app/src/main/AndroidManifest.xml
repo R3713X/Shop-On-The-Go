@@ -44,11 +44,7 @@
         <service android:name=".Maps_Related_Activities.GPS_Service" />
 
         <activity android:name=".Login_Register_Activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -69,7 +65,13 @@
         <activity android:name=".Shop_Related_Activities.DiscountDetailsActivity" />
         <activity android:name=".Shop_Related_Activities.AddDiscountActivity" />
         <activity android:name=".ProductPhotoActivity" />
-        <activity android:name=".Shop_Related_Activities.AddShopActivity"></activity>
+        <activity android:name=".Shop_Related_Activities.AddShopActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
