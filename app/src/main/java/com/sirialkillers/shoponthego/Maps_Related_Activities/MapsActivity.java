@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -39,7 +40,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,OnInfoWindowClickListener,NavigationView.OnNavigationItemSelectedListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,OnInfoWindowClickListener,NavigationView.OnNavigationItemSelectedListener {
     private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
     private BroadcastReceiver broadcastReceiver;
@@ -50,7 +51,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView radiusDisplayTextView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.Open,R.string.Close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+        setNavigationViewListner();
 
 
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
@@ -88,6 +93,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        this.Loading();
 
         checkForUpdates(); //Used for HockeyApp
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -279,5 +292,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+    private void setNavigationViewListner() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 }
