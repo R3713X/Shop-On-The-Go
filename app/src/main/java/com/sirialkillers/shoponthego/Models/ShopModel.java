@@ -5,7 +5,7 @@ import com.sirialkillers.shoponthego.Interfaces.IDiscount;
 import com.sirialkillers.shoponthego.Interfaces.IOffer;
 import com.sirialkillers.shoponthego.Interfaces.IProduct;
 import com.sirialkillers.shoponthego.Interfaces.IShop;
-import com.sirialkillers.shoponthego.Position;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 
 import java.util.ArrayList;
 import java.util.List;
