@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.media.Image;
 import android.net.Uri;
@@ -36,6 +38,7 @@ import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EmptyStackException;
@@ -52,6 +55,7 @@ public class AddShopActivity extends AppCompatActivity {
     private LatLng shopLatLng;
     private ShopRegisterTask shopRegisterTask = null;
     private Place place;
+    private Bitmap bitmap;
     String sCategories;
     String[] categories;
     boolean[] checkedCategories;
@@ -131,6 +135,7 @@ public class AddShopActivity extends AppCompatActivity {
     private void selectCategoriesClick() {
         AlertDialog.Builder categoryMBuilder = new AlertDialog.Builder(AddShopActivity.this);
         categoryMBuilder.setTitle(R.string.title);
+        shopCategoriesTextView.setError(null);
 
         categoryMBuilder.setMultiChoiceItems(categories, checkedCategories, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -225,7 +230,11 @@ public class AddShopActivity extends AppCompatActivity {
 
                 Uri selectedImageUri = data.getData();
                 Picasso.with(this).load(selectedImageUri).fit().centerInside().into(shopImage);
-
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (requestCode == PLACE_PICKER_REQUEST) {
 
                 if (resultCode == RESULT_OK) {
@@ -233,6 +242,7 @@ public class AddShopActivity extends AppCompatActivity {
                     place = PlacePicker.getPlace(AddShopActivity.this, data);
                     shopAddressTextView.setText(place.getAddress());
                     shopLatLng = place.getLatLng();
+                    shopAddressTextView.setError(null);
 
                 }
             }
@@ -272,6 +282,8 @@ public class AddShopActivity extends AppCompatActivity {
 
 
         titleEditText.setError(null);
+        shopCategoriesTextView.setError(null);
+        shopAddressTextView.setError(null);
 
         if (titleEditText.getText().toString().isEmpty()) {
             titleEditText.setError("Please enter a title ");
@@ -310,7 +322,9 @@ public class AddShopActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,sCategories, shopID);
+            shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,sCategories,bitmap, shopID);
+            Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+            startActivity(intent);
 
         }
     }
@@ -324,12 +338,14 @@ public class AddShopActivity extends AppCompatActivity {
         private String shopTitle;
         private LatLng shopLatLng;
         private String shopCategories;
+        private Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.addphoto);
         private UUID shopID;
 
-        public ShopRegisterTask(String shopTitle, LatLng shopLatLng, String shopCategories, UUID shopID) {
+        public ShopRegisterTask(String shopTitle, LatLng shopLatLng, String shopCategories,Bitmap bitmap, UUID shopID) {
             this.shopTitle = shopTitle;
             this.shopLatLng = shopLatLng;
             this.shopCategories = shopCategories;
+            this.bitmap = bitmap;
             this.shopID = shopID;
         }
 
