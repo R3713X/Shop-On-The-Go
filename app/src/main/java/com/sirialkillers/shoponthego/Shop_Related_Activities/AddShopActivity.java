@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.media.Image;
 import android.net.Uri;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -17,7 +19,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,10 +31,15 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.sirialkillers.shoponthego.Controllers.ShopController;
+import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.EmptyStackException;
+import java.util.UUID;
 
 
 public class AddShopActivity extends AppCompatActivity {
@@ -43,8 +49,9 @@ public class AddShopActivity extends AppCompatActivity {
     private TextView shopAddressTextView;
     private String shopCategories;
     private Address shopAddress;
-    private LatLng shopsLatLng;
-
+    private LatLng shopLatLng;
+    private ShopRegisterTask shopRegisterTask = null;
+    private Place place;
     String sCategories;
     String[] categories;
     boolean[] checkedCategories;
@@ -219,13 +226,13 @@ public class AddShopActivity extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();
                 Picasso.with(this).load(selectedImageUri).fit().centerInside().into(shopImage);
 
-            } else if (requestCode == PLACE_PICKER_REQUEST){
+            } else if (requestCode == PLACE_PICKER_REQUEST) {
 
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
 
-                    Place place = PlacePicker.getPlace(AddShopActivity.this, data);
+                    place = PlacePicker.getPlace(AddShopActivity.this, data);
                     shopAddressTextView.setText(place.getAddress());
-                    shopsLatLng=place.getLatLng();
+                    shopLatLng = place.getLatLng();
 
                 }
             }
@@ -255,7 +262,98 @@ public class AddShopActivity extends AppCompatActivity {
     }
 
     private void attemptSubmitShop() {
+
+        if (shopRegisterTask != null) {
+            return;
+        }
+
+        boolean cancel = false;
+        View focusView = titleEditText;
+
+
+        titleEditText.setError(null);
+
+        if (titleEditText.getText().toString().isEmpty()) {
+            titleEditText.setError("Please enter a title ");
+            focusView = titleEditText;
+            cancel = true;
+
+        } else if (titleEditText.getText().toString().length() > 70) {
+
+            titleEditText.setError("Please enter a title shorter than 70 characters");
+            focusView = titleEditText;
+            cancel = true;
+        }
+
+
+        if (shopCategoriesTextView.getText().toString().isEmpty()) {
+            Toast.makeText(AddShopActivity.this,
+                    "Please select the Shop's Categories", Toast.LENGTH_LONG).show();
+            shopCategoriesTextView.setError("Please fill");
+            cancel = true;
+
+        }
+
+        if (shopAddressTextView.getText().toString().isEmpty()) {
+            Toast.makeText(AddShopActivity.this,
+                    "Please select the Shop's Address", Toast.LENGTH_LONG).show();
+            shopAddressTextView.setError("Please fill");
+            cancel = true;
+
+        }
+
+
+        UUID shopID = UUID.randomUUID();
+
+        if (cancel) {
+            // There was an error; don't to register the shop and show
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,sCategories, shopID);
+
+        }
     }
 
+    /**
+     * Setting the shop register task for sending the shop to the REST
+     */
 
+    public class ShopRegisterTask extends AsyncTask<Void, Boolean, Boolean> {
+
+        private String shopTitle;
+        private LatLng shopLatLng;
+        private String shopCategories;
+        private UUID shopID;
+
+        public ShopRegisterTask(String shopTitle, LatLng shopLatLng, String shopCategories, UUID shopID) {
+            this.shopTitle = shopTitle;
+            this.shopLatLng = shopLatLng;
+            this.shopCategories = shopCategories;
+            this.shopID = shopID;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+
+        return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
+
+            } else {
+                Toast.makeText(AddShopActivity.this, "Something went wrong!!! Try again", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            shopRegisterTask = null;
+        }
+    }
 }
