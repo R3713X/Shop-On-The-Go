@@ -3,6 +3,7 @@ package com.sirialkillers.shoponthego.Maps_Related_Activities;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -17,7 +18,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -32,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
@@ -52,6 +56,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    String sCategories;
+    String[] categories;
+    boolean[] checkedCategories;
+    ArrayList<Integer> mShopCategories = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +78,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.Open,R.string.Close);
         mDrawerLayout.addDrawerListener(mToggle);
+        NavigationView navView =(NavigationView) findViewById(R.id.navigationView);
+        navView.bringToFront();
+        navView.setNavigationItemSelectedListener(this);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-        setNavigationViewListner();
+        categories = getResources().getStringArray(R.array.productCategories);
+        checkedCategories = new boolean[categories.length];
 
 
         //Initializing the seekbar that controls the radius in which the user can see the shop. Also a textView that will display the meters and two progress Bars for loading the maps.
@@ -90,10 +102,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.onChangeRangeControlSeekBar();
         listOfShops = new ListOfShops();
 
-       this.Loading();
+        this.Loading();
 
         checkForUpdates(); //Used for HockeyApp
     }
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -181,7 +197,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
 
     public void configureRangeControlSeekBar() {
-        //Setting the maxumum range of the radius to 1500 meters and the (starting) current progress to 750 meters.
+        //Setting the maximum range of the radius to 1500 meters and the (starting) current progress to 750 meters.
         rangeControlSeekBar.setMax(1400);
         rangeControlSeekBar.setProgress(700);
 
@@ -289,13 +305,75 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
+
+    private void selectCategories() {
+        AlertDialog.Builder categoryMBuilder = new AlertDialog.Builder(MapsActivity.this);
+        categoryMBuilder.setTitle(R.string.title);
+
+        categoryMBuilder.setMultiChoiceItems(categories, checkedCategories, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+                if (isChecked) {
+                    if (!mShopCategories.contains(position)) {
+                        mShopCategories.add(position);
+                    }
+                } else if (mShopCategories.contains(position)) {
+                    mShopCategories.remove((Integer) position);
+                }
+            }
+        });
+
+        categoryMBuilder.setCancelable(false);
+
+        categoryMBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String categoriesString = "";
+                sCategories = "";
+                for (int i = 0; i < mShopCategories.size(); i++) {
+                    sCategories = categoriesString + categories[mShopCategories.get(i)];
+                    if (i != mShopCategories.size() - 1) {
+                        sCategories = sCategories + " ";
+                    }
+                }
+                //TODO: Show only selected Categories on the MAP
+            }
+        });
+
+        categoryMBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        categoryMBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < checkedCategories.length; i++) {
+                    checkedCategories[i] = false;
+                    mShopCategories.clear();
+                }
+            }
+        });
+
+        AlertDialog mDialog = categoryMBuilder.create();
+        mDialog.show();
+
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
-    private void setNavigationViewListner() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
-        navigationView.setNavigationItemSelectedListener(this);
+
+            switch (item.getItemId()){
+                case R.id.navDesires:
+                    selectCategories();
+                    break;
+
+            }
+            mDrawerLayout.closeDrawers();
+            return true;
 
     }
 }
