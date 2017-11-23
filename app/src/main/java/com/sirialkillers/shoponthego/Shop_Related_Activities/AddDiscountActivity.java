@@ -302,7 +302,8 @@ public class AddDiscountActivity extends AppCompatActivity {
             expDateToast.show();
         }
         //We need to create the shop UI. for now we just create a random ID whenever you create a Discount.
-        UUID shopId = UUID.randomUUID();
+        //changed for presentation build to String
+        String shopId = "1";
 
         if (cancel) {
             // There was an error; don't to register the discount and show
@@ -329,12 +330,12 @@ public class AddDiscountActivity extends AppCompatActivity {
 
         private String discountTitle;
         private Date discountExpDate;
-        private int discountValue;
+        private double discountValue;
         private String discountCategories;
         private String discountDescription = "default_empty";
-        private UUID shopID;
+        private String shopID;
 
-        DiscountRegisterTask(String discountTitle, Date discountExpDate, int discountValue, String discountCategories, String discountDescription,UUID shopID) {
+        DiscountRegisterTask(String discountTitle, Date discountExpDate, double discountValue, String discountCategories, String discountDescription,String shopID) {
             this.discountTitle = discountTitle;
             this.discountExpDate = discountExpDate;
             this.discountValue = discountValue;
@@ -345,7 +346,7 @@ public class AddDiscountActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            DiscountModel discountModel= new DiscountModel(shopID.toString(),null,(double)discountValue,discountTitle,discountDescription);
+            DiscountModel discountModel= new DiscountModel(shopID,null,discountValue,discountTitle,discountDescription,new Date());
 
             try {
                 ShopController shopController =new ShopController();

@@ -3,7 +3,7 @@ package com.sirialkillers.shoponthego;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.sirialkillers.shoponthego.Login_Register_Activities.SignUpActivity;
+import com.sirialkillers.shoponthego.User_based_Activities.SignUpActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

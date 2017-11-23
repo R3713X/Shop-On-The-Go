@@ -1,4 +1,4 @@
-package com.sirialkillers.shoponthego.Login_Register_Activities;
+package com.sirialkillers.shoponthego.User_based_Activities;
 
 
 import android.content.Intent;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
 import com.sirialkillers.shoponthego.R;
+
+import org.w3c.dom.Text;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView mLogginInTextView;
 
     //Loading time
     @Override
@@ -48,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login); // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.emailEditText);
-
+        mLogginInTextView = (TextView) findViewById(R.id.loadingTextView);
         TextView signUpTextView = (TextView) findViewById(R.id.signUpTextView);
 
         mPasswordView = (EditText) findViewById(R.id.passwordEditText);
@@ -66,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         Button manualLoginButton = (Button) findViewById(R.id.manualLoginButton);
         manualLoginButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 attemptLogin();
             }
         });
@@ -147,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     private void Loading() {
         mLoginFormView.setVisibility(View.INVISIBLE);
         mProgressView.setVisibility(View.VISIBLE);
+        mLogginInTextView.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

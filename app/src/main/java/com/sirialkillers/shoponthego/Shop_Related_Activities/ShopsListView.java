@@ -11,7 +11,7 @@ import com.sirialkillers.shoponthego.R;
 
 import java.util.List;
 
-public class ShopsListView extends AppCompatActivity{
+public class    ShopsListView extends AppCompatActivity{
     ListView lv;
     SearchView sv;
 

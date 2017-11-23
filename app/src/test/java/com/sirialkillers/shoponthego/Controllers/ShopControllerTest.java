@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -62,10 +63,10 @@ public class ShopControllerTest {
         discounts = Arrays.asList(
                 new DiscountModel("202","404", 50.00,
                         "All shoes are on 50% discount",
-                        "Only for a limited time"),
+                        "Only for a limited time",new Date()),
                 new DiscountModel("304","202", 20.00,
                         "All sunglasses are on 20% discount",
-                        "The discount will end tomorrow"));
+                        "The discount will end tomorrow",new Date()));
 
         offers = Arrays.asList(
                 new OfferModel("201", "33", "2+1 Burgers in KFC",
@@ -216,7 +217,7 @@ public class ShopControllerTest {
     public void checkThatDiscountIsCreated() throws Exception{
         DiscountModel discount = new DiscountModel("504","690", 50.00,
                 "All clothes are on 50% discount",
-                "Only for a limited time");
+                "Only for a limited time",new Date());
 
         shopController.addShopDiscount("504", discount);
         DiscountModel discountThatWasCreated = shopController.getShopDiscount("504", "690");
@@ -297,12 +298,12 @@ public class ShopControllerTest {
     public void checkThatDiscountGotUpdated() throws Exception{
         DiscountModel newDiscount = new DiscountModel("504","690", 50.00,
                 "All clothes are on 50% discount",
-                "Only for a limited time");
+                "Only for a limited time",new Date());
         shopController.addShopDiscount("504", newDiscount);
 
         DiscountModel updatedDiscount = new DiscountModel("504","690", 60.00,
                 "All face wear are on 50% discount",
-                "Only for a limited time");
+                "Only for a limited time",new Date());
         shopController.updateShopDiscount("504", "690", updatedDiscount);
 
         DiscountModel retrievedDiscount = shopController.getShopDiscount("504", "690");
@@ -353,7 +354,7 @@ public class ShopControllerTest {
     public void checkThatDiscountGotDeleted(){
         DiscountModel discount = new DiscountModel("504","690", 50.00,
                 "All clothes are on 50% discount",
-                "Only for a limited time");
+                "Only for a limited time",new Date());
         shopController.addShopDiscount("504", discount);
 
         shopController.deleteShopDiscount("504", "690");

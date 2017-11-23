@@ -1,6 +1,6 @@
 package com.sirialkillers.shoponthego;
 
-import com.sirialkillers.shoponthego.Login_Register_Activities.LoginValidation;
+import com.sirialkillers.shoponthego.User_based_Activities.LoginValidation;
 
 import org.junit.Test;
 
