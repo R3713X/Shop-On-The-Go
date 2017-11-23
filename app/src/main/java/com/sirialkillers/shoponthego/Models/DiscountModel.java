@@ -19,12 +19,13 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
     private Date expirationDate;
 
     public DiscountModel(String shopId, String discountId, double percentage,
-                         String title, String description){
+                         String title, String description, Date expirationDate){
         this.shopId = shopId;
         this.discountId = discountId;
         this.percentage = percentage;
         this.title = title;
         this.description = description;
+        this.expirationDate=expirationDate;
     }
 
     @Override

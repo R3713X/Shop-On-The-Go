@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.AddDiscountActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.ShopsListView;
+
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonMap;
     private Button buttonList;
