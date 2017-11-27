@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light"
-    tools:context="com.sirialkillers.shoponthego.AddDiscountActivity">
+    android:orientation="vertical"
+    tools:context="com.sirialkillers.shoponthego.Shop_Related_Activities.AddDiscountActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
