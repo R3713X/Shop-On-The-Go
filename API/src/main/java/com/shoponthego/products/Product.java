@@ -1,5 +1,5 @@
 package com.shoponthego.products;
 
-public interface IProduct {
+public class Product {
 
 }

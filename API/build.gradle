@@ -12,7 +12,13 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'gs-accessing-data-rest'
+    version = '0.1.0'
+}
 
 group = 'com.shoponthego'
 version = '0.0.1-SNAPSHOT'
@@ -26,5 +32,8 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-cache')
 	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.shoponthego.locations.Location;
 import com.shoponthego.offers.IOffer;
-import com.shoponthego.products.IProduct;
+import com.shoponthego.offers.Offer;
+import com.shoponthego.products.Product;
 import com.shoponthego.shops.categories.ICategory;
+import com.shoponthego.shops.discounts.Discount;
 import com.shoponthego.shops.discounts.IDiscount;
-
-public class Shop implements IShop {
+public class Shop {
 
 	private String id;
 	private String name;
@@ -26,8 +27,8 @@ public class Shop implements IShop {
 	private String postcode;
 	*/
 	
-	private List<IProduct> products;
- 	private List<IOffer> offers;
+	private List<Product> products;
+ 	private List<Offer> offers;
  	private List<IDiscount> discounts;
 	private List<ICategory> categories;
 	
@@ -55,7 +56,7 @@ public class Shop implements IShop {
 		return location;
 	}
 
-	public List<IProduct> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
@@ -75,69 +76,16 @@ public class Shop implements IShop {
 		this.name = name;
 	}
 	
-	public List<IOffer> getOffers() {
+	public List<Offer> getOffers() {
 		return offers;
 	}
 
 	public IOffer getOffer(String id) {
 		return null;
 	}
-	
-	@Override
-	public IProduct getProduct(String productId) {
+
+	public List<Discount> getDiscounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<IDiscount> getDiscounts() {
-		return discounts;
-	}
-
-	@Override
-	public IDiscount getDiscount(String discountId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	@Override
-	public String getEmail() {
-		return email;
-	}
-
-	@Override
-	public String getPhoneNumber() {
-		return phone;
-	}
-
-	@Override
-	public String getCountry() {
-		return country;
-	}
-
-	@Override
-	public String getRegion() {
-		// TODO Auto-generated method stub
-		return region;
-	}
-
-	@Override
-	public String getCity() {
-		// TODO Auto-generated method stub
-		return city;
-	}
-
-	@Override
-	public String getAddress() {
-		// TODO Auto-generated method stub
-		return address;
-	}
-
-	@Override
-	public String getPostcode() {
-		// TODO Auto-generated method stub
-		return postcode;
-	}
-	*/
 }

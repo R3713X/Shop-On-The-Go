@@ -2,14 +2,14 @@ package com.shoponthego.users;
 
 import java.util.List;
 
-import com.shoponthego.products.IProduct;
+import com.shoponthego.products.Product;
 
 public class Customer implements IUser {
 
 	private int id;
 	private String name;
-	private List<IProduct> wishlist;
-	private List<IPreference> preferences;
+	private List<Product> wishlist;
+	
 	
 	@Override
 	public int getUserId() {
@@ -22,19 +22,14 @@ public class Customer implements IUser {
 	}
 
 	@Override
-	public List<IProduct> getWishlistById(String userId) {
+	public List<Product> getWishlistById(String userId) {
 		return wishlist;
 	}
 
 	@Override
-	public List<IProduct> getWishlistByName(String userName) {
+	public List<Product> getWishlistByName(String userName) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public List<IPreference> getPreferences(String userId) {
-		return preferences;
 	}
 
 }
