@@ -26,11 +26,23 @@ public class ShopModel extends ArrayList implements IShop {
     private List<IProduct> products;
     private List <ICategory> categories;
 
+
     public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;
         this.position = position;
+    }
 
+    public ShopModel(String id, String name){
+        this.id = id;
+        this.name = name;
+        this.position = new Position(0,0);
+    }
+
+    public ShopModel(String id){
+        this.id = id;
+        this.name = "";
+        this.position = new Position(0,0);
     }
 
 
@@ -105,14 +117,17 @@ public class ShopModel extends ArrayList implements IShop {
     }
 
     public void setOffers(List<IOffer> offers) {
+
         this.offers = offers;
     }
 
     public void setProducts(List<IProduct> products) {
+
         this.products = products;
     }
 
     public void setCategories(List<ICategory> categories) {
+
         this.categories = categories;
     }
 }

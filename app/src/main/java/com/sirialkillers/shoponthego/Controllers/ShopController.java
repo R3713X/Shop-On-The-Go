@@ -11,6 +11,7 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,14 +46,14 @@ public class ShopController implements IController<ShopModel, String> {
      */
     @Override
     public List<ShopModel> get(){
+        List<ShopModel> shops = new ArrayList<>();
         try {
             final String url = "http://localhost:8080/shops";
-            return restTemplate.getForObject(url, ShopModel.class);
-
+            shops.addAll(restTemplate.getForObject(url, ShopModel.class));
         }catch (Exception e){
             Log.e("getShops", e.getMessage(),e);
         }
-        return null;
+        return shops;
     }
 
     /**
@@ -61,7 +62,8 @@ public class ShopController implements IController<ShopModel, String> {
      * @return the shop
      */
     @Override
-    public ShopModel getById(String shopId){
+    public ShopModel getById(String shopId) {
+        ShopModel shop = new ShopModel("-1");
         try {
             final String url = "http://localhost:8080/shops/{shopId}";
             params.clear();

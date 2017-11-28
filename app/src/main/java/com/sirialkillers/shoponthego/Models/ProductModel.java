@@ -7,7 +7,6 @@ import java.util.ArrayList;
 /**
  * @author Ioakeim James Theologou
  * @version 16/11/2017
- * TODO: Create a test class for this model.
  *
  */
 public class ProductModel extends ArrayList implements IProduct {
@@ -45,18 +44,22 @@ public class ProductModel extends ArrayList implements IProduct {
     }
 
     public void setProductName(String productName) {
+
         this.productName = productName;
     }
 
     public void setProductId(String productId) {
+
         this.productId = productId;
     }
 
     public void setQuantityPerUnit(int quantityPerUnit) {
+
         this.quantityPerUnit = quantityPerUnit;
     }
 
     public void setUnitPrice(long unitPrice) {
+
         this.unitPrice = unitPrice;
     }
 }

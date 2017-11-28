@@ -62,6 +62,36 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
         return expirationDate;
     }
 
+    public void setShopId(String shopId) {
+
+        this.shopId = shopId;
+    }
+
+    public void setDiscountId(String discountId) {
+
+        this.discountId = discountId;
+    }
+
+    public void setPercentage(double percentage) {
+
+        this.percentage = percentage;
+    }
+
+    public void setTitle(String title) {
+
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+
+        this.expirationDate = expirationDate;
+    }
+
     protected DiscountModel(Parcel in) {
         shopId = in.readString();
         discountId = in.readString();
@@ -74,6 +104,7 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
 
     @Override
     public int describeContents() {
+
         return 0;
     }
 
@@ -99,30 +130,6 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
             return new DiscountModel[size];
         }
     };
-
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
-    }
-
-    public void setDiscountId(String discountId) {
-        this.discountId = discountId;
-    }
-
-    public void setPercentage(double percentage) {
-        this.percentage = percentage;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
 }
 
 
