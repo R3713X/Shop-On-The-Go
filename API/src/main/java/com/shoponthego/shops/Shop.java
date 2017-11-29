@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shoponthego.locations.Location;
-import com.shoponthego.offers.IOffer;
 import com.shoponthego.offers.Offer;
 import com.shoponthego.products.Product;
 import com.shoponthego.shops.categories.ICategory;
@@ -80,7 +79,7 @@ public class Shop {
 		return offers;
 	}
 
-	public IOffer getOffer(String id) {
+	public Offer getOffer(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
