@@ -64,12 +64,11 @@ public class ShopService {
 	}
 
 	public Offer getOffer(String shopId, String offerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return shopRepository.findOfferById(offerId);
 	}
 
 	public void addOffer(String shopId, Offer offer) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -102,6 +101,4 @@ public class ShopService {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

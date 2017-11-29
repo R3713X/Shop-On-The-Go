@@ -81,6 +81,7 @@ public class Shop {
 	}
 
 	public IOffer getOffer(String id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
