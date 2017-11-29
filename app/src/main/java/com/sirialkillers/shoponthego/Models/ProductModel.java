@@ -19,6 +19,11 @@ public class ProductModel extends ArrayList implements IProduct {
         this.productId = productId;
         this.productName = productName;
     }
+
+    public ProductModel(String productId){
+        this.productId = productId;
+        this.productName = "";
+    }
     @Override
     public String getProductName() {
 

@@ -28,6 +28,14 @@ public class OfferModel extends ArrayList implements IOffer{
         this.description = description;
 
     }
+
+    public OfferModel(String shopId){
+        this.shopId = shopId;
+        this.offerId = "";
+        this.title="";
+        this.description = "";
+    }
+
     @Override
     public String getShopId() {
 
