@@ -60,7 +60,7 @@ public class ShopController implements IController<ShopModel, String> {
     public List<ShopModel> get(){
         List<ShopModel> shops = new ArrayList<>();
         try {
-            final String url = "http://localhost:8080/shops";
+            final String url = "http://83.212.106.80/shops";
 
             shops.addAll(restTemplate.getForObject(url, ShopModel.class));
             return shops;
@@ -78,7 +78,7 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public ShopModel getById(String shopId) {
         try {
-            final String url = "http://localhost:8080/shops/{shopId}";
+            final String url = "http://83.212.106.80/shops/{shopId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -99,7 +99,7 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public ShopModel create(ShopModel shop){
         try {
-            final String url = "http://localhost:8080/shops";
+            final String url = "http://83.212.106.80/shops";
             ShopModel shopThatWasCreated = restTemplate.postForObject(url, shop, ShopModel.class);
             return shopThatWasCreated;
 
@@ -117,7 +117,7 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public void update(String targetShop, ShopModel shop){
         try {
-            final String url = "http://localhost:8080/shops/{targetShop}";
+            final String url = "http://83.212.106.80/shops/{targetShop}";
 
             params.clear();
             params.put("targetShop", targetShop);
@@ -135,7 +135,7 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public void delete(String shopId){
         try {
-            final String url = "http://localhost:8080/shops/{shopId}";
+            final String url = "http://83.212.106.80/shops/{shopId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -156,7 +156,7 @@ public class ShopController implements IController<ShopModel, String> {
         List<OfferModel> offers = new ArrayList<>();
 
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers";
 
             params.clear();
             params.put("shopId",shopId);
@@ -177,7 +177,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public OfferModel getShopOffer(String shopId, String offerId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
 
             params.clear();
             params.put("shopId",shopId);
@@ -198,7 +198,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void addShopOffer(String shopId, OfferModel offer){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers";
 
             params.clear();
             params.put("shopId", shopId);
@@ -217,7 +217,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void updateShopOffer(String shopId, String offerId,  OfferModel offer){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -236,7 +236,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void deleteShopOffer(String shopId, String offerId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -258,7 +258,7 @@ public class ShopController implements IController<ShopModel, String> {
         List<DiscountModel> discounts = new ArrayList<>();
 
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts";
 
             params.clear();
             params.put("shopId",shopId);
@@ -279,7 +279,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public DiscountModel getShopDiscount(String shopId, String discountId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
 
             params.clear();
             params.put("shopId",shopId);
@@ -300,7 +300,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void addShopDiscount(String shopId, DiscountModel discount){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts";
 
             params.clear();
             params.put("shopId", shopId);
@@ -319,7 +319,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void updateShopDiscount(String shopId, String discountId,  DiscountModel discount){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -338,7 +338,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void deleteShopDiscount(String shopId, String discountId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -360,7 +360,7 @@ public class ShopController implements IController<ShopModel, String> {
         List<ProductModel> products = new ArrayList<>();
 
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products";
+            final String url = "http://83.212.106.80/shops/{shopId}/products";
 
             params.clear();
             params.put("shopId",shopId);
@@ -381,7 +381,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public ProductModel getShopProduct(String shopId, String productId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
 
             params.clear();
             params.put("shopId",shopId);
@@ -402,7 +402,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void addShopProduct(String shopId, ProductModel product){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products";
+            final String url = "http://83.212.106.80/shops/{shopId}/products";
 
             params.clear();
             params.put("shopId", shopId);
@@ -421,7 +421,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void updateShopProduct(String shopId, String productId,  ProductModel product){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
 
             params.clear();
             params.put("shopId", shopId);
@@ -440,7 +440,7 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void deleteShopProduct(String shopId, String productId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
 
             params.clear();
             params.put("shopId", shopId);

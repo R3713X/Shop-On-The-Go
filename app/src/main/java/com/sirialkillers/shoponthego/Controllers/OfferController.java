@@ -27,7 +27,7 @@ public class OfferController implements IController<OfferModel, String> {
     private Map<String, String> params;
 
     /* Default values */
-    OfferModel defaultOffer;
+    private OfferModel defaultOffer;
 
     /**
      * Initializes the Rest template and adds a
@@ -52,7 +52,7 @@ public class OfferController implements IController<OfferModel, String> {
         List<OfferModel> offers = new ArrayList<>();
 
         try {
-            final String url = "http://localhost:8080/offers";
+            final String url = "http://83.212.106.80/offers";
 
             offers.addAll(restTemplate.getForObject(url, OfferModel.class));
             return offers;
@@ -70,7 +70,7 @@ public class OfferController implements IController<OfferModel, String> {
     @Override
     public OfferModel getById(String offerId){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://83.212.106.80/offers/{id}";
 
             params.clear();
             params.put("id", offerId);
@@ -91,7 +91,7 @@ public class OfferController implements IController<OfferModel, String> {
     @Override
     public OfferModel create(OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers";
+            final String url = "http://83.212.106.80/offers";
 
             OfferModel offerThatWasCreated = restTemplate.postForObject(url, offer, OfferModel.class);
             return offerThatWasCreated;
@@ -108,7 +108,7 @@ public class OfferController implements IController<OfferModel, String> {
     @Override
     public void update(String targetOffer, OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers/{targetOffer}";
+            final String url = "http://83.212.106.80/offers/{targetOffer}";
 
             params.clear();
             params.put("targetOffer", targetOffer);
@@ -126,7 +126,7 @@ public class OfferController implements IController<OfferModel, String> {
     @Override
     public void delete(String offerId){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://83.212.106.80/offers/{id}";
 
             params.put("id", offerId);
             restTemplate.delete(url, params);
