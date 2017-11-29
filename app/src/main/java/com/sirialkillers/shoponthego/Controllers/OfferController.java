@@ -30,7 +30,7 @@ public class OfferController implements IController<OfferModel, String> {
     private OfferModel defaultOffer;
 
     /**
-     * Initializes the Rest template and adds a
+     * Initializes the default values and the Rest template that adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */

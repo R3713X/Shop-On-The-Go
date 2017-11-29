@@ -142,7 +142,7 @@ public class ShopController implements IController<ShopModel, String> {
 
             restTemplate.delete(url, params);
         }catch (Exception e){
-            Log.e("getOffers", e.getMessage(),e);
+            Log.e("deleteShop", e.getMessage(),e);
         }
     }
 
