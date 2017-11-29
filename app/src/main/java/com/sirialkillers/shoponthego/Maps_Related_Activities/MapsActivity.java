@@ -1,12 +1,14 @@
 package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.Manifest;
+import android.arch.persistence.room.Room;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
@@ -41,6 +44,7 @@ import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;
+import net.hockeyapp.android.metrics.model.User;
 
 import java.util.ArrayList;
 
@@ -60,6 +64,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     String[] categories;
     boolean[] checkedCategories;
     ArrayList<Integer> mShopCategories = new ArrayList<>();
+    CacheDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,7 +244,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
-       
+
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -254,11 +259,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
 
-
-
+                //Insert Data
+                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAll(listOfShops.getShop());
+            }
+        });
 
     }
+
+
+
+
     public void goToMenu(){
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);

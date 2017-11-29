@@ -1,5 +1,7 @@
 package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
+import android.arch.persistence.room.ColumnInfo;
+
 /**
  * @author Ioakeim James Theologou
  * @version 03/10/2017
@@ -7,7 +9,9 @@ package com.sirialkillers.shoponthego.Maps_Related_Activities;
  */
 
 public class Position {
+    @ColumnInfo(name="latitude")
     private double latitude;
+    @ColumnInfo(name="longitude")
     private double longitude;
 
     public Position(double latitude, double longitude) {
