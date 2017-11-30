@@ -42,7 +42,7 @@ public class UserController {
     }
 
     /**
-     * Fetches a list of users.
+     * Will return a list of user that are available.
      * @return the list of users
      */
     public List<UserModel> getUsers(){
@@ -60,9 +60,9 @@ public class UserController {
     }
 
     /**
-     * Fetches a user.
+     * Will return a user that matches the identity.
      * @param userId the user Id to match.
-     * @return a user.
+     * @return a user that matched the identity.
      */
     public UserModel getUser(String userId){
         try {
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     /**
-     * Deletes a user.
+     * Deletes a user that already exists.
      * @param userId the user Id that will get deleted.
      */
     public void deleteUser(String userId){
@@ -97,7 +97,7 @@ public class UserController {
     }
 
     /**
-     * Adds a user.
+     * Will add a new user.
      * @param user the user that will get added.
      * @return the user that was added.
      */

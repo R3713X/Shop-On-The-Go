@@ -73,7 +73,9 @@ public class ShopController implements IController<ShopModel, String> {
     /**
      * Returns a shop that matches the shopId.
      * @param shopId The id of the shop
-     * @return the shop
+     * @return the shop if the request was successful
+     * or the default shop that is set to define that
+     * something did not go as well.
      */
     @Override
     public ShopModel getById(String shopId) {
@@ -94,7 +96,10 @@ public class ShopController implements IController<ShopModel, String> {
     /**
      * Creates a new shop.
      * @param shop is the shop that will be created
-     * @return the shop that was created
+     * @return the shop that was created if it was
+     * successfully created or the default shop
+     * that is set to define that something did not
+     * go as well.
      */
     @Override
     public ShopModel create(ShopModel shop){
@@ -173,7 +178,9 @@ public class ShopController implements IController<ShopModel, String> {
      * returns a offer that matches the shop and offer Id.
      * @param shopId the shop Id to match.
      * @param offerId the offer Id to match.
-     * @return a offer.
+     * @return a offer if the request was successful or the
+     * default offer that is set to define that
+     * something did not go as well.
      */
     public OfferModel getShopOffer(String shopId, String offerId){
         try{
@@ -275,7 +282,9 @@ public class ShopController implements IController<ShopModel, String> {
      * returns a discount that matches the shop and discount ID.
      * @param shopId the shop to match.
      * @param discountId the discount to return.
-     * @return a discount.
+     * @return a discount if the request was successful or the
+     * default discount that is set to define that
+     * something did not go as well.
      */
     public DiscountModel getShopDiscount(String shopId, String discountId){
         try{
@@ -377,7 +386,9 @@ public class ShopController implements IController<ShopModel, String> {
      * returns a product that matches the shop and the product Id.
      * @param shopId the shop Id to match.
      * @param productId the product Id to return.
-     * @return a product.
+     * @return a product if the request was successful or the
+     * default product that is set to define that
+     * something did not go as well.
      */
     public ProductModel getShopProduct(String shopId, String productId){
         try{
