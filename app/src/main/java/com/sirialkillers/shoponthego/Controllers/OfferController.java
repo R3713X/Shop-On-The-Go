@@ -30,7 +30,7 @@ public class OfferController implements IController<OfferModel, String> {
     private OfferModel defaultOffer;
 
     /**
-     * Initializes the Rest template and adds a
+     * Initializes the default values and the Rest template that adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */
@@ -65,7 +65,9 @@ public class OfferController implements IController<OfferModel, String> {
     /**
      * Returns a offer that matches the offerId.
      * @param offerId The id of the offer
-     * @return the offer
+     * @return the offer if the request was successful or
+     * the default offer that is set to define that
+     * something did not go as well.
      */
     @Override
     public OfferModel getById(String offerId){
@@ -86,7 +88,8 @@ public class OfferController implements IController<OfferModel, String> {
     /**
      * Creates a new offer.
      * @param offer is the offer that will be created
-     * @return the offer that was created
+     * @return the offer that was created or the default offer
+     * that is set to define that something did not go as well.
      */
     @Override
     public OfferModel create(OfferModel offer){
@@ -102,7 +105,8 @@ public class OfferController implements IController<OfferModel, String> {
     }
 
     /**
-     * Updates a already existing offer.
+     * Updates a offer that already exists.
+     * @param targetOffer the offerId that will get updated.
      * @param offer is the offer that will get updated.
      */
     @Override

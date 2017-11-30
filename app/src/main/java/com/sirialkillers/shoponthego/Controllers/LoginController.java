@@ -8,15 +8,15 @@ package com.sirialkillers.shoponthego.Controllers;
 public class LoginController {
     public boolean emailExists(String email){
 
-        return false;
+        return true;
     }
 
     public boolean emailMatchesPassword(String email, String password){
 
-        return false;
+        return true;
     }
 
     public void forgotPassword(String email){
-
+        //TODO: Work on this feature in 2018.
     }
 }

@@ -6,5 +6,5 @@ package com.sirialkillers.shoponthego.Controllers;
  *
  */
 public class RegisterController {
-    //TODO: Delete this controller if is not needed.
+    //TODO: Delete this controller if not needed in the future.
 }

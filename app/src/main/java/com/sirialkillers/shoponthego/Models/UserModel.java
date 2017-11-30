@@ -1,11 +1,13 @@
 package com.sirialkillers.shoponthego.Models;
 
+import java.util.ArrayList;
+
 /**
  * @author Ioakeim James Theologou
  * @version 28/11/2017
  *
  */
-public class UserModel {
+public class UserModel extends ArrayList{
     private String userId;
     private String name;
     private String surname;
@@ -40,6 +42,11 @@ public class UserModel {
         this.userId = userId;
         this.name = name;
         this.surname = surname;
+    }
+
+
+    public UserModel(String userId) {
+        this.userId = userId;
     }
 
     public UserModel() {
