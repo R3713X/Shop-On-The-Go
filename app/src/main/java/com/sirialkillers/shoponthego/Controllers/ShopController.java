@@ -11,13 +11,14 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 16/11/2017
+ * @version 29/11/2017
  *
  */
 public class ShopController implements IController<ShopModel, String> {
@@ -28,15 +29,27 @@ public class ShopController implements IController<ShopModel, String> {
      in the Rest Template */
     private Map<String, String> params = new HashMap<>();
 
+    /* Default values. */
+    private ShopModel defaultShop;
+    private DiscountModel defaultDiscount;
+    private OfferModel defaultOffer;
+    private ProductModel defaultProduct;
+
     /**
-     * Initializes the Rest template and adds a
+     * Initializes the default values and the Rest template that adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */
     public ShopController() {
-        restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        defaultShop = new ShopModel("-1");
+        defaultDiscount = new DiscountModel("-1");
+        defaultOffer = new OfferModel("-1");
+        defaultProduct = new ProductModel("-1");
+
         params = new HashMap<>();
+        restTemplate = new RestTemplate();
+
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
     }
 
     /**
@@ -45,14 +58,16 @@ public class ShopController implements IController<ShopModel, String> {
      */
     @Override
     public List<ShopModel> get(){
+        List<ShopModel> shops = new ArrayList<>();
         try {
-            final String url = "http://localhost:8080/shops";
-            return restTemplate.getForObject(url, ShopModel.class);
+            final String url = "http://83.212.106.80/shops";
 
+            shops.addAll(restTemplate.getForObject(url, ShopModel.class));
+            return shops;
         }catch (Exception e){
             Log.e("getShops", e.getMessage(),e);
         }
-        return null;
+        return shops;
     }
 
     /**
@@ -61,17 +76,19 @@ public class ShopController implements IController<ShopModel, String> {
      * @return the shop
      */
     @Override
-    public ShopModel getById(String shopId){
+    public ShopModel getById(String shopId) {
         try {
-            final String url = "http://localhost:8080/shops/{shopId}";
+            final String url = "http://83.212.106.80/shops/{shopId}";
+
             params.clear();
             params.put("shopId", shopId);
-            return restTemplate.getForObject(url, ShopModel.class, params);
 
+            ShopModel shop = restTemplate.getForObject(url, ShopModel.class, params);
+            return shop;
         }catch (Exception e){
             Log.e("getShopById", e.getMessage(),e);
         }
-        return null;
+        return defaultShop;
     }
 
     /**
@@ -82,13 +99,14 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public ShopModel create(ShopModel shop){
         try {
-            final String url = "http://localhost:8080/shops";
-            return restTemplate.postForObject(url, shop, ShopModel.class);
+            final String url = "http://83.212.106.80/shops";
+            ShopModel shopThatWasCreated = restTemplate.postForObject(url, shop, ShopModel.class);
+            return shopThatWasCreated;
 
         }catch (Exception e){
             Log.e("createShop", e.getMessage(),e);
         }
-        return null;
+        return defaultShop;
     }
 
 
@@ -99,11 +117,12 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public void update(String targetShop, ShopModel shop){
         try {
-            final String url = "http://localhost:8080/shops/{targetShop}";
+            final String url = "http://83.212.106.80/shops/{targetShop}";
+
             params.clear();
             params.put("targetShop", targetShop);
-            restTemplate.put(url, shop, params);
 
+            restTemplate.put(url, shop, params);
         }catch (Exception e) {
             Log.e("updateShop", e.getMessage(), e);
         }
@@ -116,11 +135,12 @@ public class ShopController implements IController<ShopModel, String> {
     @Override
     public void delete(String shopId){
         try {
-            final String url = "http://localhost:8080/shops/{shopId}";
+            final String url = "http://83.212.106.80/shops/{shopId}";
+
             params.clear();
             params.put("shopId", shopId);
-            restTemplate.delete(url, params);
 
+            restTemplate.delete(url, params);
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
         }
@@ -129,54 +149,61 @@ public class ShopController implements IController<ShopModel, String> {
     /**
      * returns a list of offers that are available
      * from that certain shop that matches the shopId.
-     * @param shopId the shop that will return its offers.
+     * @param shopId the shop that will return the offers.
      * @return a list of offers
      */
     public List<OfferModel> getShopOffers(String shopId){
+        List<OfferModel> offers = new ArrayList<>();
+
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers";
+
             params.clear();
             params.put("shopId",shopId);
-            return restTemplate.getForObject(url, OfferModel.class, params);
 
+            offers.addAll(restTemplate.getForObject(url, OfferModel.class, params));
+            return offers;
         }catch (Exception e){
             Log.e("getShopOffers", e.getMessage(),e);
         }
-        return null;
+        return offers;
     }
 
     /**
-     * returns a offer that matches the shop and offer ID.
-     * @param shopId the shop to match.
-     * @param offerId the offer to match.
+     * returns a offer that matches the shop and offer Id.
+     * @param shopId the shop Id to match.
+     * @param offerId the offer Id to match.
      * @return a offer.
      */
     public OfferModel getShopOffer(String shopId, String offerId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
+
             params.clear();
             params.put("shopId",shopId);
             params.put("offerId", offerId);
-            return restTemplate.getForObject(url, OfferModel.class, params.get(0), params.get(1));
 
+            OfferModel offer = restTemplate.getForObject(url, OfferModel.class, params.get(0), params.get(1));
+            return offer;
         }catch (Exception e){
             Log.e("getShopOffer", e.getMessage(),e);
         }
-        return null;
+        return defaultOffer;
     }
 
     /**
-     * creates a new offer and adds it to the shop that matches the shopId.
+     * Creates a new offer and adds it to the shop that matches the shopId.
      * @param shopId the shop that will add the offer.
      * @param offer the offer that will be added.
      */
     public void addShopOffer(String shopId, OfferModel offer){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers";
+
             params.clear();
             params.put("shopId", shopId);
-            restTemplate.postForObject(url, offer, OfferModel.class, params);
 
+            restTemplate.postForObject(url, offer, OfferModel.class, params);
         }catch (Exception e){
             Log.e("addShopOffer", e.getMessage(),e);
         }
@@ -185,17 +212,18 @@ public class ShopController implements IController<ShopModel, String> {
     /**
      * updates an already existing offer from a shop.
      * @param shopId the shop that has the offer.
-     * @param offerId the offer that will get updated.
+     * @param offerId the offer Id that will get updated.
      * @param offer the offer that will replace the old offer.
      */
     public void updateShopOffer(String shopId, String offerId,  OfferModel offer){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("offerId", offerId);
-            restTemplate.put(url, offer, params.get(0), params.get(1));
 
+            restTemplate.put(url, offer, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("updateShopOffer", e.getMessage(),e);
         }
@@ -203,17 +231,18 @@ public class ShopController implements IController<ShopModel, String> {
 
     /**
      * deletes a offer from a shop.
-     * @param shopId the shop that has the offer.
-     * @param offerId the offer that will get deleted.
+     * @param shopId the shop Id that has the offer.
+     * @param offerId the offer Id that will get deleted.
      */
     public void deleteShopOffer(String shopId, String offerId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/offers/{offerId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/offers/{offerId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("offerId", offerId);
-            restTemplate.delete(url, params.get(0), params.get(1));
 
+            restTemplate.delete(url, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("deleteShopOffer", e.getMessage(),e);
         }
@@ -222,20 +251,24 @@ public class ShopController implements IController<ShopModel, String> {
     /**
      * returns a list of discounts that are available
      * from that certain shop that matches the shopId.
-     * @param shopId the shop that will return its discounts.
+     * @param shopId the shop Id that contains the discounts.
      * @return a list of discounts.
      */
     public List<DiscountModel> getShopDiscounts(String shopId){
+        List<DiscountModel> discounts = new ArrayList<>();
+
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts";
+
             params.clear();
             params.put("shopId",shopId);
-            return restTemplate.getForObject(url, DiscountModel.class, params);
 
+            discounts.addAll(restTemplate.getForObject(url, DiscountModel.class, params));
+            return discounts;
         }catch (Exception e){
             Log.e("getShopDiscounts", e.getMessage(),e);
         }
-        return null;
+        return discounts;
     }
 
     /**
@@ -246,16 +279,18 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public DiscountModel getShopDiscount(String shopId, String discountId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
+
             params.clear();
             params.put("shopId",shopId);
             params.put("discountId", discountId);
-            return restTemplate.getForObject(url, DiscountModel.class, params.get(0), params.get(1));
 
+            DiscountModel discount = restTemplate.getForObject(url, DiscountModel.class, params.get(0), params.get(1));
+            return discount;
         }catch (Exception e){
             Log.e("getShopDiscount", e.getMessage(),e);
         }
-        return null;
+        return defaultDiscount;
     }
 
     /**
@@ -265,11 +300,12 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void addShopDiscount(String shopId, DiscountModel discount){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts";
+
             params.clear();
             params.put("shopId", shopId);
-            restTemplate.postForObject(url, discount, DiscountModel.class, params);
 
+            restTemplate.postForObject(url, discount, DiscountModel.class, params);
         }catch (Exception e){
             Log.e("addShopDiscount", e.getMessage(),e);
         }
@@ -283,30 +319,32 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void updateShopDiscount(String shopId, String discountId,  DiscountModel discount){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("discountId", discountId);
-            restTemplate.put(url, discount, params.get(0), params.get(1));
 
+            restTemplate.put(url, discount, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("updateShopDiscount", e.getMessage(),e);
         }
     }
 
     /**
-     * deletes a discount from the shop that matches its id.
-     * @param shopId the shop that has the discount.
+     * deletes a discount from a shop.
+     * @param shopId the shop Id that has the discount.
      * @param discountId the discount that will get deleted.
      */
     public void deleteShopDiscount(String shopId, String discountId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/discounts/{discountId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/discounts/{discountId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("discountId", discountId);
-            restTemplate.delete(url, params.get(0), params.get(1));
 
+            restTemplate.delete(url, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("deleteShopDiscount", e.getMessage(),e);
         }
@@ -319,36 +357,42 @@ public class ShopController implements IController<ShopModel, String> {
      * @return a list of products.
      */
     public List<ProductModel> getShopProducts(String shopId){
+        List<ProductModel> products = new ArrayList<>();
+
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products";
+            final String url = "http://83.212.106.80/shops/{shopId}/products";
+
             params.clear();
             params.put("shopId",shopId);
-            return restTemplate.getForObject(url, ProductModel.class, params);
 
+            products.addAll(restTemplate.getForObject(url, ProductModel.class, params));
+            return products;
         }catch (Exception e){
             Log.e("getShopProducts", e.getMessage(),e);
         }
-        return null;
+        return products;
     }
 
     /**
-     * returns a product that matches the shop and the product ID.
-     * @param shopId the shop to match.
-     * @param productId the product to return.
+     * returns a product that matches the shop and the product Id.
+     * @param shopId the shop Id to match.
+     * @param productId the product Id to return.
      * @return a product.
      */
     public ProductModel getShopProduct(String shopId, String productId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
+
             params.clear();
             params.put("shopId",shopId);
             params.put("productId", productId);
-            return restTemplate.getForObject(url, ProductModel.class, params.get(0), params.get(1));
 
+            ProductModel product = restTemplate.getForObject(url, ProductModel.class, params.get(0), params.get(1));
+            return product;
         }catch (Exception e){
             Log.e("getShopProduct", e.getMessage(),e);
         }
-        return null;
+        return defaultProduct;
     }
 
     /**
@@ -358,11 +402,12 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void addShopProduct(String shopId, ProductModel product){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products";
+            final String url = "http://83.212.106.80/shops/{shopId}/products";
+
             params.clear();
             params.put("shopId", shopId);
-            restTemplate.postForObject(url, product, ProductModel.class, params);
 
+            restTemplate.postForObject(url, product, ProductModel.class, params);
         }catch (Exception e){
             Log.e("addShopProduct", e.getMessage(),e);
         }
@@ -376,12 +421,13 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void updateShopProduct(String shopId, String productId,  ProductModel product){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("productId", productId);
-            restTemplate.put(url, product, params.get(0), params.get(1));
 
+            restTemplate.put(url, product, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("updateShopProduct", e.getMessage(),e);
         }
@@ -394,12 +440,13 @@ public class ShopController implements IController<ShopModel, String> {
      */
     public void deleteShopProduct(String shopId, String productId){
         try{
-            final String url = "http://localhost:8080/shops/{shopId}/products/{productId}";
+            final String url = "http://83.212.106.80/shops/{shopId}/products/{productId}";
+
             params.clear();
             params.put("shopId", shopId);
             params.put("productId", productId);
-            restTemplate.delete(url, params.get(0), params.get(1));
 
+            restTemplate.delete(url, params.get(0), params.get(1));
         }catch (Exception e){
             Log.e("deleteShopProduct", e.getMessage(),e);
         }

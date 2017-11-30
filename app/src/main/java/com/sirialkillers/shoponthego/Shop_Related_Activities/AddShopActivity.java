@@ -33,6 +33,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
@@ -56,6 +57,7 @@ public class AddShopActivity extends AppCompatActivity {
     private ShopRegisterTask shopRegisterTask = null;
     private Place place;
     private Bitmap bitmap;
+    private final static LatLngBounds bounds = new LatLngBounds(new LatLng(34.875228,20.379639), new LatLng(41.695988,26.597900));
     String sCategories;
     String[] categories;
     boolean[] checkedCategories;
@@ -121,6 +123,7 @@ public class AddShopActivity extends AppCompatActivity {
 
     private void selectAddressClick() {
         PlacePicker.IntentBuilder placePickerBuilder = new PlacePicker.IntentBuilder();
+        placePickerBuilder.setLatLngBounds(bounds);
         try {
             Intent intent = placePickerBuilder.build(AddShopActivity.this);
             startActivityForResult(intent, PLACE_PICKER_REQUEST);

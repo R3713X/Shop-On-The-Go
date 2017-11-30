@@ -31,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.MenuActivity;
@@ -46,6 +47,8 @@ import java.util.ArrayList;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,OnInfoWindowClickListener,NavigationView.OnNavigationItemSelectedListener {
     private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
+    //setting the Location Bounds of greece
+    private LatLngBounds greeceBounds = new LatLngBounds(new LatLng(35.001316,20.028076),new LatLng(41.810732,27.103271));
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
@@ -254,6 +257,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
+ Login-RestClient
+        mMap.setMinZoomPreference(13.0f);
+        mMap.setLatLngBoundsForCameraTarget(greeceBounds);
+    }
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -264,8 +272,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
-
-
 
 
     public void goToMenu(){
