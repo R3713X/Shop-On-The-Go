@@ -25,9 +25,17 @@ public class ListOfShops {
     private ArrayList<MarkerInformation> markerinfo=new ArrayList<>();
     ShopController shopController;
 
-    public void addShop() {
 
-        shops=shopController.get();
+
+    public void addShop() {
+        shops.add(new ShopModel("1","rafaele", new Position(40.6657785,22.9468865)));
+        shops.add(new ShopModel("2","mavidis", new Position(40.6666259,22.9455427)));
+        shops.add(new ShopModel("3","porkys", new Position(40.663449,22.9475822)));
+        shops.add(new ShopModel("3","seven", new Position(40.6595399,22.9445063)));
+        shops.add(new ShopModel("4", "mad gym",new Position(40.6566813,22.9328894)));
+
+
+
     }
 
     public List<ShopModel> getShop(){
@@ -81,6 +89,7 @@ public class ListOfShops {
     public ArrayList<Marker> creatMarkerOfShop(GoogleMap googleMap){
         this.addShop();
         this.creatPositionOfShop();
+
 
         for (MarkerInformation m:markerinfo) {
 

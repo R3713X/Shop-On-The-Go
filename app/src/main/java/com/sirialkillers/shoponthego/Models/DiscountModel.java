@@ -1,21 +1,36 @@
 package com.sirialkillers.shoponthego.Models;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.sirialkillers.shoponthego.Interfaces.IDiscount;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-
+@Entity(tableName = "Discount")
+@ForeignKey(entity = ShopModel.class,parentColumns="shopId", childColumns ="shopId")
 public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
+    @ColumnInfo(name="shopId")
     private String shopId;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name="discountid")
     private String discountId;
+    @ColumnInfo(name="discountPercentage")
     private double percentage;
+    @ColumnInfo(name="discountTitle")
     private String title;
+    @ColumnInfo(name="discountDescription")
     private String description;
+    //TODO typeConverter date-to-long
+    @ColumnInfo(name="expirationDate")
     private Date expirationDate;
 
     public DiscountModel(String shopId, String discountId, double percentage,

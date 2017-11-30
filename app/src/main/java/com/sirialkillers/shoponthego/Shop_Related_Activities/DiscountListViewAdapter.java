@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
