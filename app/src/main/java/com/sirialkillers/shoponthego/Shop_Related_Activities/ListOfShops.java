@@ -1,13 +1,10 @@
 package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
-import android.arch.persistence.room.Room;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
-import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MarkerInformation;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;

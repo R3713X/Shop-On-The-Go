@@ -2,7 +2,6 @@ package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;

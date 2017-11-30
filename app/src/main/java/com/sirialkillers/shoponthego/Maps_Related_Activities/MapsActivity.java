@@ -1,7 +1,6 @@
 package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.Manifest;
-import android.arch.persistence.room.Room;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,13 +15,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -38,13 +35,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
-import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;
-import net.hockeyapp.android.metrics.model.User;
 
 import java.util.ArrayList;
 
