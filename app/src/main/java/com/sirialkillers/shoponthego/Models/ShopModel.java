@@ -1,5 +1,12 @@
 package com.sirialkillers.shoponthego.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.sirialkillers.shoponthego.Interfaces.ICategory;
 import com.sirialkillers.shoponthego.Interfaces.IDiscount;
 import com.sirialkillers.shoponthego.Interfaces.IOffer;
@@ -16,14 +23,23 @@ import java.util.List;
  * TODO: Create a test class for this model.
  *
  */
-
+@Entity(tableName="Shop")
 public class ShopModel extends ArrayList implements IShop {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name="shopId")
     private String id;
+    @ColumnInfo(name="shopName")
     private String name;
+    @Embedded
     private Position position;
+    @Ignore
     private List<IDiscount> discounts;
+    @Ignore
     private List<IOffer> offers;
+    @Ignore
     private List<IProduct> products;
+    @Ignore
     private List <ICategory> categories;
 
 

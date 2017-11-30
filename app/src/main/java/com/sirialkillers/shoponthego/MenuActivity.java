@@ -45,15 +45,19 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
             case R.id.buttonList:
                 Intent intentStartListActivity = new Intent(this, ShopsListView.class);
                 startActivity(intentStartListActivity);
+                break;
             case R.id.addProductPhotoButton:
                 Intent intentStartProductPhotoActivity = new Intent(this, ProductPhotoActivity.class);
                 startActivity(intentStartProductPhotoActivity);
+                break;
             case R.id.addShopButton:
                 Intent intentShop = new Intent(this, AddShopActivity.class);
                 startActivity(intentShop);
+                break;
             case R.id.addDiscountButton:
                 Intent intentDiscount = new Intent(this, AddShopActivity.class);
                 startActivity(intentDiscount);
+                break;
             default:
                 break;
         }
