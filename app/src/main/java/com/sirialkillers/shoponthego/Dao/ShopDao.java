@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface ShopDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<ShopModel> shops);
+    void insertAllShops(List<ShopModel> shops);
 
     @Query("SELECT * FROM Shop")
     List<ShopModel> getAllShops();

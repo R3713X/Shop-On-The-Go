@@ -1,10 +1,12 @@
 package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.R;
 
@@ -16,21 +18,23 @@ import java.util.Date;
  */
 
 public class DiscountDetailsActivity extends AppCompatActivity{
-    int discountId;
     TextView title;
     TextView description;
     TextView expirationDate;
     DiscountModel selectedDiscount;
     ListOfDiscounts LoD;
     String dateText;
+    String selectedDiscountId;
+    CacheDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discount_details_activity);
         Intent i = getIntent();
-        selectedDiscount=i.getExtras().getParcelable("discount");
-        //needs implementation of DiscountModel
+        selectedDiscountId=i.getExtras().getString("discountId");
+        mdb= Room.databaseBuilder(getApplicationContext(),CacheDatabase.class,"local-database").allowMainThreadQueries().build();
+        selectedDiscount= mdb.discountDao().getSpecificDiscount(selectedDiscountId);
         title= (TextView) findViewById(R.id.discountTitle);
         title.setText(selectedDiscount.getTitle());
         description= (TextView) findViewById(R.id.discountDetails);
@@ -40,6 +44,12 @@ public class DiscountDetailsActivity extends AppCompatActivity{
         expirationDate.setText(dateText);
         //needs code for button saveToWishlist(TODO wishlist)
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mdb.destroyInstance();
     }
 
 

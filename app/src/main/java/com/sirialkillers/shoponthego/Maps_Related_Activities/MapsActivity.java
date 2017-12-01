@@ -171,6 +171,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
+        mdb.destroyInstance();
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -265,7 +266,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
 
                 //Insert Data
-                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAll(listOfShops.getShop());
+                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAllShops(listOfShops.getShop());
             }
         });
     }
