@@ -25,7 +25,7 @@ public class ShopListAdapter extends BaseAdapter implements Filterable{
     private CustomFilter filter;
     private List<ShopModel> filterList;
 
-    ShopListAdapter(Context ctx, List<ShopModel> shops) {
+    public ShopListAdapter(Context ctx, List<ShopModel> shops) {
         // TODO Auto-generated constructor stub
         this.c=ctx;
         this.shops=shops;

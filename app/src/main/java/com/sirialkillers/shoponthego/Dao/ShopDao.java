@@ -19,4 +19,7 @@ public interface ShopDao{
 
     @Query("SELECT * FROM Shop")
     List<ShopModel> getAllShops();
+
+    @Query("SELECT * FROM Shop WHERE shopName==:shopName")
+    List<ShopModel> getShopsByName(String shopName);
 }

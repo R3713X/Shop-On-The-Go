@@ -30,7 +30,7 @@ public abstract class CacheDatabase extends RoomDatabase {
     }
 
     private static CacheDatabase create(final Context context){
-        return Room.databaseBuilder(context,CacheDatabase.class,DATABASE_NAME).build();
+        return Room.databaseBuilder(context,CacheDatabase.class,DATABASE_NAME).allowMainThreadQueries().build();
     }
 
     public abstract ShopDao shopDao();

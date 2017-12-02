@@ -71,7 +71,14 @@ public class DiscountListView extends AppCompatActivity{
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mdb.destroyInstance();
+        CacheDatabase.destroyInstance();
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        CacheDatabase.destroyInstance();
     }
 
 }

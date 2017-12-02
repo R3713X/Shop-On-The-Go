@@ -33,7 +33,7 @@ public class DiscountDetailsActivity extends AppCompatActivity{
         setContentView(R.layout.discount_details_activity);
         Intent i = getIntent();
         selectedDiscountId=i.getExtras().getString("discountId");
-        mdb= Room.databaseBuilder(getApplicationContext(),CacheDatabase.class,"local-database").allowMainThreadQueries().build();
+        mdb= CacheDatabase.getInstance(getApplicationContext());
         selectedDiscount= mdb.discountDao().getSpecificDiscount(selectedDiscountId);
         title= (TextView) findViewById(R.id.discountTitle);
         title.setText(selectedDiscount.getTitle());
@@ -49,7 +49,13 @@ public class DiscountDetailsActivity extends AppCompatActivity{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mdb.destroyInstance();
+        CacheDatabase.destroyInstance();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CacheDatabase.destroyInstance();
     }
 
 
