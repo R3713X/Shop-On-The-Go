@@ -2,17 +2,19 @@ package com.sirialkillers.shoponthego.Controllers;
 
 /**
  * @author Ioakeim James Theologou
- * @version 28/11/2017
- * TODO: Complete this controller later on.
+ * @version 02/11/2017
+ *
  */
 public class LoginController {
     public boolean emailExists(String email){
-
+        //TODO: Improve this method in the future. Not a must now.
+        //Will return true for every log in attempt.
         return true;
     }
 
     public boolean emailMatchesPassword(String email, String password){
-
+        //TODO: Improve this method in the future. Not a must now.
+        //Will return true for every log in attempt.
         return true;
     }
 

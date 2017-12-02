@@ -55,6 +55,7 @@ public class AccountControllerTest {
         AccountModel defaultAccount = accountController.createAccount(account);
         assertEquals(defaultAccount.getAccountId(), "-1");
         accountController.deleteAccount("150");
+
         //Should return the account that was supposedly created.
         AccountModel accountCreated = accountController.createAccount(account);
         assertEquals(accountCreated.getAccountId(), "150");
