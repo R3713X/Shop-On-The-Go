@@ -1,10 +1,10 @@
 package com.sirialkillers.shoponthego.Controllers;
 
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ProductModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
-import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @version 19/10/2017
  *
  */
+
 public class ShopControllerTest {
     private Position position;
     private MockMvc mockMvc;
@@ -378,6 +380,19 @@ public class ShopControllerTest {
 
         shopController.deleteShopProduct("54","54");
         assertNull(shopController.getShopProduct("54", "54"));
+    }
+
+    @Test
+    public void checkThatDefaultListOfShopsGotReturned(){
+        List<ShopModel> shops = shopController.get();
+        assertNotNull(shops);
+    }
+
+    @Test
+    public void checkThatDefaultShopGotReturned(){
+        ShopModel shop = shopController.getById("2");
+        assertEquals(shop.getId(), "-1");
+        assertNotNull(shop);
     }
 
     @After
