@@ -5,6 +5,9 @@ import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountDetailsActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,9 +38,4 @@ public class DiscountListViewEspressoTest {
         Espresso.onView(withId(R.id.discountListView)).check(matches(notNullValue()));
     }
 
-    @Test
-    public void testThatListIsClickable(){
-        Espresso.onData(anything()).inAdapterView(withContentDescription("theLisd")).atPosition(1).perform(click());
-        intended(hasComponent(DiscountDetailsActivity.class.getName()));
-    }
 }
