@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,13 +15,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -34,9 +33,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
-import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
@@ -63,6 +62,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     String[] categories;
     boolean[] checkedCategories;
     ArrayList<Integer> mShopCategories = new ArrayList<>();
+    CacheDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,7 +242,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
-       
+
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -257,9 +257,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
+ Login-RestClient
         mMap.setMinZoomPreference(13.0f);
         mMap.setLatLngBoundsForCameraTarget(greeceBounds);
     }
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                //Insert Data
+                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAll(listOfShops.getShop());
+            }
+        });
+
+    }
+
+
     public void goToMenu(){
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);

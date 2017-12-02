@@ -1,5 +1,12 @@
 package com.sirialkillers.shoponthego.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.sirialkillers.shoponthego.Interfaces.ICategory;
 import com.sirialkillers.shoponthego.Interfaces.IDiscount;
 import com.sirialkillers.shoponthego.Interfaces.IOffer;
@@ -16,21 +23,42 @@ import java.util.List;
  * TODO: Create a test class for this model.
  *
  */
-
+@Entity(tableName="Shop")
 public class ShopModel extends ArrayList implements IShop {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name="shopId")
     private String id;
+    @ColumnInfo(name="shopName")
     private String name;
+    @Embedded
     private Position position;
+    @Ignore
     private List<IDiscount> discounts;
+    @Ignore
     private List<IOffer> offers;
+    @Ignore
     private List<IProduct> products;
+    @Ignore
     private List <ICategory> categories;
+
 
     public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;
         this.position = position;
+    }
 
+    public ShopModel(String id, String name){
+        this.id = id;
+        this.name = name;
+        this.position = new Position(0,0);
+    }
+
+    public ShopModel(String id){
+        this.id = id;
+        this.name = "";
+        this.position = new Position(0,0);
     }
 
 
@@ -105,14 +133,17 @@ public class ShopModel extends ArrayList implements IShop {
     }
 
     public void setOffers(List<IOffer> offers) {
+
         this.offers = offers;
     }
 
     public void setProducts(List<IProduct> products) {
+
         this.products = products;
     }
 
     public void setCategories(List<ICategory> categories) {
+
         this.categories = categories;
     }
 }
