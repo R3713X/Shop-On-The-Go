@@ -15,9 +15,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sirialkillers.shoponthego.Controllers.LoginController;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
+import com.sirialkillers.shoponthego.MenuActivity;
+import com.sirialkillers.shoponthego.Models.AccountModel;
 import com.sirialkillers.shoponthego.R;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.AddDiscountActivity;
 
 import org.w3c.dom.Text;
 
@@ -178,12 +183,24 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                LoginController loginController = new LoginController();
+                if(loginController.emailExists(mEmail)){
+                    if(loginController.emailMatchesPassword(mEmail,mPassword))
+                    {
+                        //TODO: Login
+                        Loading();
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "Your email and password do not match.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(LoginActivity.this, "The email "+mEmail+" do not exist.", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
                 return false;
             }
             //TODO: validate with database here
@@ -192,17 +209,13 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-
-
             if (success) {
-                finish();
+                goToSignUpActivity();
+
             } else {
-                mPasswordView.setError("Wrong Password");
-                mPasswordView.requestFocus();
+                Toast.makeText(LoginActivity.this, "Something went wrong! Please try again", Toast.LENGTH_SHORT).show();
             }
         }
-
         @Override
         protected void onCancelled() {
             mAuthTask = null;
