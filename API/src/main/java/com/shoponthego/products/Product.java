@@ -1,9 +1,14 @@
 package com.shoponthego.products;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.shoponthego.categories.Category;
 
+@Entity
 public class Product {
 	
+	@Id
 	private String id;
 	private String name;
 	private String description;

@@ -21,15 +21,12 @@ public class Customer implements IUser {
 		return name;
 	}
 
-	@Override
 	public List<Product> getWishlistById(String userId) {
-		return wishlist;
+			return wishlist;
 	}
 
-	@Override
 	public List<Product> getWishlistByName(String userName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }
