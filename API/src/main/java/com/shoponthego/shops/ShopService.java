@@ -1,9 +1,7 @@
 package com.shoponthego.shops;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shoponthego.offers.Offer;
@@ -12,39 +10,48 @@ import com.shoponthego.shops.discounts.Discount;
 @Service
 public class ShopService {
 
+	/*
 	@Autowired
 	private ShopRepository shopRepository;
+	*/
 	
 	public List<Shop> getShops() {
+		return null;
+		/*
 		List<Shop> shops = new ArrayList<>();
 		shopRepository.findAll()
 		.forEach(shops::add);
 		return shops;
+		*/
 	}
 
 	public Shop getShop(String id) {
-		return shopRepository.findOne(id);
+		return null;
+		//return shopRepository.findOne(id);
 	}
 
 	public void addShop(Shop shop) {
-		shopRepository.save(shop);
+		//shopRepository.save(shop);
 	}
 
 
 	public void updateShop(String id, Shop updatedShop) {
-		shopRepository.save(updatedShop);
+		//shopRepository.save(updatedShop);
 	}
 
 	public void deleteShop(String id) {
-		shopRepository.delete(id);
+	//	shopRepository.delete(id);
 	}
 
 	public List<Offer> getOffers(String shopId) {
+		return null;
+		/*
 		Shop shop = getShop(shopId);
 		if(shop == null) {
 			return null;
 		}
 		return shop.getOffers();
+		*/
 	}
 
 	public List<Discount> getDiscounts(String shopId) {
@@ -56,7 +63,8 @@ public class ShopService {
 	}
 
 	public Offer getOffer(String shopId, String offerId) {
-		return shopRepository.findOfferById(offerId);
+		return null;
+				//shopRepository.findOfferById(offerId);
 	}
 
 	public void addOffer(String shopId, Offer offer) {

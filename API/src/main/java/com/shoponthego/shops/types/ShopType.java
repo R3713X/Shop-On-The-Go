@@ -1,4 +1,4 @@
-package com.shoponthego.shops.categories;
+package com.shoponthego.shops.types;
 
 public class ShopType {
 	
@@ -23,7 +23,4 @@ public class ShopType {
 	public String getDescription() {
 		return description;
 	}
-	
-		
-
 }

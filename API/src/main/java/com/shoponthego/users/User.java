@@ -19,6 +19,50 @@ public class User implements IUser {
 	private List<Product> wishlist;
 	
 	
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public List<Product> getWishlist() {
+		return wishlist;
+	}
+
 	@Override
 	public int getUserId() {
 		return id;
