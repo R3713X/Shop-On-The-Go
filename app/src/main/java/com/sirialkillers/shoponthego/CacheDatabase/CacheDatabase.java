@@ -6,15 +6,19 @@ import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import com.sirialkillers.shoponthego.Dao.DiscountDao;
 import com.sirialkillers.shoponthego.Dao.ShopDao;
+import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 /**
  * Created by User on 24-Nov-17.
  */
-@Database(version = 1, entities = {ShopModel.class})
+@Database(version = 2, entities = {ShopModel.class, DiscountModel.class})
+@TypeConverters({DateTypeConverters.class})
 public abstract class CacheDatabase extends RoomDatabase {
     private static final String DATABASE_NAME="local-database";
     private static volatile CacheDatabase appDatabase;
@@ -26,14 +30,16 @@ public abstract class CacheDatabase extends RoomDatabase {
     }
 
     private static CacheDatabase create(final Context context){
-        return Room.databaseBuilder(context,CacheDatabase.class,DATABASE_NAME).build();
+        return Room.databaseBuilder(context,CacheDatabase.class,DATABASE_NAME).allowMainThreadQueries().build();
     }
 
     public abstract ShopDao shopDao();
+    public abstract DiscountDao discountDao();
 
 
 
     public static void destroyInstance() {
+
         appDatabase= null;
     }
 

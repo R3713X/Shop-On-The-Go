@@ -164,6 +164,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onPause() {
         super.onPause();
         unregisterManagers();
+        CacheDatabase.destroyInstance();
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -171,6 +172,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
+        CacheDatabase.destroyInstance();
+
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -244,7 +247,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnInfoWindowClickListener(this);
 
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -257,21 +259,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
- Login-RestClient
         mMap.setMinZoomPreference(13.0f);
         mMap.setLatLngBoundsForCameraTarget(greeceBounds);
-    }
+
 
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
 
                 //Insert Data
-                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAll(listOfShops.getShop());
+                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAllShops(listOfShops.getShop());
             }
         });
-
     }
+
+
 
 
     public void goToMenu(){

@@ -4,6 +4,7 @@ package com.sirialkillers.shoponthego.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -42,7 +43,7 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
         this.description = description;
         this.expirationDate=expirationDate;
     }
-
+    @Ignore
     public DiscountModel(String discountId){
         this.discountId = discountId;
         this.shopId = "";
