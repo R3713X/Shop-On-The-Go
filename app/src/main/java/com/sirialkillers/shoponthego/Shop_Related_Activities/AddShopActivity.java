@@ -35,7 +35,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 import com.sirialkillers.shoponthego.MenuActivity;
+import com.sirialkillers.shoponthego.Models.ShopModel;
 import com.sirialkillers.shoponthego.R;
 import com.squareup.picasso.Picasso;
 
@@ -354,8 +356,14 @@ public class AddShopActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            try
+            {
+            Position position = new Position(shopLatLng.latitude,shopLatLng.longitude);
+            ShopModel shopModel = new ShopModel(shopID.toString(),shopTitle,position);
+            //TODO: use  AddShop but it doesn't exist
+            } catch (Exception e){
 
-
+            }
         return true;
         }
 
