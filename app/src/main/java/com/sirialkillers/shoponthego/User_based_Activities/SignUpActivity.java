@@ -16,8 +16,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sirialkillers.shoponthego.Controllers.AccountController;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
+import com.sirialkillers.shoponthego.Models.AccountModel;
 import com.sirialkillers.shoponthego.R;
+
+import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
     SignUpValidation user;
@@ -200,12 +204,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            AccountModel accountModel = new AccountModel(UUID.randomUUID().toString(),mUsername,mEmail,mPassword);
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                AccountController accountController = new AccountController();
+                accountController.createAccount(accountModel);
+                onPostExecute(true);
+            } catch (Exception e) {
                 return false;
             }
 
@@ -218,7 +223,7 @@ public class SignUpActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
 
-            finish();
+            
             if (success) {
                 finish();
             }
