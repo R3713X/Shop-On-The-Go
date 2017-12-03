@@ -2,12 +2,18 @@ package com.shoponthego.shops.discounts;
 
 import java.util.Date;
 
-public class Discount implements IDiscount {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Discount {
+
+	@Id
 	private String id;
 	private String title;
 	private String description;
 	private String state;
+	private int percentage;
 	private Date date;
 	
 	public Discount() {
@@ -22,6 +28,10 @@ public class Discount implements IDiscount {
 		date = new Date();
 	}
 
+	public String getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -38,15 +48,12 @@ public class Discount implements IDiscount {
 		return date.toString();
 	}
 
-	@Override
-	public int getProductId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getPercentage() {
+		return percentage;
 	}
 
-	@Override
-	public String getId() {
-		return id;
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
 	}
 	
 }

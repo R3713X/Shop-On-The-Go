@@ -1,9 +1,12 @@
 package com.shoponthego.offers;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Offer {
 
+	@Id
 	private String id;
 	private String title;
 	private String description;

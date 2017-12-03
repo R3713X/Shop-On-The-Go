@@ -3,20 +3,24 @@ package com.shoponthego.shops;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.shoponthego.locations.Location;
-import com.shoponthego.offers.IOffer;
-import com.shoponthego.products.IProduct;
-import com.shoponthego.shops.categories.ICategory;
-import com.shoponthego.shops.discounts.IDiscount;
+import com.shoponthego.offers.Offer;
+import com.shoponthego.products.Product;
+import com.shoponthego.shops.discounts.Discount;
+import com.shoponthego.shops.types.ShopType;
 
-public class Shop implements IShop {
+@Entity
+public class Shop {
 
+	@Id
 	private String id;
 	private String name;
 	
 	private Location location;
 	
-	/*
 	private String email;
 	private String phone;
 	private String country;
@@ -24,12 +28,11 @@ public class Shop implements IShop {
 	private String city;
 	private String address;
 	private String postcode;
-	*/
 	
-	private List<IProduct> products;
- 	private List<IOffer> offers;
- 	private List<IDiscount> discounts;
-	private List<ICategory> categories;
+	private List<Product> products;
+ 	private List<Offer> offers;
+ 	private List<Discount> discounts;
+	private List<ShopType> shopTypes;
 	
 	
 	public Shop() {
@@ -40,104 +43,66 @@ public class Shop implements IShop {
 		discounts = new ArrayList<>();
 		products = new ArrayList<>();
 		offers = new ArrayList<>();
-		categories = new ArrayList<>();
+		shopTypes = new ArrayList<>();
 		id = givenId;
 		name = givenName;
 		location = shopLocation;
-		
-	}
-	
-	public List<ICategory> getCategories() {
-		return categories;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public List<IProduct> getProducts() {
-		return products;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public List<IOffer> getOffers() {
-		return offers;
+	public Location getLocation() {
+		return location;
 	}
 
-	public IOffer getOffer(String id) {
-		return null;
-	}
-	
-	@Override
-	public IProduct getProduct(String productId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<IDiscount> getDiscounts() {
-		return discounts;
-	}
-
-	@Override
-	public IDiscount getDiscount(String discountId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	@Override
 	public String getEmail() {
 		return email;
 	}
 
-	@Override
-	public String getPhoneNumber() {
+	public String getPhone() {
 		return phone;
 	}
 
-	@Override
 	public String getCountry() {
 		return country;
 	}
 
-	@Override
 	public String getRegion() {
-		// TODO Auto-generated method stub
 		return region;
 	}
 
-	@Override
 	public String getCity() {
-		// TODO Auto-generated method stub
 		return city;
 	}
 
-	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
 		return address;
 	}
 
-	@Override
 	public String getPostcode() {
-		// TODO Auto-generated method stub
 		return postcode;
 	}
-	*/
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public List<Offer> getOffers() {
+		return offers;
+	}
+
+	public List<Discount> getDiscounts() {
+		return discounts;
+	}
+
+	public List<ShopType> getShopTypes() {
+		return shopTypes;
+	}
+	 
 }

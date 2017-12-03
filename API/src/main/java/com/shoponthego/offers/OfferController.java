@@ -16,22 +16,22 @@ public class OfferController {
 	private OfferService offerService;
 	
 	@RequestMapping("/offers")
-	public List<IOffer> getAllOffers() {
+	public List<Offer> getAllOffers() {
 		return offerService.getAllOffers();
 	}
 	
 	@RequestMapping("/offers/{id}")
-	public IOffer getOfferById(@PathVariable String id) {
+	public Offer getOfferById(@PathVariable String id) {
 		return offerService.getOfferById(id);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/offers")
-	public void addOffer(@RequestBody IOffer offer) {
+	public void addOffer(@RequestBody Offer offer) {
 		offerService.addOffer(offer);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/offers/{id}")
-	public void updateOffer(@RequestBody IOffer offer, @PathVariable String id) {
+	public void updateOffer(@RequestBody Offer offer, @PathVariable String id) {
 		offerService.updateOffer(id, offer);
 	}
 	

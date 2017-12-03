@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiscountService {
 
-	private List<IDiscount> discounts = new ArrayList<>(Arrays.asList(
+	private List<Discount> discounts = new ArrayList<>(Arrays.asList(
 			new Discount("Playstation 4","30% OFF","A","Active")));
 	
-	public List<IDiscount> getAllDiscounts() {
+	public List<Discount> getAllDiscounts() {
 		return discounts;
 	}
 
-	public IDiscount getDiscountById(String id) {
-		for (IDiscount discount : discounts) {
+	public Discount getDiscountById(String id) {
+		for (Discount discount : discounts) {
 			if(discount.getId().equalsIgnoreCase(id)) {
 				return discount;
 			}
@@ -26,13 +26,13 @@ public class DiscountService {
 		return null;
 	}
 
-	public void addOffer(IDiscount discount) {
+	public void addOffer(Discount discount) {
 		discounts.add(discount);
 	}
 
-	public void updateOffer(String id, IDiscount newDiscount) {
+	public void updateOffer(String id, Discount newDiscount) {
 		for(int i=0; i<discounts.size(); i++) {
-			IDiscount discount = discounts.get(i);
+			Discount discount = discounts.get(i);
 			if(discount.getId().equalsIgnoreCase(id)) {
 				discounts.set(i, newDiscount);
 				return;
@@ -42,7 +42,7 @@ public class DiscountService {
 
 	public void deleteOffer(String id) {
 		for(int i=0; i<discounts.size(); i++) {
-			IDiscount discount = discounts.get(i);
+			Discount discount = discounts.get(i);
 			if(discount.getId().equalsIgnoreCase(id)) {
 				discounts.remove(discount);
 				return;
