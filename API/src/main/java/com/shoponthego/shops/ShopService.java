@@ -1,13 +1,11 @@
 package com.shoponthego.shops;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoponthego.locations.Location;
 import com.shoponthego.offers.Offer;
 import com.shoponthego.shops.discounts.Discount;
 
@@ -16,12 +14,6 @@ public class ShopService {
 
 	@Autowired
 	private ShopRepository shopRepository;
-	
-	private List<Shop> shops = new ArrayList<>(Arrays.asList(
-			new Shop("1213","Adidas Store",new Location("Alexandrou 22", 22.4243,-87.1332)),
-			new Shop("1214","Nike Store",new Location("Papandreou 11", 22.3123,-87.2221)),
-			new Shop("1215","Puma Store",new Location("Mixaleos 8", 22.4323,-87.2732))
-			));
 	
 	public List<Shop> getShops() {
 		List<Shop> shops = new ArrayList<>();

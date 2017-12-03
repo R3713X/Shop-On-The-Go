@@ -1,48 +1,37 @@
 package com.shoponthego.offers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OfferService {
 
-	private List<Offer> offers ;
+	@Autowired
+	private OfferRepository offerRepository;
 	
 	public List<Offer> getAllOffers() {
+		List<Offer> offers = new ArrayList<>();
+		offerRepository.findAll()
+		.forEach(offers::add);
 		return offers;
 	}
 
 	public Offer getOfferById(String id) {
-		for (Offer offer : offers) {
-			if(offer.getId().equalsIgnoreCase(id)) {
-				return offer;
-			}
-		}
-		return null;
+		return offerRepository.findOne(id);
 	}
 
 	public void addOffer(Offer offer) {
-		offers.add(offer);
+		offerRepository.save(offer);
 	}
 
 	public void updateOffer(String id, Offer newOffer) {
-		for(int i=0; i<offers.size(); i++) {
-			Offer offer = offers.get(i);
-			if(offer.getId().equalsIgnoreCase(id)) {
-				offers.set(i, newOffer);
-				return;
-			}
-		}		
+		offerRepository.save(newOffer);
 	}
 
 	public void deleteOffer(String id) {
-		for(int i=0; i<offers.size(); i++) {
-			Offer offer = offers.get(i);
-			if(offer.getId().equalsIgnoreCase(id)) {
-				offers.remove(offer);
-				return;
-			}
-		}		
+		offerRepository.delete(id);
 	}
 }

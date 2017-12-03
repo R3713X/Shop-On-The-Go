@@ -11,7 +11,6 @@ import com.shoponthego.offers.Offer;
 import com.shoponthego.products.Product;
 import com.shoponthego.shops.categories.ShopType;
 import com.shoponthego.shops.discounts.Discount;
-import com.shoponthego.shops.discounts.IDiscount;
 
 @Entity
 public class Shop {

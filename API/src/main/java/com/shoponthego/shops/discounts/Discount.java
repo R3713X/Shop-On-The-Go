@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Discount implements IDiscount {
+public class Discount {
 
 	@Id
 	private String id;
@@ -28,6 +28,10 @@ public class Discount implements IDiscount {
 		date = new Date();
 	}
 
+	public String getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -42,17 +46,6 @@ public class Discount implements IDiscount {
 
 	public String getDate() {
 		return date.toString();
-	}
-
-	@Override
-	public int getProductId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getId() {
-		return id;
 	}
 
 	public int getPercentage() {
