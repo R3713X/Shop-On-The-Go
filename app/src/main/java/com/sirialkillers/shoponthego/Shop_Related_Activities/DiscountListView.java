@@ -1,6 +1,7 @@
 package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.R;
 
@@ -24,6 +26,7 @@ public class DiscountListView extends AppCompatActivity{
     String message;
     String shopName;
     ListOfDiscounts LoD = new ListOfDiscounts();
+    CacheDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -42,20 +45,40 @@ public class DiscountListView extends AppCompatActivity{
         final DiscountListViewAdapter adapter= new DiscountListViewAdapter(this, discountList);
         lv= (ListView) findViewById(R.id.discountListView);
         lv.setAdapter(adapter);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                //Insert Data
+                CacheDatabase.getInstance(getApplicationContext()).discountDao().insertAllDiscounts(LoD.getDiscountlist());
+            }
+        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 DiscountModel selectedDiscount= discountList.get(pos);
+                String discountId=selectedDiscount.getDiscountId();
                 Intent discountdetailsIntent=new Intent(getApplicationContext(), DiscountDetailsActivity.class);
                 //Complete extras when DiscountModel is implemented
-                discountdetailsIntent.putExtra("discount", (Parcelable) selectedDiscount);
+                discountdetailsIntent.putExtra("discountId", discountId);
 
                 startActivity(discountdetailsIntent);
             }
         });
 
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        CacheDatabase.destroyInstance();
 
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        CacheDatabase.destroyInstance();
     }
 
 }

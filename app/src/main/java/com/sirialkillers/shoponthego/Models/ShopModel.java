@@ -48,13 +48,13 @@ public class ShopModel extends ArrayList implements IShop {
         this.name = name;
         this.position = position;
     }
-
+    @Ignore
     public ShopModel(String id, String name){
         this.id = id;
         this.name = name;
         this.position = new Position(0,0);
     }
-
+    @Ignore
     public ShopModel(String id){
         this.id = id;
         this.name = "";
