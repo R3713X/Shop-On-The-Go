@@ -1,5 +1,7 @@
 package com.sirialkillers.shoponthego.Controllers;
 
+import android.util.Log;
+
 import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 
@@ -47,6 +49,18 @@ public class DiscountController {
      */
     public List<DiscountModel> fetchNearbyDiscounts(Position userLocation, double distance){
         List<DiscountModel> discounts = new ArrayList<>();
+        try{
+            final String url = "http://83.212.106.80/{latitude}/{longitude}/{distance}/discounts";
+            params.clear();
+            params.put("latitude", String.valueOf(userLocation.getLatitude()));
+            params.put("longitude", String.valueOf(userLocation.getLongitude()));
+            params.put("distance", String.valueOf(distance));
+
+            discounts = restTemplate.getForObject(url, DiscountModel.class, params);
+            return discounts;
+        }catch(Exception e){
+            Log.e("fetchNearbyDiscounts", e.getMessage(), e);
+        }
         return discounts;
     }
 }
