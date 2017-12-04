@@ -55,7 +55,7 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
                 startActivity(intentShop);
                 break;
             case R.id.addDiscountButton:
-                Intent intentDiscount = new Intent(this, AddShopActivity.class);
+                Intent intentDiscount = new Intent(this, AddDiscountActivity.class);
                 startActivity(intentDiscount);
                 break;
             default:
