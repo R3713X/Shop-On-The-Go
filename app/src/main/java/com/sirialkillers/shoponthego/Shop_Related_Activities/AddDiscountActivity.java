@@ -34,7 +34,7 @@ import java.util.UUID;
 public class AddDiscountActivity extends AppCompatActivity {
 
     private ConstraintLayout dConstraintLayout;
-
+    String[] numberValuesArray = new String[]{"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95"};
     private EditText dTitleEditText;
     private EditText dDescriptionEditText;
     private DiscountRegisterTask discountRegisterTask = null;
@@ -113,9 +113,10 @@ public class AddDiscountActivity extends AppCompatActivity {
     //Setting Discount to be from 1 to 99% and default value at 20%
     public void setNumberPicker(){
         numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(99);
-        numberPicker.setMinValue(1);
-        numberPicker.setValue(20);
+
+
+        numberPicker.setMaxValue(numberValuesArray.length-1);
+        numberPicker.setDisplayedValues(numberValuesArray);
     }
 
     /**
@@ -315,9 +316,10 @@ public class AddDiscountActivity extends AppCompatActivity {
             String dDescription = dDescriptionEditText.getText().toString();
             // Show a progress spinner, and kick off a background task to
             // perform the discount register attempt
+
             Loading();
 
-            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, numberPicker.getValue(), sCategories, dDescription,shopId);
+            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, Integer.parseInt(numberValuesArray[numberPicker.getValue()]), sCategories, dDescription,shopId);
 
         }
     }
