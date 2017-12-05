@@ -26,6 +26,8 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -134,6 +136,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     LatLng userLocation = new LatLng(intent.getExtras().getDouble("Lat"), intent.getExtras().getDouble("Long"));
                     listOfShops.ShowShopsMarkersInUserLocationRadious(userLocation, realProgress);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 10);
+                    mMap.animateCamera(cameraUpdate);
 
                 }
             };
