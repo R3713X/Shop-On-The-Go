@@ -347,8 +347,7 @@ public class AddShopActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,shopChosenCategoriesList,bitmap, shopID);
-            Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-            startActivity(intent);
+            shopRegisterTask.execute((Void) null);
 
         }
     }
@@ -392,7 +391,7 @@ public class AddShopActivity extends AppCompatActivity {
                 ShopModel newShop = new ShopModel(shopID.toString(),shopTitle,position);
                 ShopController shopController = new ShopController();
                 shopController.create(newShop);
-                //newShop.setCategories(shopCategoriesModels);
+                newShop.setCategories(shopCategoriesModels);
 
 
             } catch (Exception e){

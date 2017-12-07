@@ -316,7 +316,7 @@ public class AddDiscountActivity extends AppCompatActivity {
 
 
             discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, Integer.parseInt(numberValuesArray[numberPicker.getValue()]), discountChosenCategoriesList, dDescription,shopId);
-
+            discountRegisterTask.execute((Void) null);
         }
     }
 
