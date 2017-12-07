@@ -359,7 +359,9 @@ public class AddShopActivity extends AppCompatActivity {
             try
             {
             Position position = new Position(shopLatLng.latitude,shopLatLng.longitude);
-            ShopModel shopModel = new ShopModel(shopID.toString(),shopTitle,position);
+            ShopModel newShop = new ShopModel(shopID.toString(),shopTitle,position);
+            ShopController shopController = new ShopController();
+            shopController.create(newShop);
             //TODO: use  AddShop but it doesn't exist
             } catch (Exception e){
 

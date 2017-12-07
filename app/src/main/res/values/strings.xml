@@ -34,28 +34,31 @@
         <item>Furniture</item>
         <item>Consumables</item>
         <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
-        <item>Furniture</item>
-        <item>Consumables</item>
     </string-array>
+
+    <string-array name="productACategories">
+        <item>Clothing, Shoes and Accessories</item>
+        <item>Business and Industrial</item>
+        <item>Toys and Hobbies</item>
+        <item>Books</item>
+        <item>Camping Accessories</item>
+        <item>Collectibles and Art</item>
+        <item>Computer goods</item>
+        <item>Decoration tools and equipment</item>
+        <item>Electronics</item>
+        <item>Fast Foods</item>
+        <item>Restaurant Foods</item>
+        <item>Furniture</item>
+        <item>Kitchen Accessories</item>
+        <item>Pet Supplies</item>
+        <item>Health and Beauty</item>
+        <item>Music</item>
+        <item>Motors</item>
+        <item>Pottery and Glass</item>
+        <item>Phones and Accessories</item>
+        <item>Sporting goods</item>
+        <item>Coins and Paper Money</item>
+        <item>Sports Memorabilia, Fan Shop and Sports Cards</item>
+        <item>Video Games and Consoles</item>
+      </string-array>
 </resources>

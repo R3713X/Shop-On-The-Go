@@ -1,6 +1,7 @@
 package com.sirialkillers.shoponthego.User_based_Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -58,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailView = (EditText) findViewById(R.id.emailEditText);
         mLogginInTextView = (TextView) findViewById(R.id.loadingTextView);
         TextView signUpTextView = (TextView) findViewById(R.id.signUpTextView);
-
+        mEmailView.requestFocus();
         mPasswordView = (EditText) findViewById(R.id.passwordEditText);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -87,8 +89,14 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.loginActivityConstrainLayout);
         mProgressView = findViewById(R.id.progressBar);
     }
+    private void hideKeyboard(){
+        View view = this.getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     private void attemptLogin() {
+        hideKeyboard();
         if (mAuthTask != null) {
             return;
         }
@@ -116,7 +124,6 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid password, if the user entered one.
 
 
         // Check for a valid password, if the user entered one.
@@ -139,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            Loading();
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
@@ -149,24 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    private void Loading() {
-        mLoginFormView.setVisibility(View.INVISIBLE);
-        mProgressView.setVisibility(View.VISIBLE);
-        mLogginInTextView.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent  intent = new Intent(getApplicationContext(),MapsActivity.class);
-                startActivity(intent);
 
-
-
-            }
-        },loadtime);
-    }
     /**
      * Represents an asynchronous login task used to authenticate
      * the user.
@@ -182,6 +172,13 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            mLoginFormView.setVisibility(View.INVISIBLE);
+            mProgressView.setVisibility(View.VISIBLE);
+            mLogginInTextView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Boolean doInBackground(Void... params) {
 
 
@@ -191,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(loginController.emailMatchesPassword(mEmail,mPassword))
                     {
                         //TODO: Login
-                        Loading();
+
                     }
                     else {
                         Toast.makeText(LoginActivity.this, "Your email and password do not match.", Toast.LENGTH_SHORT).show();
@@ -210,8 +207,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             if (success) {
-                goToSignUpActivity();
 
+                goToMapsActivity();
+                finish();
             } else {
                 Toast.makeText(LoginActivity.this, "Something went wrong! Please try again", Toast.LENGTH_SHORT).show();
             }
@@ -227,5 +225,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void goToMapsActivity(){
+        Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+        startActivity(intent);
 
+    }
 }
