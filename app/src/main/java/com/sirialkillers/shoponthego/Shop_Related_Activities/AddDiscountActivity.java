@@ -56,7 +56,7 @@ public class AddDiscountActivity extends AppCompatActivity {
     private Calendar calendar = Calendar.getInstance();
 
 
-    String sCategories;
+
     String[] categories;
     boolean[] checkedCategories;
     ArrayList<Integer> mUserCategories = new ArrayList<>();
@@ -72,6 +72,7 @@ public class AddDiscountActivity extends AppCompatActivity {
         dConstraintLayout = (ConstraintLayout) findViewById(R.id.addDiscountConstraintLayout);
 
         dTitleEditText = (EditText) findViewById(R.id.titleDiscountEditText);
+        dTitleEditText.requestFocus();
         dDescriptionEditText = (EditText) findViewById(R.id.descriptionDiscountEditText);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
