@@ -31,15 +31,9 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
-    int loadtime=2000; // 2 seconds
+
     LoginValidation user;
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -200,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 return false;
             }
-            //TODO: validate with database here
+
             return true;
         }
 
@@ -209,9 +203,13 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
 
                 goToMapsActivity();
-                finish();
+
             } else {
                 Toast.makeText(LoginActivity.this, "Something went wrong! Please try again", Toast.LENGTH_SHORT).show();
+                mLoginFormView.setVisibility(View.VISIBLE);
+                mProgressView.setVisibility(View.INVISIBLE);
+                mLogginInTextView.setVisibility(View.INVISIBLE);
+                mAuthTask = null;
             }
         }
         @Override
@@ -223,11 +221,13 @@ public class LoginActivity extends AppCompatActivity {
     public void goToSignUpActivity(){
         Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
         startActivity(intent);
+        finish();
 
     }
     public void goToMapsActivity(){
         Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
         startActivity(intent);
+        finish();
 
     }
 }
