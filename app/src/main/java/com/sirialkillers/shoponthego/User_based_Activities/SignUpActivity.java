@@ -80,11 +80,16 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
     private void hideKeyboard(){
         View view = this.getCurrentFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    /**
+     * Setting the sign up to work if every choice is valid
+     */
     private void attemptRegister() {
         hideKeyboard();
         if (mAuthTask != null) {
