@@ -22,6 +22,13 @@
     <string name="you_don_t_have_an_account_sign_up">You don\'t have an account? Sign Up!</string>
     <string name="login">LOGIN</string>
     <string name="loggin_in">Loggin in...</string>
+    <string name="singin_up_and_loggin_in">Singin up and loggin in</string>
+    <string name="email">Email</string>
+    <string name="verify_your_password">Verify your Password</string>
+    <string name="i_already_have_an_account">I already have an account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register_and_login">Register and Login</string>
 
     <string-array name="productCategories">
         <item>Accessories</item>

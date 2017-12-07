@@ -82,7 +82,7 @@ public class AddShopActivity extends AppCompatActivity {
         shopCategoriesTextView = (TextView) findViewById(R.id.categoriesTextView);
 
         titleEditText = (EditText) findViewById(R.id.titleEditText);
-
+        titleEditText.requestFocus();
         shopImage = (ImageView) findViewById(R.id.shopPhotoImageView);
 
         categories = getResources().getStringArray(R.array.productCategories);

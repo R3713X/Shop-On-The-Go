@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText password;
     private EditText verifyPassword;
     ProgressBar mProgressView;
+    TextView loadingTextView;
 
 
     @Override
@@ -51,6 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         verifyPassword = (EditText) findViewById(R.id.verifyPasswordEditText);
         Button registerAndLogin = (Button) findViewById(R.id.registerAndLoginButton);
         TextView haveAnAccount = (TextView) findViewById(R.id.goBackToLoginTextView);
+        loadingTextView = (TextView) findViewById(R.id.loadingTextView);
         mProgressView = (ProgressBar) findViewById(R.id.progressBar);
         mRegisterForm = (ConstraintLayout) findViewById(R.id.registerFormView);
         verifyPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -203,6 +205,7 @@ public class SignUpActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             mProgressView.setVisibility(View.VISIBLE);
+            loadingTextView.setVisibility(View.VISIBLE);
             mRegisterForm.setVisibility(View.INVISIBLE);
         }
 
@@ -233,6 +236,7 @@ public class SignUpActivity extends AppCompatActivity {
             } else{
                 Toast.makeText(SignUpActivity.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
                 mProgressView.setVisibility(View.INVISIBLE);
+                loadingTextView.setVisibility(View.INVISIBLE);
                 mRegisterForm.setVisibility(View.VISIBLE);
                 mAuthTask = null;
             }
