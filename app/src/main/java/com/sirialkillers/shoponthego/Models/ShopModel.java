@@ -62,18 +62,7 @@ public class ShopModel extends ArrayList{
         this.userId=userId;
 
     }
-    @Ignore
-    public ShopModel(String id, String name, Position position, String country,
-                     String address, String postCode, String userId){
-        this.id=id;
-        this.name=name;
-        this.position=position;
-        this.country=country;
-        this.address=address;
-        this.postCode=postCode;
-        this.userId=userId;
 
-    }
     public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;

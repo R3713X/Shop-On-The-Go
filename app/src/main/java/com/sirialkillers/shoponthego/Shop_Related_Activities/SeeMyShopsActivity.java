@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 import com.sirialkillers.shoponthego.R;
@@ -51,7 +52,15 @@ public class SeeMyShopsActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             try
             {
-               /*return a list of Shop Models using getShopsByUserId
+                ShopController shopController = new ShopController();
+                List<ShopModel> shopModels = shopController.fetchShopsByUser("1");
+                List<String> shopNames = new ArrayList<>();
+                List<String> shopAddresses = new ArrayList<>();
+                for(int i = 0;i<shopModels.size();i++){
+                    shopNames.add(shopModels.get(i).getName());
+                    shopAddresses.add(shopModels.get(i).getAddress()+", "+shopModels.get(i).getCity());
+                }
+                /*
                create another list that has only the names of the shop models
                optionally get the address of the shop models as well
                and display them in the list view*/

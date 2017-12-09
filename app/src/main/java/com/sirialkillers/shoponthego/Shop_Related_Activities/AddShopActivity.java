@@ -392,7 +392,7 @@ public class AddShopActivity extends AppCompatActivity {
                     shopCategoriesModels.add(new CategoryModel(shopCategories.get(i)));
                 }
                 Position position = new Position(shopLatLng.latitude,shopLatLng.longitude);
-                ShopModel newShop = new ShopModel(shopID.toString(),shopTitle,position,shopsAddress.getCountryName(),shopsAddress.toString(),shopsAddress.getPostalCode(),"1");
+                ShopModel newShop = new ShopModel(shopID.toString(),shopTitle,position,shopsAddress.getCountryName(),shopsAddress.getAdminArea(),shopsAddress.getLocality(),shopsAddress.getAddressLine(0),shopsAddress.getPostalCode(),"1");
                 ShopController shopController = new ShopController();
                 shopController.create(newShop);
                 newShop.setCategories(shopCategoriesModels);
