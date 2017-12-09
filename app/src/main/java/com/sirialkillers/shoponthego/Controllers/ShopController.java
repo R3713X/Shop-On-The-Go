@@ -463,5 +463,23 @@ public class ShopController implements IController<ShopModel, String> {
         }
     }
 
+    /**
+     * Filters and returns the shops that are owned by the User Id that is given.
+     * @param userId the user Id that will be used to filter the shops.
+     * @return a list of shops filtered by the user Id.
+     */
+    public List<ShopModel> fetchShopsByUser(String userId){
+        List<ShopModel> shops = new ArrayList<>();
+        try{
+            final String url = "http://83.212.106.80/shops/{userId}";
 
+            params.clear();
+            params.put("userId", userId);
+
+            shops.addAll(restTemplate.getForObject(url, ShopModel.class, params));
+        }catch (Exception e) {
+            Log.e("fetchShopsByUser", e.getMessage(),e);
+        }
+        return shops;
+    }
 }
