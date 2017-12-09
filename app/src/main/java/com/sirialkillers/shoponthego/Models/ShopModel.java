@@ -48,6 +48,7 @@ public class ShopModel extends ArrayList{
     @Ignore
     private List <CategoryModel> categories;
 
+    @Ignore
     public ShopModel(String id, String name, Position position, String country, String region, String city,
                      String address, String postCode, String userId){
         this.id=id;
