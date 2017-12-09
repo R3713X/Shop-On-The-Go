@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ListOfDiscounts{
     List<DiscountModel> discountlist=new ArrayList<>();
-    ShopController shopController;
+    ShopController shopController=new ShopController();
 
     public void addDiscounts(String shopId){
         discountlist=shopController.getShopDiscounts(shopId);

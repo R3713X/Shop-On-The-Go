@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,28 +15,29 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+import com.sirialkillers.shoponthego.CacheDatabase.CacheDatabase;
 import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.R;
-import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.DiscountListView;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.ListOfShops;
 
@@ -47,6 +49,8 @@ import java.util.ArrayList;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,OnInfoWindowClickListener,NavigationView.OnNavigationItemSelectedListener {
     private int Loadtime = 2000; //2 seconds
     private GoogleMap mMap;
+    //setting the Location Bounds of greece
+    private LatLngBounds greeceBounds = new LatLngBounds(new LatLng(35.001316,20.028076),new LatLng(41.810732,27.103271));
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
@@ -60,6 +64,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     String[] categories;
     boolean[] checkedCategories;
     ArrayList<Integer> mShopCategories = new ArrayList<>();
+    CacheDatabase mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +136,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     LatLng userLocation = new LatLng(intent.getExtras().getDouble("Lat"), intent.getExtras().getDouble("Long"));
                     listOfShops.ShowShopsMarkersInUserLocationRadious(userLocation, realProgress);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 10);
+                    mMap.animateCamera(cameraUpdate);
 
                 }
             };
@@ -161,6 +168,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onPause() {
         super.onPause();
         unregisterManagers();
+        CacheDatabase.destroyInstance();
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -168,6 +176,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
+        CacheDatabase.destroyInstance();
+
     }
 
     //CrashReporting and Beta-Distribution for HockeyApp.
@@ -239,7 +249,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
-       
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -254,11 +263,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
+        mMap.setMinZoomPreference(13.0f);
+        mMap.setLatLngBoundsForCameraTarget(greeceBounds);
 
 
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
 
-
+                //Insert Data
+                CacheDatabase.getInstance(getApplicationContext()).shopDao().insertAllShops(listOfShops.getShop());
+            }
+        });
     }
+
+
+
+
     public void goToMenu(){
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);

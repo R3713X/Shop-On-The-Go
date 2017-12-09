@@ -2,6 +2,7 @@ package com.sirialkillers.shoponthego.Shop_Related_Activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,17 +30,18 @@ import com.sirialkillers.shoponthego.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
 public class AddDiscountActivity extends AppCompatActivity {
 
     private ConstraintLayout dConstraintLayout;
-
+    String[] numberValuesArray = new String[]{"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95"};
     private EditText dTitleEditText;
     private EditText dDescriptionEditText;
     private DiscountRegisterTask discountRegisterTask = null;
-
+    List<String> discountChosenCategoriesList = new ArrayList<String>();
     private TextView dCategoriesTextView;
     private TextView dExpDateTextView;
     private TextView loadingTextView;
@@ -53,7 +56,7 @@ public class AddDiscountActivity extends AppCompatActivity {
     private Calendar calendar = Calendar.getInstance();
 
 
-    String sCategories;
+
     String[] categories;
     boolean[] checkedCategories;
     ArrayList<Integer> mUserCategories = new ArrayList<>();
@@ -69,6 +72,7 @@ public class AddDiscountActivity extends AppCompatActivity {
         dConstraintLayout = (ConstraintLayout) findViewById(R.id.addDiscountConstraintLayout);
 
         dTitleEditText = (EditText) findViewById(R.id.titleDiscountEditText);
+        dTitleEditText.requestFocus();
         dDescriptionEditText = (EditText) findViewById(R.id.descriptionDiscountEditText);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -113,9 +117,10 @@ public class AddDiscountActivity extends AppCompatActivity {
     //Setting Discount to be from 1 to 99% and default value at 20%
     public void setNumberPicker(){
         numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(99);
-        numberPicker.setMinValue(1);
-        numberPicker.setValue(20);
+
+
+        numberPicker.setMaxValue(numberValuesArray.length-1);
+        numberPicker.setDisplayedValues(numberValuesArray);
     }
 
     /**
@@ -182,13 +187,12 @@ public class AddDiscountActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String categoriesString = "";
-                sCategories = "";
+                discountChosenCategoriesList.clear();
                 for (int i = 0; i < mUserCategories.size(); i++) {
                     categoriesString = categoriesString + categories[mUserCategories.get(i)];
-                    sCategories = categoriesString + categories[mUserCategories.get(i)];
+                    discountChosenCategoriesList.add(categories[mUserCategories.get(i)]);
                     if (i != mUserCategories.size() - 1) {
                         categoriesString = categoriesString + ", ";
-                        sCategories = sCategories + " ";
                     }
                 }
                 dCategoriesTextView.setText(categoriesString);
@@ -208,6 +212,7 @@ public class AddDiscountActivity extends AppCompatActivity {
                 for (int i = 0; i < checkedCategories.length; i++) {
                     checkedCategories[i] = false;
                     mUserCategories.clear();
+                    discountChosenCategoriesList.clear();
                     dCategoriesTextView.setText("");
                 }
             }
@@ -217,19 +222,7 @@ public class AddDiscountActivity extends AppCompatActivity {
         mDialog.show();
     }
 
-    //Loading
-    private void Loading() {
-        dConstraintLayout.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
-        loadingTextView.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(intent);
-            }
-        },2000);
-    }
+
 
     private void selectExpDate() {
         showDialog(DIALOG_ID);
@@ -249,12 +242,17 @@ public class AddDiscountActivity extends AppCompatActivity {
         }
         return null;
     }
+    private void hideKeyboard(){
+        View view = this.getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     /**
      * Setting the Submit Discount to work if every choice is valid
      */
     private void attemptSubmitDiscount() {
-
+        hideKeyboard();
         if (discountRegisterTask != null) {
             return;
         }
@@ -315,10 +313,11 @@ public class AddDiscountActivity extends AppCompatActivity {
             String dDescription = dDescriptionEditText.getText().toString();
             // Show a progress spinner, and kick off a background task to
             // perform the discount register attempt
-            Loading();
 
-            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, numberPicker.getValue(), sCategories, dDescription,shopId);
 
+
+            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, Integer.parseInt(numberValuesArray[numberPicker.getValue()]), discountChosenCategoriesList, dDescription,shopId);
+            discountRegisterTask.execute((Void) null);
         }
     }
 
@@ -331,22 +330,29 @@ public class AddDiscountActivity extends AppCompatActivity {
         private String discountTitle;
         private Date discountExpDate;
         private double discountValue;
-        private String discountCategories;
+        private List<String> chosenCategoriesList;
         private String discountDescription = "default_empty";
         private String shopID;
 
-        DiscountRegisterTask(String discountTitle, Date discountExpDate, double discountValue, String discountCategories, String discountDescription,String shopID) {
+        DiscountRegisterTask(String discountTitle, Date discountExpDate, double discountValue, List<String> chosenCategoriesList, String discountDescription,String shopID) {
             this.discountTitle = discountTitle;
             this.discountExpDate = discountExpDate;
             this.discountValue = discountValue;
-            this.discountCategories = discountCategories;
+            this.chosenCategoriesList = chosenCategoriesList;
             this.discountDescription = discountDescription;
             this.shopID = shopID;
         }
 
         @Override
+        protected void onPreExecute() {
+            dConstraintLayout.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            loadingTextView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Boolean doInBackground(Void... params) {
-            DiscountModel discountModel= new DiscountModel(shopID,null,discountValue,discountTitle,discountDescription,new Date());
+            DiscountModel discountModel= new DiscountModel(shopID,UUID.randomUUID().toString(),discountValue,discountTitle,discountDescription,new Date());
 
             try {
                 ShopController shopController =new ShopController();
@@ -363,12 +369,15 @@ public class AddDiscountActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             if(success){
-                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(intent);
+                goToMenuActivity();
+
 
             }
             else {
-                Toast.makeText(AddDiscountActivity.this, "Something went wromg!!! Try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddDiscountActivity.this, "Something went wrong!!! Try again", Toast.LENGTH_SHORT).show();
+                dConstraintLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                loadingTextView.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -376,6 +385,11 @@ public class AddDiscountActivity extends AppCompatActivity {
         protected void onCancelled() {
             discountRegisterTask = null;
         }
+    }
+    private void goToMenuActivity(){
+        Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 
