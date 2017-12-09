@@ -499,7 +499,7 @@ public class AddShopUIAutomatorTest {
         UiObject addShopButton=mDevice.findObject(new UiSelector().text("ADD SHOP"));
         addShopButton.clickAndWaitForNewWindow();
 
-        
+
 
         UiObject submitShopButton=mDevice.findObject(new UiSelector().text("SAVE"));
         submitShopButton.clickAndWaitForNewWindow();

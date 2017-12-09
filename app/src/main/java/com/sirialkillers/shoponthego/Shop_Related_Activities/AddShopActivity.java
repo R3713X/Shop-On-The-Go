@@ -71,6 +71,7 @@ public class AddShopActivity extends AppCompatActivity {
     ConstraintLayout constraintLayout ;
     ProgressBar progressBar;
     TextView loadingTextView;
+
     private final static int REQUEST_CAMERA = 1;
     private final static int SELECT_FILE = 0;
 
@@ -260,6 +261,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                     place = PlacePicker.getPlace(AddShopActivity.this, data);
                     shopAddressTextView.setText(place.getAddress());
+                    shopAddress = new Address( place.getLocale());
                     shopLatLng = place.getLatLng();
                     shopAddressTextView.setError(null);
 
@@ -346,7 +348,7 @@ public class AddShopActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,shopChosenCategoriesList,bitmap, shopID);
+            shopRegisterTask = new ShopRegisterTask(titleEditText.getText().toString(),shopLatLng,shopChosenCategoriesList,shopAddress,bitmap, shopID);
             shopRegisterTask.execute((Void) null);
 
         }
@@ -361,13 +363,15 @@ public class AddShopActivity extends AppCompatActivity {
         private String shopTitle;
         private LatLng shopLatLng;
         private List<String> shopCategories;
+        private Address shopsAddress;
         private Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.addphoto);
         private UUID shopID;
 
-        public ShopRegisterTask(String shopTitle, LatLng shopLatLng, List<String> shopCategories,Bitmap bitmap, UUID shopID) {
+        public ShopRegisterTask(String shopTitle, LatLng shopLatLng, List<String> shopCategories,Address shopsAddress,Bitmap bitmap, UUID shopID) {
             this.shopTitle = shopTitle;
             this.shopLatLng = shopLatLng;
             this.shopCategories = shopCategories;
+            this.shopsAddress=shopsAddress;
             this.bitmap = bitmap;
             this.shopID = shopID;
         }
