@@ -55,7 +55,7 @@ public class AddDiscountActivity extends AppCompatActivity {
     private int dYear, dMonth, dDay;
     private Calendar calendar = Calendar.getInstance();
 
-
+    String chosenShopId;
 
     String[] categories;
     boolean[] checkedCategories;
@@ -80,6 +80,8 @@ public class AddDiscountActivity extends AppCompatActivity {
         setNumberPicker();
         setCalendar();
 
+        Intent intent = getIntent();
+        chosenShopId = intent.getExtras().getString("chosenShopId");
         loadingTextView = (TextView) findViewById(R.id.loadingTextView);
         dExpDateTextView = (TextView) findViewById(R.id.expirationDateTextView);
         dCategoriesTextView = (TextView) findViewById(R.id.categoriesTextView);
@@ -301,7 +303,7 @@ public class AddDiscountActivity extends AppCompatActivity {
         }
         //We need to create the shop UI. for now we just create a random ID whenever you create a Discount.
         //changed for presentation build to String
-        String shopId = "1";
+
 
         if (cancel) {
             // There was an error; don't to register the discount and show
@@ -316,7 +318,7 @@ public class AddDiscountActivity extends AppCompatActivity {
 
 
 
-            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, Integer.parseInt(numberValuesArray[numberPicker.getValue()]), discountChosenCategoriesList, dDescription,shopId);
+            discountRegisterTask = new DiscountRegisterTask(dTitle, dExpDate, Integer.parseInt(numberValuesArray[numberPicker.getValue()]), discountChosenCategoriesList, dDescription,chosenShopId);
             discountRegisterTask.execute((Void) null);
         }
     }
@@ -352,7 +354,7 @@ public class AddDiscountActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            DiscountModel discountModel= new DiscountModel(shopID,UUID.randomUUID().toString(),discountValue,discountTitle,discountDescription,new Date());
+            DiscountModel discountModel= new DiscountModel(shopID,UUID.randomUUID().toString(),discountValue,discountTitle,discountDescription,discountExpDate);
 
             try {
                 ShopController shopController =new ShopController();
