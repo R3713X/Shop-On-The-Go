@@ -39,9 +39,10 @@ public class SeeMyShopsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         loadingTextView = findViewById(R.id.loadingTextView);
         constraintLayout = findViewById(R.id.constraintLayout2);
+        sListView = findViewById(R.id.shopListView);
         requestShopsByUserIdTask = new RequestShopsByUserIdTask("1");
         requestShopsByUserIdTask.execute((Void) null);
-        sListView = findViewById(R.id.shopListView);
+
         sListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
