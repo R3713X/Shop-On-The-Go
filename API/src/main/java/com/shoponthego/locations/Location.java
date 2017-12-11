@@ -11,6 +11,10 @@ public class Location {
 	private double longtitude;
 	private double latitude;
 	
+	public Location() {
+		
+	}
+	
 	public Location(double longtitude, double latitude) {
 		super();
 		this.longtitude = longtitude;
