@@ -3,6 +3,8 @@ package com.sirialkillers.shoponthego.Controllers;
 import android.util.Log;
 
 import com.sirialkillers.shoponthego.Interfaces.IController;
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
+import com.sirialkillers.shoponthego.Models.CategoryModel;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ProductModel;
@@ -479,6 +481,24 @@ public class ShopController implements IController<ShopModel, String> {
             shops.addAll(restTemplate.getForObject(url, ShopModel.class, params));
         }catch (Exception e) {
             Log.e("fetchShopsByUser", e.getMessage(),e);
+        }
+        return shops;
+    }
+
+    /**
+     * TODO: Add valid parameters and set up the rest template once the URL is defined.
+     * Filters shops by the categories and by the users position.
+     * @param categories a list of categories.
+     * @param position the users location at that time.
+     * @return a list of shops.
+     */
+    public List<ShopModel> getShopsByPositionAndCategory(List<CategoryModel> categories, Position position){
+        List<ShopModel> shops = new ArrayList<>();
+        try {
+            final String url ="";
+            return shops;
+        }catch (Exception e){
+            Log.e("ShopsPositinAndCategory", e.getMessage(),e);
         }
         return shops;
     }
