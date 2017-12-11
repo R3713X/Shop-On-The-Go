@@ -54,6 +54,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
+    ArrayList<String> chosenCategoriesNames;
     ArrayList<Marker> markersOfShops;
     SeekBar rangeControlSeekBar;
     TextView radiusDisplayTextView;
@@ -350,15 +351,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoryMBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String categoriesString = "";
+                chosenCategoriesNames =new ArrayList<>();
                 sCategories = "";
                 for (int i = 0; i < mShopCategories.size(); i++) {
-                    sCategories = categoriesString + categories[mShopCategories.get(i)];
+                    chosenCategoriesNames.add(categories[mShopCategories.get(i)]);
                     if (i != mShopCategories.size() - 1) {
                         sCategories = sCategories + " ";
                     }
                 }
-                //TODO: Show only selected Categories on the MAP
+                mMap.clear();
+                markersOfShops.clear();
+                markersOfShops=listOfShops.createMarkerOfFilteredShops(mMap, chosenCategoriesNames);
             }
         });
 

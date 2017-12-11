@@ -17,7 +17,7 @@ import com.sirialkillers.shoponthego.Models.ShopModel;
 /**
  * Created by User on 24-Nov-17.
  */
-@Database(version = 2, entities = {ShopModel.class, DiscountModel.class})
+@Database(version = 4, entities = {ShopModel.class, DiscountModel.class})
 @TypeConverters({DateTypeConverters.class})
 public abstract class CacheDatabase extends RoomDatabase {
     private static final String DATABASE_NAME="local-database";

@@ -8,6 +8,7 @@ import com.google.maps.android.SphericalUtil;
 import com.sirialkillers.shoponthego.Controllers.ShopController;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MarkerInformation;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
+import com.sirialkillers.shoponthego.Models.CategoryModel;
 import com.sirialkillers.shoponthego.Models.ShopModel;
 
 import java.util.ArrayList;
@@ -23,14 +24,32 @@ public class ListOfShops {
     private ArrayList<LatLng> shopsLocation = new ArrayList<>();
     private ArrayList<Marker>markers = new ArrayList<>();
     private ArrayList<MarkerInformation> markerinfo=new ArrayList<>();
+    private List<ShopModel> filteredShops=new ArrayList<>();
+    private List<CategoryModel> categoriesOfShops=new ArrayList<>();
+    private ArrayList<String> chosenCategoryID=new ArrayList<>();
     ShopController shopController=new ShopController();
 
 
 
     public void addShop() {
-        shops= shopController.get();
+        shops.add(new ShopModel("1","rafaele", new Position(40.6657785,22.9468865),"1"));
+        shops.add(new ShopModel("2","mavidis", new Position(40.6666259,22.9455427),"2"));
+        shops.add(new ShopModel("3","porkys", new Position(40.663449,22.9475822),"3"));
+        shops.add(new ShopModel("3","seven", new Position(40.6595399,22.9445063),"4"));
+        shops.add(new ShopModel("4", "mad gym",new Position(40.6566813,22.9328894),"5"));
 
 
+    }
+
+    public void addFilteredShops(ArrayList<String> chosenCategories){
+        filteredShops.clear();
+        for(ShopModel shop:shops){
+            for(CategoryModel tmp:categoriesOfShops){
+                if(shop.getCategoryId().equals(tmp.getCategoryId())){
+                    filteredShops.add(shop);
+                }
+            }
+        }
     }
 
     public List<ShopModel> getShop(){
@@ -39,8 +58,18 @@ public class ListOfShops {
     }
 
 
+
     public void creatPositionOfShop(){
         for (ShopModel shop:shops) {
+            LatLng position =new LatLng(shop.getPosition().getLatitude(),shop.getPosition().getLongitude());
+            String name=shop.getName();
+            markerinfo.add(new MarkerInformation(position, name));
+
+        }
+    }
+
+    public void creatPositionOfFilteredShops(){
+        for (ShopModel shop:filteredShops) {
             LatLng position =new LatLng(shop.getPosition().getLatitude(),shop.getPosition().getLongitude());
             String name=shop.getName();
             markerinfo.add(new MarkerInformation(position, name));
@@ -95,6 +124,22 @@ public class ListOfShops {
         return markers;
     }
 
+    public ArrayList<Marker> createMarkerOfFilteredShops(GoogleMap googleMap, ArrayList<String> chosenCategoriesNames){
+        markerinfo.clear();
+        this.createListOfCategoryIDsFromChosenCategoryNames(chosenCategoriesNames);
+        this.addFilteredShops(chosenCategoryID);
+        this.creatPositionOfShop();
+
+
+        for (MarkerInformation m:markerinfo) {
+
+            markers.add( googleMap.addMarker(new MarkerOptions().position(m.getMarkerPosition()).title(m.getMarkerTitle())));
+
+        }
+
+        return markers;
+    }
+
 
     public void ShowShopsMarkersInUserLocationRadious(LatLng location,int seekBarProgress){
 
@@ -106,6 +151,17 @@ public class ListOfShops {
                 marker.setVisible(false);
             }
 
+        }
+    }
+
+    public void createListOfCategoryIDsFromChosenCategoryNames(ArrayList<String> chosenCategoryNames){
+        chosenCategoryID.clear();
+        for(String choice:chosenCategoryNames){
+            for(CategoryModel cat:categoriesOfShops){
+                if(choice.equals(cat.getCategoryName())){
+                    chosenCategoryID.add(cat.getCategoryId());
+                }
+            }
         }
     }
 
