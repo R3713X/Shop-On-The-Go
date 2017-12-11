@@ -11,44 +11,27 @@ public class AccountService {
 
 	@Autowired
 	private AccountRepository accountRepository;
-
-	private List<Account> accounts = new ArrayList<>();
 	
 	public List<Account> getAllAccounts() {
+		List<Account> accounts = new ArrayList<>();
+		accountRepository.findAll().forEach(accounts::add);;
 		return accounts;
 	}
 
 	public Account getAccountById(int id) {
-		for (Account account : accounts) {
-			if(account.getId()== id) {
-				return account;
-			}
-		}
-		return null;
+		return accountRepository.findOne(id);
 	}
 
 	public void addAccount(Account account) {
-		accounts.add(account);
+		accountRepository.save(account);
 	}
 
 	public void updateAccount(int id, Account newAccount) {
-		for(int i=0; i<accounts.size(); i++) {
-			Account account = accounts.get(i);
-			if(account.getId()==id) {
-				accounts.set(i, newAccount);
-				return;
-			}
-		}		
+		accountRepository.save(newAccount);
 	}
 
 	public void deleteAccount(int id) {
-		for(int i=0; i<accounts.size(); i++) {
-			Account account = accounts.get(i);
-			if(account.getId()==id) {
-				accounts.remove(account);
-				return;
-			}
-		}		
+		accountRepository.delete(id);
 	}
 
 	public AccountRepository getAccountRepository() {
