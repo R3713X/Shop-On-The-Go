@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,8 +25,8 @@ import java.util.List;
 public class SeeMyShopsActivity extends AppCompatActivity {
     private RequestShopsByUserIdTask requestShopsByUserIdTask = null;
     ListView sListView;
-    ArrayList<String> shopNames = new ArrayList<>();
-    ArrayList<String> shopAddresses = new ArrayList<>();
+    List<ShopModel> shopModels;
+
     ArrayList<String> shopIds = new ArrayList<>();
     ConstraintLayout constraintLayout;
     ProgressBar progressBar;
@@ -47,7 +48,8 @@ public class SeeMyShopsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                chosenShopId = shopIds.get(position);
+                Toast.makeText(getApplicationContext(),shopModels.get(position).getName()+" selected",Toast.LENGTH_LONG).show();
+                chosenShopId = shopModels.get(position).getId();
                 goToAddDiscountActivity();
 
             }
@@ -79,20 +81,14 @@ public class SeeMyShopsActivity extends AppCompatActivity {
             try
             {
                 ShopController shopController = new ShopController();
-                List<ShopModel> shopModels = shopController.fetchShopsByUser(userID);
 
-                for(int i = 0;i<shopModels.size();i++){
-                    shopNames.add(shopModels.get(i).getName());
-                    shopAddresses.add(shopModels.get(i).getAddress()+", "+shopModels.get(i).getCity());
-                    shopIds.add(shopModels.get(i).getId());
-                }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SeeMyShopsActivity.this, android.R.layout.simple_list_item_single_choice, shopNames);
-                sListView.setAdapter(arrayAdapter);
+                shopModels = shopController.fetchShopsByUser(userID);
 
-                /*
-               create another list that has only the names of the shop models
-               optionally get the address of the shop models as well
-               and display them in the list view*/
+                SeeMyShopsCustomAdapter adapter;
+                adapter= new SeeMyShopsCustomAdapter(getApplicationContext(),shopModels);
+                sListView.setAdapter(adapter);
+
+
 
             } catch (Exception e){
 
