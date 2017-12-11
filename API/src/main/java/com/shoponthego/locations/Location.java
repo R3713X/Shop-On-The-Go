@@ -8,23 +8,15 @@ public class Location {
 	
 	@Id
 	private int id;
-	private String name;
 	private double longtitude;
 	private double latitude;
 	
-	public Location(String name, double longtitude, double latitude) {
+	public Location(double longtitude, double latitude) {
 		super();
-		this.name = name;
 		this.longtitude = longtitude;
 		this.latitude = latitude;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public double getLongtitude() {
 		return longtitude;
 	}
