@@ -206,12 +206,6 @@ public class ShopControllerTest {
         assertEquals(shopThatIsCreated.getId(), "5");
         assertEquals(shopThatIsCreated.getName(), "Pizza Della Mamma");
         assertEquals(shopThatIsCreated.getPosition(), position);
-
-        //TODO: Instead of using toString() method, must use JSON type.
-        /* this.mockMvc.perform(post("/shops")
-                .contentType(contentType)
-                .content((shop.toString())))
-                .andExpect(status().isCreated()); */
     }
 
 

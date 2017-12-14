@@ -2,7 +2,6 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
-import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.DiscountModel;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 import com.sirialkillers.shoponthego.Models.ProductModel;
@@ -21,7 +20,7 @@ import java.util.Map;
  * @version 29/11/2017
  *
  */
-public class ShopController implements IController<ShopModel, String> {
+public class ShopController{
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -56,7 +55,6 @@ public class ShopController implements IController<ShopModel, String> {
      * Returns a list of shops that are accessible for further use.
      * @return the list of shops
      */
-    @Override
     public List<ShopModel> get(){
         List<ShopModel> shops = new ArrayList<>();
         try {
@@ -77,7 +75,6 @@ public class ShopController implements IController<ShopModel, String> {
      * or the default shop that is set to define that
      * something did not go as well.
      */
-    @Override
     public ShopModel getById(String shopId) {
         try {
             final String url = "http://83.212.106.80/shops/{shopId}";
@@ -101,7 +98,6 @@ public class ShopController implements IController<ShopModel, String> {
      * that is set to define that something did not
      * go as well.
      */
-    @Override
     public ShopModel create(ShopModel shop){
         try {
             final String url = "http://83.212.106.80/shops";
@@ -119,7 +115,6 @@ public class ShopController implements IController<ShopModel, String> {
      * Updates an already existing shop.
      * @param shop is the shop that will get updated
      */
-    @Override
     public void update(String targetShop, ShopModel shop){
         try {
             final String url = "http://83.212.106.80/shops/{targetShop}";
@@ -137,7 +132,6 @@ public class ShopController implements IController<ShopModel, String> {
      * Deletes a shop that exists.
      * @param shopId the id of the shop that will get deleted
      */
-    @Override
     public void delete(String shopId){
         try {
             final String url = "http://83.212.106.80/shops/{shopId}";
