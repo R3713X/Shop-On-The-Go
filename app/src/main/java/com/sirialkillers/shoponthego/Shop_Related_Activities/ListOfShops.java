@@ -41,11 +41,19 @@ public class ListOfShops {
 
     }
 
-    public void addFilteredShops(ArrayList<String> chosenCategories){
+    public void addCategory(){
+        categoriesOfShops.add(new CategoryModel("1","Accessories","category1"));
+        categoriesOfShops.add(new CategoryModel("2","Car","category2"));
+        categoriesOfShops.add(new CategoryModel("3","Consumables","category3"));
+        categoriesOfShops.add(new CategoryModel("4","Clothes","category4"));
+        categoriesOfShops.add(new CategoryModel("5","Decoration","category5"));
+    }
+
+    public void addFilteredShops(ArrayList<String> chosenCategoryId){
         filteredShops.clear();
         for(ShopModel shop:shops){
-            for(CategoryModel tmp:categoriesOfShops){
-                if(shop.getCategoryId().equals(tmp.getCategoryId())){
+            for(String tmp:chosenCategoryId){
+                if(shop.getCategoryId().equals(tmp)){
                     filteredShops.add(shop);
                 }
             }
@@ -111,6 +119,7 @@ public class ListOfShops {
     }
 
     public ArrayList<Marker> creatMarkerOfShop(GoogleMap googleMap){
+        this.addCategory();
         this.addShop();
         this.creatPositionOfShop();
 
@@ -126,9 +135,10 @@ public class ListOfShops {
 
     public ArrayList<Marker> createMarkerOfFilteredShops(GoogleMap googleMap, ArrayList<String> chosenCategoriesNames){
         markerinfo.clear();
+        chosenCategoryID.clear();
         this.createListOfCategoryIDsFromChosenCategoryNames(chosenCategoriesNames);
         this.addFilteredShops(chosenCategoryID);
-        this.creatPositionOfShop();
+        this.creatPositionOfFilteredShops();
 
 
         for (MarkerInformation m:markerinfo) {
