@@ -93,59 +93,73 @@ public class DiscountModel extends ArrayList implements Parcelable{
     }
 
     public String getShopId() {
+
         return shopId;
     }
 
     public void setShopId(String shopId) {
+
         this.shopId = shopId;
     }
 
     @NonNull
     public String getDiscountId() {
+
         return discountId;
     }
 
     public void setDiscountId(@NonNull String discountId) {
+
         this.discountId = discountId;
     }
 
     public double getPercentage() {
+
         return percentage;
     }
 
     public void setPercentage(double percentage) {
+
         this.percentage = percentage;
     }
 
     public String getTitle() {
+
         return title;
     }
 
     public void setTitle(String title) {
+
         this.title = title;
     }
 
     public String getDescription() {
+
         return description;
     }
 
     public void setDescription(String description) {
+
         this.description = description;
     }
 
     public Date getExpirationDate() {
+
         return expirationDate;
     }
 
     public void setExpirationDate(Date expirationDate) {
+
         this.expirationDate = expirationDate;
     }
 
     public List<CategoryModel> getCategories() {
+
         return categories;
     }
 
     public void setCategories(List<CategoryModel> categories) {
+
         this.categories = categories;
     }
 
