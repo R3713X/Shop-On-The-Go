@@ -62,6 +62,7 @@ public class ShopModel extends ArrayList{
         this.userId=userId;
 
     }
+
     public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;
