@@ -248,6 +248,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        listOfShops.addCategory();
+        listOfShops.addShop();
         markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
 
@@ -352,16 +354,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 chosenCategoriesNames =new ArrayList<>();
-                sCategories = "";
-                for (int i = 0; i < mShopCategories.size(); i++) {
-                    chosenCategoriesNames.add(categories[mShopCategories.get(i)]);
-                    if (i != mShopCategories.size() - 1) {
-                        sCategories = sCategories + " ";
-                    }
+                if(mShopCategories.isEmpty()){
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops=listOfShops.creatMarkerOfShop(mMap);
                 }
-                mMap.clear();
-                markersOfShops.clear();
-                markersOfShops=listOfShops.createMarkerOfFilteredShops(mMap, chosenCategoriesNames);
+                else {
+                    for (int i = 0; i < mShopCategories.size(); i++) {
+                        chosenCategoriesNames.add(categories[mShopCategories.get(i)]);
+                    }
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops = listOfShops.createMarkerOfFilteredShops(mMap, chosenCategoriesNames);
+                }
             }
         });
 
@@ -378,6 +383,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (int i = 0; i < checkedCategories.length; i++) {
                     checkedCategories[i] = false;
                     mShopCategories.clear();
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops=listOfShops.creatMarkerOfShop(mMap);
                 }
             }
         });
