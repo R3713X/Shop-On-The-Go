@@ -40,6 +40,24 @@ public class AccountController {
     }
 
     /**
+     * Will fetch the account that matches the account Id.
+     * @param accountId the account Id to fetch.
+     */
+    public AccountModel getAccountById(String accountId){
+        try {
+            final String url = "http://83.212.106.80/accounts/{accountId}";
+
+            params.clear();
+            params.put("accountId", accountId);
+
+            return restTemplate.getForObject(url, AccountModel.class, params);
+        }catch (Exception e) {
+            Log.e("getAccountById", e.getMessage(), e);
+        }
+        return defaultAccount;
+    }
+
+    /**
      * Creates a new account for a user.
      * @param account the user account that will be created.
      * @return the account that was created if it was successfully
