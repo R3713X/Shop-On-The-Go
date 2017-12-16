@@ -34,6 +34,12 @@ public class AccountControllerTest {
     }
 
     @Test
+    public void checkForNullValuesWhenAskingForAnAccount(){
+        AccountModel defaultAccount = accountController.getAccountById("1");
+        assertNotNull(defaultAccount);
+    }
+
+    @Test
     public void checkThatTheAccountGotCreated() throws Exception {
         AccountModel accountThatGotReturned = accountController.createAccount(account);
         assertEquals(accountThatGotReturned.getAccountId(), "150");
