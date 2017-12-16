@@ -27,18 +27,20 @@ public class ShopModel extends ArrayList{
     private String name;
     @Embedded
     private Position position;
-    @Embedded
+    @ColumnInfo(name="country")
     private String country;
-    @Embedded
+    @ColumnInfo(name="region")
     private String region;
-    @Embedded
+    @ColumnInfo(name="city")
     private String city;
-    @Embedded
+    @ColumnInfo(name="address")
     private String address;
-    @Embedded
+    @ColumnInfo(name="postCode")
     private String postCode;
-    @Embedded
+    @ColumnInfo(name="userId")
     private String userId;
+    @ColumnInfo(name="categoryId")
+    private String categoryId;
     @Ignore
     private List<DiscountModel> discounts;
     @Ignore
@@ -46,11 +48,11 @@ public class ShopModel extends ArrayList{
     @Ignore
     private List<ProductModel> products;
     @Ignore
-    private List <CategoryModel> categories;
+    private List<CategoryModel> categories;
 
     @Ignore
     public ShopModel(String id, String name, Position position, String country, String region, String city,
-                     String address, String postCode, String userId){
+                     String address, String postCode, String userId, String categoryId){
         this.id=id;
         this.name=name;
         this.position=position;
@@ -60,13 +62,35 @@ public class ShopModel extends ArrayList{
         this.address=address;
         this.postCode=postCode;
         this.userId=userId;
+        this.categoryId=categoryId;
 
     }
 
+    @Ignore
+    public ShopModel(String id, String name, Position position, String country, String region, String city,
+                     String address, String postCode, String userId) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.address = address;
+        this.postCode = postCode;
+        this.userId = userId;
+    }
+    @Ignore
     public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;
         this.position = position;
+    }
+
+    public ShopModel(String id, String name, Position position, String categoryId){
+        this.id=id;
+        this.name=name;
+        this.position=position;
+        this.categoryId=categoryId;
     }
 
     @Ignore
@@ -153,10 +177,6 @@ public class ShopModel extends ArrayList{
         this.products = products;
     }
 
-    public void setCategories(List<CategoryModel> categories) {
-
-        this.categories = categories;
-    }
 
     public List<DiscountModel> getDiscounts() {
 
@@ -168,9 +188,12 @@ public class ShopModel extends ArrayList{
         return products;
     }
 
-    public List<CategoryModel> getCategories() {
+    public String getCategoryId() {
+        return categoryId;
+    }
 
-        return categories;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCountry() {
@@ -231,5 +254,13 @@ public class ShopModel extends ArrayList{
     public void setUserId(String userId) {
 
         this.userId = userId;
+    }
+
+    public List<CategoryModel> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryModel> categories) {
+        this.categories = categories;
     }
 }
