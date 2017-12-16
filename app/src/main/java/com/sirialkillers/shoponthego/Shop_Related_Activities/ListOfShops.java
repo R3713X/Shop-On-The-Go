@@ -46,7 +46,7 @@ public class ListOfShops {
         categoriesOfShops.add(new CategoryModel("5","Decoration","category5"));
     }
 
-    public void addFilteredShops(ArrayList<String> chosenCategoryId){
+    public List<ShopModel> addFilteredShops(ArrayList<String> chosenCategoryId){
         filteredShops.clear();
         for(ShopModel shop:shops){
             for(String tmp:chosenCategoryId){
@@ -55,6 +55,7 @@ public class ListOfShops {
                 }
             }
         }
+        return filteredShops;
     }
 
     public List<ShopModel> getShop(){
@@ -132,7 +133,7 @@ public class ListOfShops {
     public ArrayList<Marker> createMarkerOfFilteredShops(GoogleMap googleMap, ArrayList<String> chosenCategoriesNames){
         markerinfo.clear();
         chosenCategoryID.clear();
-        this.createListOfCategoryIDsFromChosenCategoryNames(chosenCategoriesNames);
+        this.createListOfCategoryIDsFromChosenCategoryNames(chosenCategoriesNames, categoriesOfShops);
         this.addFilteredShops(chosenCategoryID);
         this.creatPositionOfFilteredShops();
 
@@ -160,7 +161,7 @@ public class ListOfShops {
         }
     }
 
-    public void createListOfCategoryIDsFromChosenCategoryNames(ArrayList<String> chosenCategoryNames){
+    public ArrayList<String> createListOfCategoryIDsFromChosenCategoryNames(ArrayList<String> chosenCategoryNames, List<CategoryModel> categoriesOfShops){
         chosenCategoryID.clear();
         for(String choice:chosenCategoryNames){
             for(CategoryModel cat:categoriesOfShops){
@@ -169,6 +170,7 @@ public class ListOfShops {
                 }
             }
         }
+        return chosenCategoryID;
     }
 
 }
