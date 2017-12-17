@@ -51,7 +51,7 @@ public class DiscountController {
     public List<DiscountModel> fetchNearbyDiscounts(Position userLocation, double distance){
         List<DiscountModel> discounts = new ArrayList<>();
         try{
-            final String url = "http://83.212.106.80/{latitude}/{longitude}/{distance}/discounts";
+            final String url = "http://83.212.106.80:8080/{latitude}/{longitude}/{distance}/discounts";
             params.clear();
             params.put("latitude", String.valueOf(userLocation.getLatitude()));
             params.put("longitude", String.valueOf(userLocation.getLongitude()));

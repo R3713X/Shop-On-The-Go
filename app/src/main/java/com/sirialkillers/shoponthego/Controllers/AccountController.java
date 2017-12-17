@@ -45,7 +45,7 @@ public class AccountController {
      */
     public AccountModel getAccountById(String accountId){
         try {
-            final String url = "http://83.212.106.80/accounts/{accountId}";
+            final String url = "http://83.212.106.80:8080/accounts/{accountId}";
 
             params.clear();
             params.put("accountId", accountId);
@@ -66,7 +66,7 @@ public class AccountController {
      */
     public AccountModel createAccount(AccountModel account){
             try {
-                final String url = "http://83.212.106.80/accounts";
+                final String url = "http://83.212.106.80:8080/accounts";
 
                 AccountModel accountThatWasCreated = restTemplate.postForObject(url, account, AccountModel.class);
                 return accountThatWasCreated;
@@ -83,7 +83,7 @@ public class AccountController {
      */
     public void updateAccount(String accountId, AccountModel account){
         try {
-            final String url = "http://83.212.106.80/accounts/{accountId}";
+            final String url = "http://83.212.106.80:8080/accounts/{accountId}";
 
             params.clear();
             params.put("accountId", accountId);
@@ -100,7 +100,7 @@ public class AccountController {
      */
     public void deleteAccount(String accountId){
         try {
-            final String url = "http://83.212.106.80/accounts/{accountId}";
+            final String url = "http://83.212.106.80:8080/accounts/{accountId}";
 
             params.clear();
             params.put("accountId", accountId);
