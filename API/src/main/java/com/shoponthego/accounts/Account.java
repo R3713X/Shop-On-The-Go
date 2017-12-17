@@ -7,12 +7,12 @@ import javax.persistence.Id;
 public class Account {
 
 	@Id
-	private Integer id;
+	private String id;
 	private String username;
 	private String password;
 	private String email;
 	
-	public Account(int id, String username, String password, String email) {
+	public Account(String id, String username, String password, String email) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -20,10 +20,10 @@ public class Account {
 		this.email = email;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getUsername() {

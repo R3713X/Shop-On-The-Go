@@ -45,50 +45,51 @@ public class ShopController {
 	
 	@RequestMapping(method=RequestMethod.GET ,value="/shops/{shopId}/offers")
 	public List<Offer> getOffersForShop(@PathVariable String shopId) {
-		return shopService.getOffers(shopId);
+		return null;
+		//return shopService.getOffers(shopId);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET , value="/shops/{shopId}/offers/{offerId}")
 	public Offer getOfferForShop(@PathVariable String shopId, @PathVariable String offerId) {
-		return shopService.getOffer(shopId, offerId);
+		return null;//shopService.getOffer(shopId, offerId);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/shops/{shopId}/offers")
 	public void addOffer(@PathVariable String shopId, @RequestBody Offer offer) {
-		shopService.addOffer(shopId, offer);
+		//shopService.addOffer(shopId, offer);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/shops/{shopId}/offers/{offerId}")
 	public void updateOffer(@PathVariable String shopId, @PathVariable String offerId, @RequestBody Offer offer) {
-		shopService.updateOffer(shopId, offerId, offer);
+		//shopService.updateOffer(shopId, offerId, offer);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/shops/{shopId}/offers/{offerId}")
 	public void deleteOffer(@PathVariable String shopId, @PathVariable String offerId) {
-		shopService.deleteOffer(shopId, offerId);
+		//shopService.deleteOffer(shopId, offerId);
 	}
 	@RequestMapping(method=RequestMethod.GET ,value="/shops/{shopId}/discounts")
 	public List<Discount> getDiscountsForShop(@PathVariable String shopId) {
-		return shopService.getDiscounts(shopId);
+		return null;//shopService.getDiscounts(shopId);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET , value="/shops/{shopId}/discounts/{discountId}")
 	public Offer getDiscountForShop(@PathVariable String shopId, @PathVariable String discountId) {
-		return shopService.getDiscount(shopId, discountId);
+		return null;//shopService.getDiscount(shopId, discountId);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/shops/{shopId}/discounts")
 	public void addDiscount(@PathVariable String shopId, @RequestBody Discount discount) {
-		shopService.addDiscount(shopId, discount);
+		// shopService.addDiscount(shopId, discount);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/shops/{shopId}/discounts/{discountId}")
 	public void updateDiscount(@PathVariable String shopId, @PathVariable String discountId, @RequestBody Discount discount) {
-		shopService.updateDiscount(shopId, discountId, discount);
+		//shopService.updateDiscount(shopId, discountId, discount);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/shops/{shopId}/discounts/{discountId}")
 	public void deleteDiscount(@PathVariable String shopId, @PathVariable String discountId) {
-		shopService.deleteDiscount(shopId, discountId);
+		// shopService.deleteDiscount(shopId, discountId);
 	}
 }

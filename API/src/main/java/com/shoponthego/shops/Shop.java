@@ -19,8 +19,6 @@ public class Shop {
 	private String id;
 	private String name;
 	
-	private Location location;
-	
 	private String email;
 	private String phone;
 	private String country;
@@ -46,7 +44,6 @@ public class Shop {
 		shopTypes = new ArrayList<>();
 		id = givenId;
 		name = givenName;
-		location = shopLocation;
 	}
 
 	public String getId() {
@@ -57,9 +54,6 @@ public class Shop {
 		return name;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
 
 	public String getEmail() {
 		return email;
