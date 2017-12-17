@@ -1,15 +1,13 @@
 package com.sirialkillers.shoponthego.Models;
 
-import com.sirialkillers.shoponthego.Interfaces.IProduct;
-
 import java.util.ArrayList;
 
 /**
  * @author Ioakeim James Theologou
- * @version 16/11/2017
+ * @version 14/12/2017
  *
  */
-public class ProductModel extends ArrayList implements IProduct {
+public class ProductModel extends ArrayList{
     private String productName;
     private String productId;
     private int quantityPerUnit;
@@ -24,47 +22,36 @@ public class ProductModel extends ArrayList implements IProduct {
         this.productId = productId;
         this.productName = "";
     }
-    @Override
-    public String getProductName() {
 
+    public String getProductName() {
         return productName;
     }
 
-    @Override
-    public String getProductId() {
-
-        return productId;
-    }
-
-    @Override
-    public int getQuantityPerUnit() {
-
-        return quantityPerUnit;
-    }
-
-    @Override
-    public long getUnitPrice() {
-
-        return unitPrice;
-    }
-
     public void setProductName(String productName) {
-
         this.productName = productName;
     }
 
-    public void setProductId(String productId) {
+    public String getProductId() {
+        return productId;
+    }
 
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public void setQuantityPerUnit(int quantityPerUnit) {
+    public int getQuantityPerUnit() {
+        return quantityPerUnit;
+    }
 
+    public void setQuantityPerUnit(int quantityPerUnit) {
         this.quantityPerUnit = quantityPerUnit;
     }
 
-    public void setUnitPrice(long unitPrice) {
+    public long getUnitPrice() {
+        return unitPrice;
+    }
 
+    public void setUnitPrice(long unitPrice) {
         this.unitPrice = unitPrice;
     }
 }

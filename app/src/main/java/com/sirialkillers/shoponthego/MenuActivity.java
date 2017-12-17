@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.AddDiscountActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.SeeMyShopsActivity;
 import com.sirialkillers.shoponthego.Shop_Related_Activities.ShopsListView;
 
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
@@ -55,7 +56,7 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
                 startActivity(intentShop);
                 break;
             case R.id.addDiscountButton:
-                Intent intentDiscount = new Intent(this, AddDiscountActivity.class);
+                Intent intentDiscount = new Intent(this, SeeMyShopsActivity.class);
                 startActivity(intentDiscount);
                 break;
             default:
