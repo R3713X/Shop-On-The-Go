@@ -34,7 +34,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
     }
-	
+
 	lintOptions{
 	abortOnError false
 	}
@@ -97,7 +97,14 @@ dependencies {
     testImplementation "android.arch.persistence.room:testing:1.0.0"
 
 
+    //Used for notifications
+   compile 'com.google.firebase:firebase-messaging:11.6.0'
+
+
+
+
 }
+
 
 //Used for Hockey App
 allprojects {
@@ -106,3 +113,5 @@ allprojects {
         google()
     }
 }
+//Used for notifications
+apply plugin: 'com.google.gms.google-services'

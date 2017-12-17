@@ -71,6 +71,19 @@
         <activity android:name=".ProductPhotoActivity" />
         <activity android:name=".Shop_Related_Activities.AddShopActivity"></activity>
         <activity android:name=".Shop_Related_Activities.SeeMyShopsActivity"></activity>
+
+        <service android:name=".Notifications.FirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+            </intent-filter>
+
+        </service>
+
+        <service android:name=".Notifications.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
