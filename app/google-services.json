@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "390576761008",
+    "firebase_url": "https://robotic-vista-183310.firebaseio.com",
+    "project_id": "robotic-vista-183310",
+    "storage_bucket": "robotic-vista-183310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390576761008:android:2c0445a7e9ddb95a",
+        "android_client_info": {
+          "package_name": "com.sirialkillers.shoponthego"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390576761008-fbd1lukc17mrh5vigepv81jpq2cm7v9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4hJX5bAbxdw1dfLOneaTJ_fCX6JRHKG0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

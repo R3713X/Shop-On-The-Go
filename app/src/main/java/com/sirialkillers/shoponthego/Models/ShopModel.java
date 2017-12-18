@@ -1,36 +1,266 @@
 package com.sirialkillers.shoponthego.Models;
 
-import com.sirialkillers.shoponthego.Position;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.sirialkillers.shoponthego.Maps_Related_Activities.Position;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ioakeim James Theologou
- * @version 31/10/2017
- * TODO: Create a test class for this model.
+ * @version 9/12/2017
  *
  */
-
+@Entity(tableName="Shop")
 public class ShopModel extends ArrayList{
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name="shopId")
     private String id;
+    @ColumnInfo(name="shopName")
     private String name;
+    @Embedded
     private Position position;
+    @ColumnInfo(name="country")
+    private String country;
+    @ColumnInfo(name="region")
+    private String region;
+    @ColumnInfo(name="city")
+    private String city;
+    @ColumnInfo(name="address")
+    private String address;
+    @ColumnInfo(name="postCode")
+    private String postCode;
+    @ColumnInfo(name="userId")
+    private String userId;
+    @ColumnInfo(name="categoryId")
+    private String categoryId;
+    @Ignore
+    private List<DiscountModel> discounts;
+    @Ignore
+    private List<OfferModel> offers;
+    @Ignore
+    private List<ProductModel> products;
+    @Ignore
+    private List<CategoryModel> categories;
 
-    public ShopModel(String id, String name, Position position) {
+    @Ignore
+    public ShopModel(String id, String name, Position position, String country, String region, String city,
+                     String address, String postCode, String userId, String categoryId){
+        this.id=id;
+        this.name=name;
+        this.position=position;
+        this.country=country;
+        this.region=region;
+        this.city=city;
+        this.address=address;
+        this.postCode=postCode;
+        this.userId=userId;
+        this.categoryId=categoryId;
+
+    }
+
+    @Ignore
+    public ShopModel(String id, String name, Position position, String country, String region, String city,
+                     String address, String postCode, String userId) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.address = address;
+        this.postCode = postCode;
+        this.userId = userId;
+    }
+    @Ignore
+    public ShopModel(String id, String name, Position position){
         this.id = id;
         this.name = name;
         this.position = position;
     }
 
+    public ShopModel(String id, String name, Position position, String categoryId){
+        this.id=id;
+        this.name=name;
+        this.position=position;
+        this.categoryId=categoryId;
+    }
+
+    @Ignore
+    public ShopModel(String id, String name){
+        this.id = id;
+        this.name = name;
+        this.position = new Position(0,0);
+    }
+    @Ignore
+    public ShopModel(String id){
+        this.id = id;
+        this.name = "";
+        this.position = new Position(0,0);
+    }
+
+
     public String getId() {
+
         return id;
     }
 
+    public void setId(String id) {
+
+        this.id = id;
+    }
+
     public String getName() {
+
         return name;
     }
 
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
     public Position getPosition() {
+
         return position;
+    }
+
+    public void setPosition(Position position) {
+
+        this.position = position;
+    }
+
+    public List<OfferModel> getOffers() {
+
+        return offers;
+    }
+
+
+    public OfferModel getOffer(String offerId) {
+
+        return null;
+    }
+
+    public List<ProductModel> getAllProducts() {
+
+        return products;
+    }
+
+    public ProductModel getProduct(String productId) {
+
+        return null;
+    }
+
+    public List<DiscountModel> getAllDiscounts() {
+
+        return discounts;
+    }
+
+    public void setDiscounts(List<DiscountModel> discounts) {
+        this.discounts = discounts;
+    }
+
+    public void setOffers(List<OfferModel> offers) {
+
+        this.offers = offers;
+    }
+
+    public void setProducts(List<ProductModel> products) {
+
+        this.products = products;
+    }
+
+
+    public List<DiscountModel> getDiscounts() {
+
+        return discounts;
+    }
+
+    public List<ProductModel> getProducts() {
+
+        return products;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCountry() {
+
+        return country;
+    }
+
+    public void setCountry(String country) {
+
+        this.country = country;
+    }
+
+    public String getRegion() {
+
+        return region;
+    }
+
+    public void setRegion(String region) {
+
+        this.region = region;
+    }
+
+    public String getCity() {
+
+        return city;
+    }
+
+    public void setCity(String city) {
+
+        this.city = city;
+    }
+
+    public String getAddress() {
+
+        return address;
+    }
+
+    public void setAddress(String address) {
+
+        this.address = address;
+    }
+
+    public String getPostCode() {
+
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+
+        this.postCode = postCode;
+    }
+
+    public String getUserId() {
+
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+
+        this.userId = userId;
+    }
+
+    public List<CategoryModel> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryModel> categories) {
+        this.categories = categories;
     }
 }

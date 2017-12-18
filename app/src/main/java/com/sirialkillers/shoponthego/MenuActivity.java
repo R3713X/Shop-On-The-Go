@@ -7,9 +7,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.sirialkillers.shoponthego.Maps_Related_Activities.MapsActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.AddDiscountActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.AddShopActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.SeeMyShopsActivity;
+import com.sirialkillers.shoponthego.Shop_Related_Activities.ShopsListView;
+
 public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonMap;
     private Button buttonList;
+    private Button buttonAddProductPhoto;
+    private Button addShop;
+    private Button addDiscount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +28,13 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
         buttonMap.setOnClickListener(this);
         buttonList = (Button) findViewById(R.id.buttonList);
         buttonList.setOnClickListener(this);
+        addDiscount = (Button) findViewById(R.id.addDiscountButton);
+        addDiscount.setOnClickListener(this);
+        addShop = (Button) findViewById(R.id.addShopButton);
+        addShop.setOnClickListener(this);
 
+        buttonAddProductPhoto=(Button)findViewById(R.id.addProductPhotoButton);
+        buttonAddProductPhoto.setOnClickListener(this);
     }
 
     public void onClick(View view) {
@@ -31,10 +46,25 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
             case R.id.buttonList:
                 Intent intentStartListActivity = new Intent(this, ShopsListView.class);
                 startActivity(intentStartListActivity);
+                break;
+            case R.id.addProductPhotoButton:
+                Intent intentStartProductPhotoActivity = new Intent(this, ProductPhotoActivity.class);
+                startActivity(intentStartProductPhotoActivity);
+                break;
+            case R.id.addShopButton:
+                Intent intentShop = new Intent(this, AddShopActivity.class);
+                startActivity(intentShop);
+                break;
+            case R.id.addDiscountButton:
+                Intent intentDiscount = new Intent(this, SeeMyShopsActivity.class);
+                startActivity(intentDiscount);
+                break;
             default:
                 break;
         }
     }
 
 }
+
+
 

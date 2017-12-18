@@ -9,91 +9,110 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Ioakeim James Theologou
- * @version 02/10/2017
+ * @version 12/11/2017
  *
  */
-public class OfferController {
+public class OfferController{
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate;
-    /* params is a Hash Map used to set the parameters that are going to be used
+
+    /* params is a hash map used to set the parameters that are going to be used
      in the Rest Template */
     private Map<String, String> params;
 
+    /* Default values */
+    private OfferModel defaultOffer;
+
     /**
-     * Initializes the Rest template and add a
+     * Initializes the default values and the Rest template that adds a
      * Jackson message converter so it can parse
      * a JSON file.
      */
     public OfferController() {
-        restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        defaultOffer = new OfferModel("-1");
         params = new HashMap<>();
+        restTemplate = new RestTemplate();
+
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
     }
 
     /**
      * Returns a list of offers that are accessible for further use.
      * @return the list of offers
      */
-    public ArrayList<OfferModel> getOffers(){
+    public List<OfferModel> get(){
+        List<OfferModel> offers = new ArrayList<>();
+
         try {
-            final String url = "http://localhost:8080/offers";
-            return restTemplate.getForObject(url, OfferModel.class);
+            final String url = "http://83.212.106.80:8080/offers";
+
+            offers.addAll(restTemplate.getForObject(url, OfferModel.class));
+            return offers;
         }catch (Exception e){
             Log.e("getOffers", e.getMessage(),e);
         }
-        return null;
+        return offers;
     }
 
     /**
      * Returns a offer that matches the offerId.
      * @param offerId The id of the offer
-     * @return the offer
+     * @return the offer if the request was successful or
+     * the default offer that is set to define that
+     * something did not go as well.
      */
-    public OfferModel getOfferById(String offerId){
+    public OfferModel getById(String offerId){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://83.212.106.80:8080/offers/{id}";
+
             params.clear();
             params.put("id", offerId);
-            return restTemplate.getForObject(url, OfferModel.class, params);
+
+            OfferModel offer =  restTemplate.getForObject(url, OfferModel.class, params);
+            return offer;
         }catch (Exception e){
             Log.e("getOfferById", e.getMessage(),e);
         }
-        return null;
+        return defaultOffer;
     }
 
     /**
      * Creates a new offer.
-     * @param id the id of the offer
-     * @param title the name of the offer
-     * @return the offer that was created
+     * @param offer is the offer that will be created
+     * @return the offer that was created or the default offer
+     * that is set to define that something did not go as well.
      */
-    public OfferModel createOffer(String id, String title){
+    public OfferModel create(OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers";
-            OfferModel newOffer = new OfferModel(id, title);
-            return restTemplate.postForObject(url, newOffer, OfferModel.class);
+            final String url = "http://83.212.106.80:8080/offers";
+
+            OfferModel offerThatWasCreated = restTemplate.postForObject(url, offer, OfferModel.class);
+            return offerThatWasCreated;
         }catch (Exception e){
             Log.e("CreateOffer", e.getMessage(),e);
         }
-        return null;
+        return defaultOffer;
     }
 
     /**
-     * Updates a already existing offer.
-     * @param offerId the id of the offer that will get updated
-     * @param name the name that will replace the old name of the offer
+     * Updates a offer that already exists.
+     * @param targetOffer the offerId that will get updated.
+     * @param offer is the offer that will get updated.
      */
-    public void updateOffer(String offerId, String name){
+    public void update(String targetOffer, OfferModel offer){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://83.212.106.80:8080/offers/{targetOffer}";
+
             params.clear();
-            params.put("id", offerId);
-            OfferModel updatedOffer = new OfferModel(offerId, name);
-            restTemplate.put(url, updatedOffer, params);
+            params.put("targetOffer", targetOffer);
+
+            restTemplate.put(url, offer, params);
         }catch (Exception e){
             Log.e("updateOffer", e.getMessage(),e);
         }
@@ -103,9 +122,10 @@ public class OfferController {
      * Deletes a offer that already exists.
      * @param offerId the id of the offer that will get deleted
      */
-    public void deleteOffer(String offerId){
+    public void delete(String offerId){
         try {
-            final String url = "http://localhost:8080/offers/{id}";
+            final String url = "http://83.212.106.80:8080/offers/{id}";
+
             params.put("id", offerId);
             restTemplate.delete(url, params);
         }catch (Exception e){
