@@ -10,14 +10,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.sirialkillers.shoponthego.Interfaces.IDiscount;
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(tableName = "Discount")
 @ForeignKey(entity = ShopModel.class,parentColumns="shopId", childColumns ="shopId")
-public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
+public class DiscountModel extends ArrayList implements Parcelable{
     @ColumnInfo(name="shopId")
     private String shopId;
     @PrimaryKey
@@ -33,6 +32,20 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
     //TODO typeConverter date-to-long
     @ColumnInfo(name="expirationDate")
     private Date expirationDate;
+    @Ignore
+    private List<CategoryModel> categories;
+    @Ignore
+    public DiscountModel(String shopId, String discountId, double percentage,
+                         String title, String description, Date expirationDate,
+                         List<CategoryModel> categories){
+        this.shopId = shopId;
+        this.discountId = discountId;
+        this.percentage = percentage;
+        this.title = title;
+        this.description = description;
+        this.expirationDate=expirationDate;
+        this.categories = categories;
+    }
 
     public DiscountModel(String shopId, String discountId, double percentage,
                          String title, String description, Date expirationDate){
@@ -43,6 +56,7 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
         this.description = description;
         this.expirationDate=expirationDate;
     }
+
     @Ignore
     public DiscountModel(String discountId){
         this.discountId = discountId;
@@ -50,70 +64,6 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
         this.percentage = 0;
         this.title = "";
         this.description = "";
-    }
-
-    @Override
-    public String getShopId() {
-
-        return shopId;
-    }
-    @Override
-    public String getDiscountId() {
-
-        return discountId;
-    }
-
-    @Override
-    public double getPercentage() {
-
-        return percentage;
-    }
-
-    @Override
-    public String getTitle(){
-        return title;
-    }
-
-    @Override
-    public String getDescription() {
-
-        return description;
-    }
-
-    @Override
-    public Date getExpirationDate() {
-
-        return expirationDate;
-    }
-
-    public void setShopId(String shopId) {
-
-        this.shopId = shopId;
-    }
-
-    public void setDiscountId(String discountId) {
-
-        this.discountId = discountId;
-    }
-
-    public void setPercentage(double percentage) {
-
-        this.percentage = percentage;
-    }
-
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-
-        this.description = description;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-
-        this.expirationDate = expirationDate;
     }
 
     protected DiscountModel(Parcel in) {
@@ -142,6 +92,77 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
         dest.writeLong(expirationDate != null ? expirationDate.getTime() : -1L);
     }
 
+    public String getShopId() {
+
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+
+        this.shopId = shopId;
+    }
+
+    @NonNull
+    public String getDiscountId() {
+
+        return discountId;
+    }
+
+    public void setDiscountId(@NonNull String discountId) {
+
+        this.discountId = discountId;
+    }
+
+    public double getPercentage() {
+
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+
+        this.percentage = percentage;
+    }
+
+    public String getTitle() {
+
+        return title;
+    }
+
+    public void setTitle(String title) {
+
+        this.title = title;
+    }
+
+    public String getDescription() {
+
+        return description;
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
+    }
+
+    public Date getExpirationDate() {
+
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+
+        this.expirationDate = expirationDate;
+    }
+
+    public List<CategoryModel> getCategories() {
+
+        return categories;
+    }
+
+    public void setCategories(List<CategoryModel> categories) {
+
+        this.categories = categories;
+    }
+
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<DiscountModel> CREATOR = new Parcelable.Creator<DiscountModel>() {
         @Override
@@ -154,6 +175,8 @@ public class DiscountModel extends ArrayList implements IDiscount, Parcelable{
             return new DiscountModel[size];
         }
     };
+
+
 }
 
 

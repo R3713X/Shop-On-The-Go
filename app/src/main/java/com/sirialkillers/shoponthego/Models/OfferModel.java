@@ -1,24 +1,21 @@
 package com.sirialkillers.shoponthego.Models;
 
-import com.sirialkillers.shoponthego.Interfaces.IOffer;
-import com.sirialkillers.shoponthego.Interfaces.IProduct;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author Ioakeim James Theologou
- * @version 16/10/2017
+ * @version 14/12/2017
  *
  */
-public class OfferModel extends ArrayList implements IOffer{
+public class OfferModel extends ArrayList{
     private String shopId;
     private String offerId;
     private String title;
     private String description;
     private Date expirationDate;
-    private List<IProduct> products;
+    private List<ProductModel> products;
 
 
     public OfferModel(String shopId, String offerId, String title, String description){
@@ -36,40 +33,9 @@ public class OfferModel extends ArrayList implements IOffer{
         this.description = "";
     }
 
-    @Override
     public String getShopId() {
 
         return shopId;
-    }
-
-    @Override
-    public String getOfferId() {
-
-        return offerId;
-    }
-
-    @Override
-    public List<IProduct> getProducts() {
-
-        return products;
-    }
-
-    @Override
-    public String getTitle()
-    {
-        return title;
-    }
-
-    @Override
-    public String getDescription() {
-
-        return description;
-    }
-
-    @Override
-    public Date getExpirationDate() {
-
-        return expirationDate;
     }
 
     public void setShopId(String shopId) {
@@ -77,9 +43,19 @@ public class OfferModel extends ArrayList implements IOffer{
         this.shopId = shopId;
     }
 
+    public String getOfferId() {
+
+        return offerId;
+    }
+
     public void setOfferId(String offerId) {
 
         this.offerId = offerId;
+    }
+
+    public String getTitle() {
+
+        return title;
     }
 
     public void setTitle(String title) {
@@ -87,9 +63,19 @@ public class OfferModel extends ArrayList implements IOffer{
         this.title = title;
     }
 
+    public String getDescription() {
+
+        return description;
+    }
+
     public void setDescription(String description) {
 
         this.description = description;
+    }
+
+    public Date getExpirationDate() {
+
+        return expirationDate;
     }
 
     public void setExpirationDate(Date expirationDate) {
@@ -97,7 +83,12 @@ public class OfferModel extends ArrayList implements IOffer{
         this.expirationDate = expirationDate;
     }
 
-    public void setProducts(List<IProduct> products) {
+    public List<ProductModel> getProducts() {
+
+        return products;
+    }
+
+    public void setProducts(List<ProductModel> products) {
 
         this.products = products;
     }

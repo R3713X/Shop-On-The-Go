@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -22,6 +23,7 @@ public class AccountControllerTest {
     public void setUp() throws Exception {
         account = new AccountModel("150", "random", "secure",
                 "brownies@sweet.com");
+
         accountController = new AccountController();
     }
 
@@ -29,6 +31,12 @@ public class AccountControllerTest {
     public void checkForNullValuesWhenCreatingAccount(){
        AccountModel defaultAccount = accountController.createAccount(account);
        assertNotNull(defaultAccount);
+    }
+
+    @Test
+    public void checkForNullValuesWhenAskingForAnAccount(){
+        AccountModel defaultAccount = accountController.getAccountById("1");
+        assertNotNull(defaultAccount);
     }
 
     @Test
@@ -45,20 +53,23 @@ public class AccountControllerTest {
         AccountModel modifiedAccount = new AccountModel("150", "random", "secure",
                 "jellybeans@sweet.com");
 
-        //TODO: Create a getAccountById() method in the AccountController to test this.
         accountController.updateAccount("150", modifiedAccount);
+        AccountModel updatedAccount = accountController.getAccountById("150");
+
+        assertNotEquals(updatedAccount.getEmail(), account.getEmail());
+        assertEquals(updatedAccount.getEmail(), modifiedAccount.getEmail());
     }
 
     @Test
     public void checkThatTheAccountGotDeleted() throws Exception {
-        //Should return the default account instead of creating a new one.
-        AccountModel defaultAccount = accountController.createAccount(account);
-        assertEquals(defaultAccount.getAccountId(), "-1");
-        accountController.deleteAccount("150");
-
         //Should return the account that was supposedly created.
-        AccountModel accountCreated = accountController.createAccount(account);
-        assertEquals(accountCreated.getAccountId(), "150");
+        AccountModel defaultAccount = accountController.createAccount(account);
+        assertEquals(defaultAccount.getAccountId(), "150");
+
+        //Should
+        accountController.deleteAccount("150");
+        AccountModel deletedAccount = accountController.getAccountById("150");
+        assertEquals(deletedAccount.getAccountId(), "-1");
     }
 
     @After

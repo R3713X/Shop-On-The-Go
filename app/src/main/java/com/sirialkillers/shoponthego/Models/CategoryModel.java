@@ -1,47 +1,54 @@
 package com.sirialkillers.shoponthego.Models;
 
-import com.sirialkillers.shoponthego.Interfaces.ICategory;
-
 /**
  * @author Ioakeim James Theologou
- * @version 16/11/2017
+ * @version 8/12/2017
  *
  */
-public class CategoryModel implements ICategory{
+public class CategoryModel{
     private String categoryId;
     private String categoryName;
     private String description;
 
-    @Override
-    public String getCategoryId() {
-
-        return categoryId;
-    }
-
-    @Override
-    public String getCategoryName() {
-
-        return categoryName;
-    }
-
-    @Override
-    public String getCategoryDescription() {
-
-        return description;
-    }
-
-    public void setCategoryId(String categoryId) {
-
+    public CategoryModel(String categoryId, String categoryName, String description) {
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.description = description;
     }
 
-    public void setCategoryName(String categoryName) {
+    public CategoryModel(String categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
+
+    public CategoryModel(String categoryName) {
 
         this.categoryName = categoryName;
     }
 
-    public void setDescription(String description) {
+    public String getCategoryId() {
+        return categoryId;
+    }
 
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
+
 }

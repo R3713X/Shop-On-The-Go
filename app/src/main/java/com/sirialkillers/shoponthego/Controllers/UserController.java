@@ -49,7 +49,7 @@ public class UserController {
         List<UserModel> users = new ArrayList<>();
 
         try{
-            final String url = "http://83.212.106.80/users";
+            final String url = "http://83.212.106.80:8080/users";
 
             users.addAll(restTemplate.getForObject(url, UserModel.class));
             return users;
@@ -66,7 +66,7 @@ public class UserController {
      */
     public UserModel getUser(String userId){
         try {
-            final String url = "http://83.212.106.80/users/{userId}";
+            final String url = "http://83.212.106.80:8080/users/{userId}";
 
             params.clear();
             params.put("userId", userId);
@@ -85,7 +85,7 @@ public class UserController {
      */
     public void deleteUser(String userId){
         try {
-            final String url = "http://83.212.106.80/user/{userId}";
+            final String url = "http://83.212.106.80:8080/user/{userId}";
 
             params.clear();
             params.put("userId", userId);
@@ -103,7 +103,7 @@ public class UserController {
      */
     public UserModel addUser(UserModel user){
         try {
-            final String url = "http://83.212.106.80/users";
+            final String url = "http://83.212.106.80:8080/users";
             UserModel userThatWasCreated = restTemplate.postForObject(url, user, UserModel.class);
             return userThatWasCreated;
 
@@ -120,7 +120,7 @@ public class UserController {
      */
     public void updateUser(String userId, UserModel user){
         try {
-            final String url = "http://83.212.106.80/users/{userId}";
+            final String url = "http://83.212.106.80:8080/users/{userId}";
 
             params.clear();
             params.put("userId", userId);

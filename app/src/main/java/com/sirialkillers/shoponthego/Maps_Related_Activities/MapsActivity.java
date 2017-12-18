@@ -54,6 +54,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
+    ArrayList<String> chosenCategoriesNames;
     ArrayList<Marker> markersOfShops;
     SeekBar rangeControlSeekBar;
     TextView radiusDisplayTextView;
@@ -109,7 +110,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.Loading();
 
-        checkForUpdates(); //Used for HockeyApp
+        checkForUpdates();
+
+        //Used for HockeyApp
     }
 
 
@@ -247,6 +250,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                listOfShops.addCategory();
+                listOfShops.addShop();
+            }
+        });
+
         markersOfShops = listOfShops.creatMarkerOfShop(mMap);
         mMap.setOnInfoWindowClickListener(this);
 
@@ -350,15 +361,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoryMBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String categoriesString = "";
-                sCategories = "";
-                for (int i = 0; i < mShopCategories.size(); i++) {
-                    sCategories = categoriesString + categories[mShopCategories.get(i)];
-                    if (i != mShopCategories.size() - 1) {
-                        sCategories = sCategories + " ";
-                    }
+                chosenCategoriesNames =new ArrayList<>();
+                if(mShopCategories.isEmpty()){
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops=listOfShops.creatMarkerOfShop(mMap);
                 }
-                //TODO: Show only selected Categories on the MAP
+                else {
+                    for (int i = 0; i < mShopCategories.size(); i++) {
+                        chosenCategoriesNames.add(categories[mShopCategories.get(i)]);
+                    }
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops = listOfShops.createMarkerOfFilteredShops(mMap, chosenCategoriesNames);
+                }
             }
         });
 
@@ -375,6 +391,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (int i = 0; i < checkedCategories.length; i++) {
                     checkedCategories[i] = false;
                     mShopCategories.clear();
+                    mMap.clear();
+                    markersOfShops.clear();
+                    markersOfShops=listOfShops.creatMarkerOfShop(mMap);
                 }
             }
         });

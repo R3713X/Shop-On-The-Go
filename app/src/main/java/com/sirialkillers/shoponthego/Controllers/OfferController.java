@@ -2,7 +2,6 @@ package com.sirialkillers.shoponthego.Controllers;
 
 import android.util.Log;
 
-import com.sirialkillers.shoponthego.Interfaces.IController;
 import com.sirialkillers.shoponthego.Models.OfferModel;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @version 12/11/2017
  *
  */
-public class OfferController implements IController<OfferModel, String> {
+public class OfferController{
     /* Rest Template is a template that is given by Spring Framework */
     private RestTemplate restTemplate;
 
@@ -47,12 +46,11 @@ public class OfferController implements IController<OfferModel, String> {
      * Returns a list of offers that are accessible for further use.
      * @return the list of offers
      */
-    @Override
     public List<OfferModel> get(){
         List<OfferModel> offers = new ArrayList<>();
 
         try {
-            final String url = "http://83.212.106.80/offers";
+            final String url = "http://83.212.106.80:8080/offers";
 
             offers.addAll(restTemplate.getForObject(url, OfferModel.class));
             return offers;
@@ -69,10 +67,9 @@ public class OfferController implements IController<OfferModel, String> {
      * the default offer that is set to define that
      * something did not go as well.
      */
-    @Override
     public OfferModel getById(String offerId){
         try {
-            final String url = "http://83.212.106.80/offers/{id}";
+            final String url = "http://83.212.106.80:8080/offers/{id}";
 
             params.clear();
             params.put("id", offerId);
@@ -91,10 +88,9 @@ public class OfferController implements IController<OfferModel, String> {
      * @return the offer that was created or the default offer
      * that is set to define that something did not go as well.
      */
-    @Override
     public OfferModel create(OfferModel offer){
         try {
-            final String url = "http://83.212.106.80/offers";
+            final String url = "http://83.212.106.80:8080/offers";
 
             OfferModel offerThatWasCreated = restTemplate.postForObject(url, offer, OfferModel.class);
             return offerThatWasCreated;
@@ -109,10 +105,9 @@ public class OfferController implements IController<OfferModel, String> {
      * @param targetOffer the offerId that will get updated.
      * @param offer is the offer that will get updated.
      */
-    @Override
     public void update(String targetOffer, OfferModel offer){
         try {
-            final String url = "http://83.212.106.80/offers/{targetOffer}";
+            final String url = "http://83.212.106.80:8080/offers/{targetOffer}";
 
             params.clear();
             params.put("targetOffer", targetOffer);
@@ -127,10 +122,9 @@ public class OfferController implements IController<OfferModel, String> {
      * Deletes a offer that already exists.
      * @param offerId the id of the offer that will get deleted
      */
-    @Override
     public void delete(String offerId){
         try {
-            final String url = "http://83.212.106.80/offers/{id}";
+            final String url = "http://83.212.106.80:8080/offers/{id}";
 
             params.put("id", offerId);
             restTemplate.delete(url, params);
