@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sirialkillers.shoponthego.Shop_Related_Activities.AddOfferActivity">
+
+    <Button
+        android:id="@+id/addPhotoButton"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="444dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="0dp"
+        android:text="Add  Photo"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveOfferButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <Button
+        android:id="@+id/saveOfferButton"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="432dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="0dp"
+        android:text="Save Offer"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.703" />
+
+    <EditText
+        android:id="@+id/offerTitleEditText"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Offer Title"
+        android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/hockeyapp_text_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.071" />
+
+    <EditText
+        android:id="@+id/offerDiscriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Offer Description"
+        android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/hockeyapp_text_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
+
+    <ImageView
+        android:id="@+id/offerPhotoImageView"
+        android:layout_width="326dp"
+        android:layout_height="169dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737"
+        app:srcCompat="@drawable/addphoto" />
+</android.support.constraint.ConstraintLayout>

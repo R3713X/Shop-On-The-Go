@@ -35,9 +35,9 @@ android {
         exclude 'META-INF/notice.txt'
     }
 
-	lintOptions{
-	abortOnError false
-	}
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -96,15 +96,11 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     testImplementation "android.arch.persistence.room:testing:1.0.0"
 
-
     //Used for notifications
-   compile 'com.google.firebase:firebase-messaging:11.6.0'
-
-
+    compile 'com.google.firebase:firebase-messaging:11.6.0'
 
 
 }
-
 
 //Used for Hockey App
 allprojects {
