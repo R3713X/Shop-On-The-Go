@@ -19,6 +19,7 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
     private Button buttonAddProductPhoto;
     private Button addShop;
     private Button addDiscount;
+    private Button addCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
         addDiscount.setOnClickListener(this);
         addShop = (Button) findViewById(R.id.addShopButton);
         addShop.setOnClickListener(this);
+        addCategory = (Button)findViewById(R.id.addShopButton);
+        addCategory.setOnClickListener(this);
 
         buttonAddProductPhoto=(Button)findViewById(R.id.addProductPhotoButton);
         buttonAddProductPhoto.setOnClickListener(this);
@@ -57,7 +60,13 @@ public class MenuActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.addDiscountButton:
                 Intent intentDiscount = new Intent(this, SeeMyShopsActivity.class);
+                intentDiscount.putExtra("reason","addDiscount");
                 startActivity(intentDiscount);
+                break;
+            case R.id.addProductCategoryButton:
+                Intent intentCategory = new Intent(this, SeeMyShopsActivity.class);
+                intentCategory.putExtra("reason","addCategory");
+                startActivity(intentCategory);
                 break;
             default:
                 break;

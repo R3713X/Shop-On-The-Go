@@ -32,6 +32,7 @@ public class SeeMyShopsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView loadingTextView;
     String chosenShopId;
+    String reasonOfIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class SeeMyShopsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         loadingTextView = findViewById(R.id.loadingTextView);
         constraintLayout = findViewById(R.id.constraintLayout2);
+        Intent intent = getIntent();
+        reasonOfIntent = intent.getExtras().getString("reason");
+
         sListView = findViewById(R.id.shopListView);
         requestShopsByUserIdTask = new RequestShopsByUserIdTask("1");
         requestShopsByUserIdTask.execute((Void) null);
@@ -50,7 +54,12 @@ public class SeeMyShopsActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),shopModels.get(position).getName()+" selected",Toast.LENGTH_LONG).show();
                 chosenShopId = shopModels.get(position).getId();
-                goToAddDiscountActivity();
+                if (reasonOfIntent.equals("addDiscount")) {
+                    goToAddDiscountActivity();
+                } else if (reasonOfIntent.equals("addCategory")) {
+                    goToAddCategoryActivity();
+                }
+
 
             }
         });
@@ -128,5 +137,12 @@ public class SeeMyShopsActivity extends AppCompatActivity {
         intent.putExtra("chosenShopId",chosenShopId);
         startActivity(intent);
         finish();
+    }
+    private void goToAddCategoryActivity(){
+        Intent intent = new Intent(getApplicationContext(), AddDiscountActivity.class);
+        intent.putExtra("chosenShopId",chosenShopId);
+        startActivity(intent);
+        finish();
+
     }
 }

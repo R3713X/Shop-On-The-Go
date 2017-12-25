@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.sirialkillers.shoponthego.MenuActivity;
 import com.sirialkillers.shoponthego.Models.CategoryModel;
 import com.sirialkillers.shoponthego.R;
 import com.squareup.picasso.Picasso;
@@ -39,6 +40,7 @@ public class AddCategoryActivity extends AppCompatActivity {
     EditText categoryDescriptionEditText;
     ImageView categoryPhotoImageView;
     Bitmap bitmap;
+    String chosenShopId;
     private CategoryRegisterTask categoryRegisterTask = null;
     private final static int REQUEST_CAMERA = 1;
     private final static int SELECT_FILE = 0;
@@ -53,6 +55,8 @@ public class AddCategoryActivity extends AppCompatActivity {
         categoryNameEditText = (EditText) findViewById(R.id.titleCategoryEditText);
         categoryDescriptionEditText = (EditText) findViewById(R.id.categoryDescriptionEditText);
         categoryPhotoImageView = (ImageView) findViewById(R.id.categoryPhotoImageView);
+        Intent intent = getIntent();
+        chosenShopId = intent.getExtras().getString("chosenShopId");
 
         Button addPhotoButton = (Button) findViewById(R.id.addCategoryPhotoButton);
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +207,7 @@ public class AddCategoryActivity extends AppCompatActivity {
             try
             {
                 CategoryModel categoryModel = new CategoryModel(categoryID.toString(),categoryName,categoryDesc);
-                
+
 
 
             } catch (Exception e){
@@ -218,7 +222,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             if (success) {
 
-
+                goToMenuActivity();
             } else {
                 Toast.makeText(AddCategoryActivity.this, "Something went wrong!!! Try again", Toast.LENGTH_SHORT).show();
                 loadingTextView.setVisibility(View.INVISIBLE);
@@ -232,4 +236,10 @@ public class AddCategoryActivity extends AppCompatActivity {
             categoryRegisterTask = null;
         }
     }
+    private void goToMenuActivity(){
+        Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
