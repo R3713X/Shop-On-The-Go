@@ -84,7 +84,8 @@
         </service>
 
         <activity android:name=".Shop_Related_Activities.AddOfferActivity" />
-        <activity android:name=".Shop_Related_Activities.AddCategoryActivity"></activity>
+        <activity android:name=".Shop_Related_Activities.AddCategoryActivity" />
+        <activity android:name=".Shop_Related_Activities.AddProductActivity"></activity>
     </application>
 
 </manifest>
