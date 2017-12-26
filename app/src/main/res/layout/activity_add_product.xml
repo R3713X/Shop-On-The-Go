@@ -158,7 +158,7 @@
             app:layout_constraintVertical_bias="0.355" />
 
         <Button
-            android:id="@+id/addCategoryPhotoButton"
+            android:id="@+id/addProductPhotoButton"
             android:layout_width="114dp"
             android:layout_height="55dp"
             android:layout_marginBottom="8dp"
@@ -176,7 +176,7 @@
 
         <EditText
             android:id="@+id/centsEditText"
-            android:layout_width="31dp"
+            android:layout_width="56dp"
             android:layout_height="45dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
@@ -187,7 +187,7 @@
             android:textColorHint="@color/hockeyapp_background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.628"
+            app:layout_constraintHorizontal_bias="0.676"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.355" />
@@ -227,7 +227,7 @@
             app:layout_constraintVertical_bias="0.016" />
 
         <TextView
-            android:id="@+id/selectCategoriesTextView3"
+            android:id="@+id/selectCategoryTextView"
             android:layout_width="92dp"
             android:layout_height="67dp"
             android:layout_marginBottom="8dp"
@@ -270,7 +270,7 @@
             app:layout_constraintVertical_bias="0.382" />
 
         <TextView
-            android:id="@+id/categoriesTextView3"
+            android:id="@+id/productCategoryTextView"
             android:layout_width="220dp"
             android:layout_height="67dp"
             android:layout_marginBottom="8dp"
