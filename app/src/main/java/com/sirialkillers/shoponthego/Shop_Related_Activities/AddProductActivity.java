@@ -31,6 +31,14 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class AddProductActivity extends AppCompatActivity {
+
+    /**NOTE: in order for this to work we have to do
+     * 1) return a list of product category models
+     * 2) display the category models in the dialog
+     * 3) save the product with the categoryID
+     *
+     * steps 1 and 3 need to be done in the rest server and client
+     * */
     private ProductRegisterTask productRegisterTask = null;
     EditText productNameEditText;
     EditText productDescriptionEditText;

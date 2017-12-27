@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class AddCategoryActivity extends AppCompatActivity {
+    /**NOTE: We need to make a method that creates the discount. This needs to be done in the rest client And server!.
+     * */
     ConstraintLayout constraintLayout;
     ProgressBar progressBar;
     TextView loadingTextView;
@@ -44,6 +46,7 @@ public class AddCategoryActivity extends AppCompatActivity {
     private CategoryRegisterTask categoryRegisterTask = null;
     private final static int REQUEST_CAMERA = 1;
     private final static int SELECT_FILE = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

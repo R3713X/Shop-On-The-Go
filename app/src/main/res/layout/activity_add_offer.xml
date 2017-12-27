@@ -6,7 +6,40 @@
     android:layout_height="match_parent"
     tools:context="com.sirialkillers.shoponthego.Shop_Related_Activities.AddOfferActivity">
 
+    <TextView
+        android:id="@+id/loadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Saving your offer..."
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.248"
+        tools:visibility="invisible" />
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_blue_light"
@@ -18,14 +51,34 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/categoriesTextView2"
-            android:layout_width="170dp"
-            android:layout_height="221dp"
+            android:id="@+id/addOfferFormTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Submit your offer"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/selectedProductsTextView"
+            android:layout_width="155dp"
+            android:layout_height="248dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:hint="Example: Electronics, Foods"
+            android:background="@android:color/holo_blue_bright"
+            android:hint="Your selected products will appear here"
             android:paddingBottom="3dp"
             android:paddingEnd="4dp"
             android:paddingStart="4dp"
@@ -38,19 +91,20 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.671" />
+            app:layout_constraintVertical_bias="0.728" />
 
         <TextView
             android:id="@+id/expirationDateTextView"
-            android:layout_width="165dp"
+            android:layout_width="155dp"
             android:layout_height="52dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="52dp"
             android:layout_marginTop="8dp"
+            android:background="@android:color/holo_blue_bright"
             android:hint="day/month/year"
             android:paddingEnd="10dp"
-            android:paddingStart="17dp"
+            android:paddingStart="10dp"
             android:paddingTop="7dp"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textColorHint="@color/hockeyapp_text_light"
@@ -64,23 +118,24 @@
 
         <ImageView
             android:id="@+id/offerPhotoImageView"
-            android:layout_width="160dp"
-            android:layout_height="156dp"
+            android:layout_width="155dp"
+            android:layout_height="157dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.755"
-            app:srcCompat="@drawable/addphoto" />
+            app:layout_constraintVertical_bias="0.801"
+            app:srcCompat="@drawable/addphotoVerical" />
 
         <TextView
             android:id="@+id/selectExpirationDateTextView"
-            android:layout_width="139dp"
+            android:layout_width="155dp"
             android:layout_height="52dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="20dp"
@@ -107,12 +162,12 @@
 
         <Button
             android:id="@+id/saveOfferButton"
-            android:layout_width="130dp"
+            android:layout_width="155dp"
             android:layout_height="44dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="432dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@android:color/holo_blue_dark"
             android:padding="0dp"
             android:text="Save Offer"
             android:textColor="@color/common_google_signin_btn_text_dark_pressed"
@@ -123,13 +178,13 @@
 
         <Button
             android:id="@+id/addPhotoButton"
-            android:layout_width="130dp"
+            android:layout_width="155dp"
             android:layout_height="44dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="444dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@android:color/holo_blue_dark"
             android:padding="0dp"
             android:text="Add  Photo"
             android:textColor="@color/common_google_signin_btn_text_dark_pressed"
@@ -157,13 +212,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintVertical_bias="0.093" />
 
         <TextView
             android:id="@+id/selectCategoriesTextView2"
-            android:layout_width="98dp"
-            android:layout_height="50dp"
+            android:layout_width="155dp"
+            android:layout_height="35dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:background="@android:color/holo_blue_dark"
@@ -183,7 +239,25 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.413" />
+            app:layout_constraintVertical_bias="0.391" />
+
+        <TextView
+            android:id="@+id/addAphotoTextView"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Add a photo?"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
