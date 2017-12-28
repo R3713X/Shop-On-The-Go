@@ -34,6 +34,14 @@ import java.util.Date;
 
 public class AddOfferActivity extends AppCompatActivity {
     private OfferRegisterTask offerRegisterTask = null;
+    /**NOTE: THIS IS NOT READY WE NEED TO
+     * 1) Finish everything that is needed for the add product activity
+     * 2) make the rest client and rest server work
+     *      2.1) i want to return a list of product models of this specific shop I choose in the previous activity (seeMyShopsActivity)
+     *      2.2) i want to be able to submit the product  from here to the database
+     * 3) create a showdialog with a listview of the products so you can choose them.
+     * 4)fix the offerRegisterTask
+     * */
 
     EditText offerTitleEditText;
     TextView offerProductsTextView;
