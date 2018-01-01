@@ -250,16 +250,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnInfoWindowClickListener(this);
+        listOfShops.addCategory();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(this, 10 * 1000);
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                listOfShops.addCategory();
                 listOfShops.addShop();
             }
         });
+                markersOfShops = listOfShops.creatMarkerOfShop(mMap);
+            }
+        }, 0);
 
-        markersOfShops = listOfShops.creatMarkerOfShop(mMap);
-        mMap.setOnInfoWindowClickListener(this);
+
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

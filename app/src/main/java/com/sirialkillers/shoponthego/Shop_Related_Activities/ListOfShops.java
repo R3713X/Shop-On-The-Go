@@ -32,7 +32,12 @@ public class ListOfShops {
 
 
     public void addShop() {
-        shops=shopController.get();
+        shops.clear();
+        shops.add(new ShopModel("1","rafaele", new Position(40.6657785,22.9468865),"1"));
+        shops.add(new ShopModel("2","mavidis", new Position(40.6666259,22.9455427),"2"));
+        shops.add(new ShopModel("3","porkys", new Position(40.663449,22.9475822),"3"));
+        shops.add(new ShopModel("3","seven", new Position(40.6595399,22.9445063),"4"));
+        shops.add(new ShopModel("4", "mad gym",new Position(40.6566813,22.9328894),"5"));
 
     }
 
