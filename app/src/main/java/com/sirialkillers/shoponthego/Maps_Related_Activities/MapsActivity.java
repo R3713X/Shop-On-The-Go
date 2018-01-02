@@ -257,13 +257,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 handler.postDelayed(this, 10 * 1000);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                listOfShops.addShop();
-            }
-        });
-                markersOfShops = listOfShops.creatMarkerOfShop(mMap);
+                AsyncTask mapUpdate=new AsyncTask() {
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        listOfShops.addShop();
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        markersOfShops = listOfShops.creatMarkerOfShop(mMap);
+                    }
+                }.execute();
+
             }
         }, 0);
 
