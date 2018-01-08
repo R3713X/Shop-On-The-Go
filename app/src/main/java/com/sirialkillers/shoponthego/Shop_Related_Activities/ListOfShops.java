@@ -32,8 +32,8 @@ public class ListOfShops {
 
 
     public void addShop() {
+        shops.clear();
         shops=shopController.get();
-
     }
 
     //TODO After merging add the shopController Method that fetches categories

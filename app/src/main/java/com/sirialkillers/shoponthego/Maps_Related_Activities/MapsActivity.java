@@ -1,6 +1,7 @@
 package com.sirialkillers.shoponthego.Maps_Related_Activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,8 +55,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BroadcastReceiver broadcastReceiver;
     int realProgress = 750;  //This will be the radius of the circle in which we can see the shops of the map
     ListOfShops listOfShops;
-    ArrayList<String> chosenCategoriesNames;
-    ArrayList<Marker> markersOfShops;
+    ArrayList<String> chosenCategoriesNames=new ArrayList<>();
+    ArrayList<Marker> markersOfShops=new ArrayList<>();
     SeekBar rangeControlSeekBar;
     TextView radiusDisplayTextView;
     private DrawerLayout mDrawerLayout;
@@ -250,16 +251,39 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        AsyncTask.execute(new Runnable() {
+        mMap.setOnInfoWindowClickListener(this);
+        listOfShops.addCategory();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                listOfShops.addCategory();
-                listOfShops.addShop();
-            }
-        });
+                handler.postDelayed(this, 10 * 1000);
+                @SuppressLint("StaticFieldLeak") AsyncTask mapUpdate=new AsyncTask() {
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        listOfShops.addShop();
+                        return null;
+                    }
 
-        markersOfShops = listOfShops.creatMarkerOfShop(mMap);
-        mMap.setOnInfoWindowClickListener(this);
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        if (chosenCategoriesNames.isEmpty()) {
+                            mMap.clear();
+                            markersOfShops.clear();
+                            markersOfShops = listOfShops.creatMarkerOfShop(mMap);
+                        }
+                        else {
+                            mMap.clear();
+                            markersOfShops.clear();
+                            markersOfShops = listOfShops.createMarkerOfFilteredShops(mMap, chosenCategoriesNames);
+                        }
+                    }
+                }.execute();
+
+            }
+        }, 0);
+
+
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -361,8 +385,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoryMBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                chosenCategoriesNames =new ArrayList<>();
                 if(mShopCategories.isEmpty()){
+                    chosenCategoriesNames.clear();
                     mMap.clear();
                     markersOfShops.clear();
                     markersOfShops=listOfShops.creatMarkerOfShop(mMap);
@@ -391,6 +415,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (int i = 0; i < checkedCategories.length; i++) {
                     checkedCategories[i] = false;
                     mShopCategories.clear();
+                    chosenCategoriesNames.clear();
                     mMap.clear();
                     markersOfShops.clear();
                     markersOfShops=listOfShops.creatMarkerOfShop(mMap);
