@@ -1,4 +1,5 @@
-Shop on the Go: An Android app that lets consumers get updated about discounts and offers on their favourite products.
+Shop on the Go: An Android app that lets consumers get updated about discounts and offers on their favourite products. 
+Develobed for a semester course, by "brogrammers".
 
 Technologies Used: Spring Boot, Agile Scrub methodology, Android SDK, Gradle, Jenkins, JUnit, Espresso, UI Automator
 
